@@ -1,17 +1,6 @@
-const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-//DB CONNECTION
-const poolConfig = {
-  user: process.env.DBUSER,
-  host: process.env.DBHOST,
-  database: process.env.DBDATABASE,
-  password: process.env.DBPASSWORD,
-  port: process.env.DBPORT
-};
-
-const pool = new Pool(poolConfig);
+const pool = require('./config');
 
 //registrar un usuario nuevo
 const registroUsuario = async (req, res) => {
@@ -115,10 +104,32 @@ const loginUsuario = async (req, res) => {
 };
 
 //buscar usuario por nombre/apellido
-const buscarUsuario = async();
+const buscarUsuario = async (req, res) => {
+  try {
+    //separar frase ingresada en array de palabras
+    const arrayPalabras = req.body.busqueda.split(' ');
+
+    //por cada palabra crear filtro: 'COLUMNA ILIKE palabra OR COLUMNA ILIKE palabra'
+    const arrayFiltros = arrayPalabras.map(
+      palabra => `nombre ILIKE '%${palabra}%' OR apellido ILIKE '%${palabra}%'`
+    );
+
+    //crear query para buscar por nombre o apellido
+    const query =
+      'SELECT id_usuario, nombre, apellido, pais, ciudad, foto FROM perfiles WHERE ' +
+      arrayFiltros.join(' OR ');
+
+    const perfiles = await (await pool.query(query)).rows;
+
+    return res.send(perfiles);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ mensaje: 'Algo salió mal!', error: error });
+  }
+};
 
 module.exports = {
   registroUsuario,
   loginUsuario,
-  pool
+  buscarUsuario
 };

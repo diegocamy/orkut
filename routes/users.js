@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const registroUsuario = require('../db/userQueries').registroUsuario;
 const loginUsuario = require('../db/userQueries').loginUsuario;
+const buscarUsuario = require('../db/userQueries').buscarUsuario;
 
 // RUTA PUBLICA
 // metodo: POST
@@ -27,9 +28,7 @@ route.post('/login', loginUsuario);
 route.get(
   '/todos',
   passport.authenticate('jwt', { session: false }),
-  async (req, res) => {
-    res.json({ auth: 'hijo de puta!', user: req.user });
-  }
+  buscarUsuario
 );
 
 module.exports = route;
