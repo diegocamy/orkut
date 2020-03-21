@@ -1,32 +1,19 @@
 const express = require('express');
-const { Pool } = require('pg');
+const passport = require('passport');
 require('dotenv').config();
-
-const poolConfig = {
-  user: process.env.DBUSER,
-  host: process.env.DBHOST,
-  database: process.env.DBDATABASE,
-  password: process.env.DBPASSWORD,
-  port: process.env.DBPORT
-};
-
-const pool = new Pool(poolConfig);
 
 const app = express();
 
-app.get('/', (req, res) => {
-  return res.send('HOLAMUNDO');
-});
+const usersRoute = require('./routes/users');
 
-app.get('/query', async (req, res) => {
-  try {
-    const query = await pool.query('SELECT * FROM scraps');
-    const array = await query.rows;
-    return res.json(array);
-  } catch (error) {
-    return res.json({ error: error });
-  }
-});
+//middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
+require('./auth/auth')(passport);
+
+//rutas
+app.use('/api/users/', usersRoute);
 
 const port = process.env.PORT || 5000;
 
