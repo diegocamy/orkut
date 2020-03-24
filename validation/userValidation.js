@@ -2,7 +2,8 @@ const Joi = require('@hapi/joi');
 
 const schema = Joi.object({
   email: Joi.string()
-    .email()
+    .trim()
+    .email({ minDomainSegments: 2 })
     .required()
     .messages({
       'string.base':

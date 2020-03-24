@@ -5,6 +5,7 @@ require('dotenv').config();
 const app = express();
 
 const usersRoute = require('./routes/users');
+const perfilesRoute = require('./routes/perfiles');
 
 //middleware
 app.use(express.json());
@@ -14,6 +15,7 @@ require('./auth/auth')(passport);
 
 //rutas
 app.use('/api/users/', usersRoute);
+app.use('/api/perfiles/', perfilesRoute);
 
 const port = process.env.PORT || 5000;
 

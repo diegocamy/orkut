@@ -6,7 +6,7 @@ const pool = require('./config');
 const registroUsuario = async (req, res) => {
   try {
     //verificar datos ingresados
-    const usuarioSchema = require('../validation/validation');
+    const usuarioSchema = require('../validation/userValidation');
     let datosIngresados = {
       email: req.body.email,
       password: req.body.password,
