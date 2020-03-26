@@ -5,6 +5,8 @@ const passport = require('passport');
 const registroUsuario = require('../db/userQueries').registroUsuario;
 const loginUsuario = require('../db/userQueries').loginUsuario;
 const buscarUsuario = require('../db/userQueries').buscarUsuario;
+const recuperarPassword = require('../db/userQueries').recuperarPassword;
+const cambiarPassword = require('../db/userQueries').cambiarPassword;
 
 // RUTA PUBLICA
 // metodo: POST
@@ -30,5 +32,23 @@ route.get(
   passport.authenticate('jwt', { session: false }),
   buscarUsuario
 );
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: para cambiar la contraseña
+// ruta: /api/users/cambiarPassword
+
+route.post(
+  '/cambiarPassword',
+  passport.authenticate('jwt', { session: false }),
+  cambiarPassword
+);
+
+// RUTA PUBLICA
+// metodo: POST
+// descripcion: para recuperar la contraseña
+// ruta: /api/users/recuperarPassword
+
+route.post('/recuperarPassword', recuperarPassword);
 
 module.exports = route;

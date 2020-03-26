@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('./config');
+const nodemailer = require('nodemailer');
 
 //registrar un usuario nuevo
 const registroUsuario = async (req, res) => {
@@ -43,7 +44,7 @@ const registroUsuario = async (req, res) => {
     }
 
     //el email no está en uso, proximo paso es hashear la contraseña
-    const salt = await bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10);
     const hashPassword = await bcrypt.hash(datosIngresados.password, salt);
 
     datosIngresados = { ...datosIngresados, password: hashPassword };
@@ -103,6 +104,98 @@ const loginUsuario = async (req, res) => {
   }
 };
 
+//recuperar contraseña
+const recuperarPassword = async (req, res) => {
+  try {
+    //checkear si el email está registrado
+    const email = req.body.email;
+
+    const usuario = await (
+      await pool.query(`SELECT * FROM usuarios WHERE email='${email}'`)
+    ).rows[0];
+
+    if (!usuario) {
+      return res.status(200).send('No se encontró un usuario con ese email');
+    }
+
+    //si existe un usuario, crear una nueva contraseña
+    const nuevaPass = Math.random()
+      .toString(36)
+      .substr(3);
+
+    //hashear nueva contraseña y guardarla en la base de datos
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = await bcrypt.hash(nuevaPass, salt);
+
+    await pool.query(
+      `UPDATE usuarios SET password='${hashPassword}' WHERE email='${email}'`
+    );
+
+    //enviar mail con la nueva contraseña al usuario
+
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.sendgrid.net',
+      port: 587,
+      auth: {
+        user: 'apikey',
+        pass: process.env.NODEMAILER_PASS
+      }
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Orkut 📩" <orkut@no-reply.com>', // sender address
+      to: email, // list of receivers
+      subject: 'Tu nueva contraseña!', // Subject line
+      text: `Hola! Esta es tu nueva contraseña: ${nuevaPass}`, // plain text body
+      html: `<b>Hola! Esta es tu nueva contraseña: ${nuevaPass}</b>` // html body
+    });
+
+    res
+      .status(200)
+      .send(`Se ha enviado un email a ${email} con la nueva contraseña!`);
+  } catch (error) {
+    res.status(400).json({ mensaje: 'Algo salió mal!', error: error.message });
+  }
+};
+
+//cambiar contraseña
+const cambiarPassword = async (req, res) => {
+  try {
+    const password = req.body.password;
+    const password2 = req.body.password2;
+
+    //checkear si las contraseñas son distintas
+    if (password !== password2) {
+      return res.status(200).send('Las contraseñas no coinciden!');
+    }
+
+    //checkear si las contraseñas son de al menos 8 caracteres y no contienen espacios
+    if (password.includes(' ') || password.length < 8) {
+      return res
+        .status(200)
+        .send(
+          'La contraseña debe tener al menos 8 caracteres y no puede contener espacios!'
+        );
+    }
+
+    //hashear la nueva contraseña y actualizar en base de datos
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    await pool.query(
+      `UPDATE usuarios SET password='${hashPassword}' WHERE id='${req.user.id}'`
+    );
+
+    return res.status(200).send('Contraseña actualizada con exito!');
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ mensaje: 'Ha ocurrido un error!', error: error.message });
+  }
+};
+
 //buscar usuario por nombre/apellido
 const buscarUsuario = async (req, res) => {
   try {
@@ -131,5 +224,7 @@ const buscarUsuario = async (req, res) => {
 module.exports = {
   registroUsuario,
   loginUsuario,
-  buscarUsuario
+  buscarUsuario,
+  recuperarPassword,
+  cambiarPassword
 };
