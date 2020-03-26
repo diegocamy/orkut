@@ -78,6 +78,71 @@ const crearPerfil = async (req, res) => {
   }
 };
 
+//editar perfil
+const editarPerfil = async (req, res) => {
+  try {
+    //cargar datos del perfil del usuario
+    let perfil = await (
+      await pool.query(
+        `SELECT nombre,apellido,pais,genero,ciudad,fecha_nacimiento FROM perfiles WHERE id_usuario='${req.user.id}'`
+      )
+    ).rows[0];
+
+    //cambiar nomobre del campo fecha_nacimiento a fechaNacimiento
+    perfil.fechaNacimiento = perfil.fecha_nacimiento;
+    delete perfil.fecha_nacimiento;
+
+    //actualizar valores de perfil por los ingresados
+    req.body.nombre && (perfil.nombre = req.body.nombre);
+    req.body.apellido && (perfil.apellido = req.body.apellido);
+    req.body.genero && (perfil.genero = req.body.genero);
+    req.body.pais && (perfil.pais = req.body.pais);
+    req.body.ciudad && (perfil.ciudad = req.body.ciudad);
+    if (req.body.fechaNacimiento) {
+      const arrFecha = req.body.fechaNacimiento.split('/');
+      const fecha = new Date(arrFecha[2], arrFecha[1], arrFecha[0]);
+      perfil.fechaNacimiento = fecha;
+    }
+
+    //validar datos
+    const perfilSchema = require('../validation/perfilValidation');
+    const validado = perfilSchema.validate(perfil);
+
+    //devolver error si algun dato ingresado no es correcto
+    if (validado.error) {
+      return res.status(400).send(validado.error.details[0].message);
+    }
+
+    //borrar el campo foto
+    perfil = validado.value;
+    delete perfil.foto;
+
+    //actualizar datos del perfil en la base de datos
+    const query = {
+      text:
+        'UPDATE perfiles SET nombre=$1, apellido=$2, genero=$3, pais=$4, ciudad=$5, fecha_nacimiento=$6 WHERE id_usuario=$7',
+      values: [
+        perfil.nombre,
+        perfil.apellido,
+        perfil.genero,
+        perfil.pais,
+        perfil.ciudad,
+        perfil.fechaNacimiento,
+        req.user.id
+      ]
+    };
+
+    await pool.query(query);
+
+    return res.status(200).send('Perfil actualizado!');
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ mensaje: 'Algo ha salido mal!', error: error.message });
+  }
+};
+
 module.exports = {
-  crearPerfil
+  crearPerfil,
+  editarPerfil
 };

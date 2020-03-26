@@ -31,7 +31,12 @@ const schema = Joi.object({
     .messages({
       'number.base': 'Seleccione un genero'
     }),
-  fechaNacimiento: Joi.date().required(),
+  fechaNacimiento: Joi.date()
+    .required()
+    .messages({
+      'any.required': 'Debe ingresar una fecha de nacimiento',
+      'date.base': 'Debe ingresar una fecha de nacimiento'
+    }),
   foto: Joi.string().allow('')
 });
 

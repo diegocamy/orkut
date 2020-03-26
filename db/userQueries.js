@@ -199,6 +199,10 @@ const cambiarPassword = async (req, res) => {
 //buscar usuario por nombre/apellido
 const buscarUsuario = async (req, res) => {
   try {
+    if (!req.body.busqueda) {
+      return res.status(200).send('Debes ingresar un nombre o apellido');
+    }
+
     //separar frase ingresada en array de palabras
     const arrayPalabras = req.body.busqueda.split(' ');
 

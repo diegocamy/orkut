@@ -22,6 +22,7 @@ const storage = cloudinaryStorage({
 const upload = multer({ storage });
 
 const crearPerfil = require('../db/perfilQueries').crearPerfil;
+const editarPerfil = require('../db/perfilQueries').editarPerfil;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -33,6 +34,17 @@ route.post(
   passport.authenticate('jwt', { session: false }),
   upload.single('foto'),
   crearPerfil
+);
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: para editar el perfil de usuario
+// ruta: /api/perfiles/editarPerfil
+
+route.post(
+  '/editarPerfil',
+  passport.authenticate('jwt', { session: false }),
+  editarPerfil
 );
 
 module.exports = route;
