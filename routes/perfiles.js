@@ -23,6 +23,8 @@ const upload = multer({ storage });
 
 const crearPerfil = require('../db/perfilQueries').crearPerfil;
 const editarPerfil = require('../db/perfilQueries').editarPerfil;
+const cambiarFotoPerfil = require('../db/perfilQueries').cambiarFotoPerfil;
+const eliminarFotoPerfil = require('../db/perfilQueries').eliminarFotoPerfil;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -45,6 +47,30 @@ route.post(
   '/editarPerfil',
   passport.authenticate('jwt', { session: false }),
   editarPerfil
+);
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: para cambiar la foto del perfil
+// ruta: /api/perfiles/cambiarFotoPerfil
+
+route.post(
+  '/cambiarFotoPerfil',
+  passport.authenticate('jwt', { session: false }),
+  upload.single('foto'),
+  cambiarFotoPerfil
+);
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: para eliminar la foto del perfil
+// ruta: /api/perfiles/eliminarFotoPerfil
+
+route.post(
+  '/eliminarFotoPerfil',
+  passport.authenticate('jwt', { session: false }),
+  upload.single('foto'),
+  eliminarFotoPerfil
 );
 
 module.exports = route;

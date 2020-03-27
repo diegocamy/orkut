@@ -142,7 +142,75 @@ const editarPerfil = async (req, res) => {
   }
 };
 
+//cambiar foto de perfil
+const cambiarFotoPerfil = async (req, res) => {
+  try {
+    //obtener url de la foto actual desde la base de datos
+    const url = await (
+      await pool.query(
+        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`
+      )
+    ).rows[0].foto;
+
+    if (url) {
+      //obtener public id desde la url
+      const public_id = url.match(/orkut\/\w+/gi);
+
+      //borrar foto de cloudinary
+      await cloudinary.v2.uploader.destroy(public_id);
+    }
+
+    //url de la nueva foto subida a cloudinary
+    const foto = await req.file.secure_url;
+
+    //actualizar la base de datos con la nueva foto
+    const query = {
+      text: 'UPDATE perfiles SET foto=$1 WHERE id_usuario=$2',
+      values: [foto, req.user.id]
+    };
+
+    await pool.query(query);
+
+    return res.status(200).send('Foto actualizada con éxito');
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ mensaje: 'Ha ocurrido un error!', error: error.message });
+  }
+};
+
+//eliminar foto de perfil
+const eliminarFotoPerfil = async (req, res) => {
+  try {
+    //obtener url de la foto desde la base de datos
+    const url = await (
+      await pool.query(
+        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`
+      )
+    ).rows[0].foto;
+
+    //obtener public id desde la url
+    const public_id = url.match(/orkut\/\w+/gi);
+
+    //borrar foto de cloudinary
+    await cloudinary.v2.uploader.destroy(public_id);
+
+    //borrar foto de la base de datos
+    await pool.query(
+      `UPDATE perfiles SET foto='' WHERE id_usuario='${req.user.id}'`
+    );
+
+    return res.status(200).send('Foto de perfil eliminada con exito!');
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ mensaje: 'Ha ocurrido un error!', error: error.message });
+  }
+};
+
 module.exports = {
   crearPerfil,
-  editarPerfil
+  editarPerfil,
+  cambiarFotoPerfil,
+  eliminarFotoPerfil
 };
