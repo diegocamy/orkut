@@ -28,7 +28,7 @@ route.post('/login', loginUsuario);
 // ruta: /api/users/todos
 
 route.get(
-  '/todos',
+  '/buscarUsuario',
   passport.authenticate('jwt', { session: false }),
   buscarUsuario
 );

@@ -6,6 +6,7 @@ const app = express();
 
 const usersRoute = require('./routes/users');
 const perfilesRoute = require('./routes/perfiles');
+const amigosRoute = require('./routes/amigos');
 
 //middleware
 app.use(express.json());
@@ -16,6 +17,7 @@ require('./auth/auth')(passport);
 //rutas
 app.use('/api/users/', usersRoute);
 app.use('/api/perfiles/', perfilesRoute);
+app.use('/api/amigos/', amigosRoute);
 
 const port = process.env.PORT || 5000;
 
