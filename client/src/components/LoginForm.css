@@ -1,0 +1,46 @@
+.LoginForm {
+  background-color: rgb(219, 229, 241);
+  height: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.LoginForm p {
+  margin: 5px;
+}
+
+.LoginForm form {
+  margin: 25px auto 5px auto;
+}
+
+.LoginForm form div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.LoginForm form input {
+  margin: 5px;
+  padding: 3px;
+  font-size: 1rem;
+  width: 63%;
+  border-radius: 2px;
+  border: 1px solid rgb(153, 152, 152);
+}
+
+.LoginForm button {
+  display: block;
+  font-size: 1rem;
+  width: 60%;
+  margin: 5px auto 15px auto;
+}
+
+.LoginForm a {
+  margin: 5px auto 10px auto;
+}
+
+.registrarse {
+  margin: 35px auto 0 auto;
+}

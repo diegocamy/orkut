@@ -1,0 +1,52 @@
+@font-face {
+  font-family: brandish;
+  src: url('../fuente/brandish.ttf');
+}
+
+.Home {
+  height: 100vh;
+  background-color: rgb(187, 209, 236);
+}
+
+.container {
+  display: flex;
+  height: 50%;
+}
+
+.brand {
+  font-family: brandish;
+  font-size: 7rem;
+  font-weight: 100;
+  color: #d125a3;
+}
+
+.logo {
+  margin: 10px 15px;
+  background-color: white;
+  width: 75%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.logo p {
+  margin: 5px;
+}
+
+.login-container {
+  margin: 10px 15px;
+  background-color: white;
+  width: 25%;
+  padding: 4px;
+}
+
+.violeta {
+  color: #d125a3;
+  font-weight: bold;
+}
+
+.footer {
+  background-color: rgb(166, 186, 211);
+  text-align: center;
+  padding: 5px;
+  margin: 10px 15px;
+}
