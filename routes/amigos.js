@@ -6,6 +6,7 @@ const enviarSolicitud = require('../db/amigosQueries').enviarSolicitud;
 const aceptarSolicitud = require('../db/amigosQueries').aceptarSolicitud;
 const rechazarSolicitud = require('../db/amigosQueries').rechazarSolicitud;
 const eliminarAmigo = require('../db/amigosQueries').eliminarAmigo;
+const verListaAmigos = require('../db/amigosQueries').verListaAmigos;
 const verSolicitudesPendientes = require('../db/amigosQueries')
   .verSolicitudesPendientes;
 
@@ -62,6 +63,17 @@ route.get(
   '/verSolicitudesPendientes',
   passport.authenticate('jwt', { session: false }),
   verSolicitudesPendientes
+);
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: ver lista de amigos
+// ruta: /api/amigos/verListaAmigos
+
+route.get(
+  '/verListaAmigos',
+  passport.authenticate('jwt', { session: false }),
+  verListaAmigos
 );
 
 module.exports = route;

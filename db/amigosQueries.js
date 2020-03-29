@@ -46,7 +46,7 @@ const verSolicitudesPendientes = async (req, res) => {
 
     const solicitudes = await (await pool.query(query)).rows;
 
-    return res.json(solicitudes);
+    return res.status(200).json(solicitudes);
   } catch (error) {
     return res
       .status(400)
@@ -116,10 +116,32 @@ const eliminarAmigo = async (req, res) => {
   }
 };
 
+const verListaAmigos = async (req, res) => {
+  try {
+    const listaAmigos = await (
+      await pool.query(`
+      SELECT usuarios.id, nombre,apellido,foto, (SELECT COUNT(status) as Amigos FROM amistades
+      WHERE id_usuario1=usuarios.id AND status=1 OR id_usuario2=usuarios.id AND status=1)
+      FROM perfiles
+      JOIN usuarios
+      ON usuarios.id = perfiles.id_usuario
+      WHERE usuarios.id != '${req.user.id}' 
+    `)
+    ).rows;
+
+    return res.status(200).json(listaAmigos);
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ mensaje: 'Ha ocurrido un error!', error: error.message });
+  }
+};
+
 module.exports = {
   enviarSolicitud,
   verSolicitudesPendientes,
   aceptarSolicitud,
   rechazarSolicitud,
-  eliminarAmigo
+  eliminarAmigo,
+  verListaAmigos
 };
