@@ -56,9 +56,16 @@ const verSolicitudesPendientes = async (req, res) => {
 
 const aceptarSolicitud = async (req, res) => {
   try {
-    await pool.query(
-      `UPDATE amistades SET status = 1 WHERE id='${req.params.idSolicitud}'`
-    );
+    const respuesta = await (
+      await pool.query(
+        `UPDATE amistades SET status = 1 WHERE id='${req.params.idSolicitud}'`
+      )
+    ).rowCount;
+
+    if (respuesta === 0) {
+      return res.status(200).send('No se pudo aceptar la solicitud');
+    }
+
     return res.status(200).send('Solicitud Aceptada!');
   } catch (error) {
     return res
@@ -69,9 +76,15 @@ const aceptarSolicitud = async (req, res) => {
 
 const rechazarSolicitud = async (req, res) => {
   try {
-    await pool.query(
-      `DELETE FROM amistades WHERE id='${req.params.idSolicitud}'`
-    );
+    const respuesta = await (
+      await pool.query(
+        `DELETE FROM amistades WHERE id='${req.params.idSolicitud}'`
+      )
+    ).rowCount;
+
+    if (respuesta === 0) {
+      return res.status(200).send('No se pudo rechazar la solicitud');
+    }
 
     return res.status(200).send('Solicitud Rechazada!');
   } catch (error) {
