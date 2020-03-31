@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import LoginForm from '../components/LoginForm';
+import ResetForm from '../components/ResetForm';
+import RegisterForm from '../components/RegisterForm';
 
 const Home = () => {
+  const [formulario, setFormulario] = useState(1);
+
+  const renderFormularios = f => {
+    if (f === 1) {
+      return <LoginForm setFormulario={setFormulario} />;
+    } else if (f === 2) {
+      return <ResetForm setFormulario={setFormulario} />;
+    } else if (f === 3) {
+      return <RegisterForm setFormulario={setFormulario} />;
+    }
+  };
+
   return (
     <div className='Home'>
       <div className='container'>
@@ -21,9 +35,7 @@ const Home = () => {
             pasiones en un solo lugar
           </p>
         </div>
-        <div className='login-container'>
-          <LoginForm />
-        </div>
+        <div className='login-container'>{renderFormularios(formulario)}</div>
       </div>
       <div className='footer'>
         <p>

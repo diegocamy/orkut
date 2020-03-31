@@ -13,6 +13,14 @@
   margin: 25px auto 5px auto;
 }
 
+.error-msg {
+  display: flex;
+  justify-content: center;
+  max-width: fit-content;
+  text-align: center;
+  color: red;
+}
+
 .LoginForm form div {
   display: flex;
   justify-content: space-between;
@@ -42,5 +50,5 @@
 }
 
 .registrarse {
-  margin: 35px auto 0 auto;
+  margin: 35px auto 0;
 }

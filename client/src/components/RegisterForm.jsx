@@ -1,9 +1,8 @@
 import React from 'react';
-import './LoginForm.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
-const LoginForm = ({ setFormulario }) => {
+const RegisterForm = ({ setFormulario }) => {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -12,14 +11,18 @@ const LoginForm = ({ setFormulario }) => {
     password: yup
       .string()
       .min(8, 'Debe tener al menos 8 caracteres')
-      .required('Debe ingresar una contraseña')
+      .required('Debe ingresar una contraseña'),
+    password_2: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Las contraseñas deben coincidir')
+      .required('Repita la contraseña')
   });
 
   return (
     <div className='LoginForm'>
-      <p>Entrar a Orkut con tu cuenta:</p>
+      <p>Registrarse: </p>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: '', password: '', password_2: '' }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -44,35 +47,49 @@ const LoginForm = ({ setFormulario }) => {
               component='div'
               className='error-msg'
             />
+            <div>
+              <label htmlFor='password_2'>Repetir Pwd: </label>
+              <Field
+                type='password'
+                name='password_2'
+                placeholder='Repetir Password'
+              />
+            </div>
+            <ErrorMessage
+              name='password_2'
+              component='div'
+              className='error-msg'
+            />
             <button type='submit' disabled={isSubmitting}>
-              Login
+              Registrarse
             </button>
           </Form>
         )}
       </Formik>
+      <p>Ya tienes una cuenta?</p>
       <a
         href='/'
         onClick={e => {
           e.preventDefault();
-          setFormulario(2);
+          setFormulario(1);
         }}
       >
-        Olvidaste tu contraseña?
+        Ingresar
       </a>
       <div className='registrarse'>
-        <p>Aun no tienes una cuenta?</p>
+        <p>Olvidaste tu contraseña?</p>
         <a
           href='/'
           onClick={e => {
             e.preventDefault();
-            setFormulario(3);
+            setFormulario(2);
           }}
         >
-          REGISTRARSE!
+          Reestablecer
         </a>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
