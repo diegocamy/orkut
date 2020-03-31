@@ -1,9 +1,12 @@
 import React from 'react';
-import './LoginForm.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
 
-const LoginForm = ({ setFormulario }) => {
+import { userLogin } from '../actions/LoginAction';
+import './LoginForm.css';
+
+const LoginForm = ({ setFormulario, cargando, mensajeError, userLogin }) => {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -17,15 +20,14 @@ const LoginForm = ({ setFormulario }) => {
 
   return (
     <div className='LoginForm'>
+      {mensajeError && <p style={{ color: 'red' }}>{mensajeError}</p>}
       <p>Entrar a Orkut con tu cuenta:</p>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values, { setSubmitting }) => {
+          await userLogin(values.email, values.password, null);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -75,4 +77,11 @@ const LoginForm = ({ setFormulario }) => {
   );
 };
 
-export default LoginForm;
+const mapStateToProps = state => {
+  return {
+    cargando: state.login.cargando,
+    mensajeError: state.login.error
+  };
+};
+
+export default connect(mapStateToProps, { userLogin })(LoginForm);

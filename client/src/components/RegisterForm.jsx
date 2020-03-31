@@ -77,7 +77,6 @@ const RegisterForm = ({ setFormulario }) => {
         Ingresar
       </a>
       <div className='registrarse'>
-        <p>Olvidaste tu contraseña?</p>
         <a
           href='/'
           onClick={e => {
@@ -85,7 +84,7 @@ const RegisterForm = ({ setFormulario }) => {
             setFormulario(2);
           }}
         >
-          Reestablecer
+          Olvidaste tu contraseña?
         </a>
       </div>
     </div>
