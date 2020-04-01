@@ -6,6 +6,8 @@ import {
 
 const initialState = {
   cargando: false,
+  logeado: false,
+  user: {},
   error: ''
 };
 
@@ -14,16 +16,22 @@ export default function LoginReducer(state = initialState, action) {
     case USER_LOGIN_INICIADO:
       return {
         cargando: true,
+        logeado: false,
+        user: {},
         error: ''
       };
     case USER_LOGIN_EXITO:
       return {
         cargando: false,
+        logeado: true,
+        user: action.payload,
         error: ''
       };
     case USER_LOGIN_ERROR:
       return {
         cargando: false,
+        logado: false,
+        user: {},
         error: action.payload
       };
     default:

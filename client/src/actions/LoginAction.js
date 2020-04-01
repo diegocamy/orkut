@@ -1,9 +1,13 @@
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
+import { setearAuthorizationHeader } from '../utils';
+
 import {
   USER_LOGIN_INICIADO,
   USER_LOGIN_EXITO,
   USER_LOGIN_ERROR
 } from '../types';
-import axios from 'axios';
 
 export const userLogin = (email, password, history) => async dispatch => {
   try {
@@ -12,7 +16,15 @@ export const userLogin = (email, password, history) => async dispatch => {
     //extraer token
     const token = respuesta.data.token;
     //guardar token en localstore
-    console.log(token);
+    localStorage.setItem('orkutToken', token);
+    //setear Authorization Header en axios
+    setearAuthorizationHeader(token);
+    //token sin la palabra 'Bearer'
+    const tokenSinBearer = token.split(' ')[1];
+    //decodificar jwt
+    const usuario = jwt.decode(tokenSinBearer);
+    //guardar user logeado en redux store
+    dispatch(userLoginExito(usuario));
   } catch (error) {
     if (error.response.data) {
       const mensaje = error.response.data;
@@ -27,9 +39,10 @@ const userLoginIniciado = () => {
   };
 };
 
-const userLoginExito = () => {
+const userLoginExito = usuario => {
   return {
-    type: USER_LOGIN_EXITO
+    type: USER_LOGIN_EXITO,
+    payload: usuario
   };
 };
 

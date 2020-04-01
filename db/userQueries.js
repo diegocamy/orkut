@@ -71,7 +71,11 @@ const loginUsuario = async (req, res) => {
   try {
     //verificar si existe usuario para el email ingresado
     let query = {
-      text: 'SELECT * FROM usuarios WHERE email = $1',
+      text: `SELECT usuarios.id, email, password, perfiles.id AS id_perfil
+         FROM usuarios 
+         LEFT JOIN perfiles 
+         ON usuarios.id = perfiles.id_usuario
+         WHERE email = $1`,
       values: [req.body.email]
     };
 
@@ -93,9 +97,13 @@ const loginUsuario = async (req, res) => {
     }
 
     //si se ingresa bien el email y el password, generar json web token
-    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h'
-    });
+    const token = jwt.sign(
+      { id: usuario.id, email: usuario.email, id_perfil: usuario.id_perfil },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h'
+      }
+    );
 
     //devolver token
     return res.json({ token: 'Bearer ' + token });
