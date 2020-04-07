@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
@@ -6,7 +6,11 @@ import { connect } from 'react-redux';
 import { userLogin } from '../actions/LoginAction';
 import './LoginForm.css';
 
-const LoginForm = ({ setFormulario, cargando, mensajeError, userLogin }) => {
+const LoginForm = ({ setFormulario, mensajeError, userLogin, history }) => {
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -26,7 +30,7 @@ const LoginForm = ({ setFormulario, cargando, mensajeError, userLogin }) => {
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          await userLogin(values.email, values.password, null);
+          await userLogin(values.email, values.password, history);
           setSubmitting(false);
         }}
       >
@@ -79,8 +83,7 @@ const LoginForm = ({ setFormulario, cargando, mensajeError, userLogin }) => {
 
 const mapStateToProps = state => {
   return {
-    cargando: state.login.cargando,
-    mensajeError: state.login.error
+    mensajeError: state.errores.loginError
   };
 };
 

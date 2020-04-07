@@ -1,6 +1,7 @@
 const express = require('express');
 const route = express.Router();
-const passport = require('passport');
+
+const authMiddleware = require('../auth/middleware');
 
 const registroUsuario = require('../db/userQueries').registroUsuario;
 const loginUsuario = require('../db/userQueries').loginUsuario;
@@ -25,24 +26,16 @@ route.post('/login', loginUsuario);
 // RUTA PRIVADA
 // metodo: GET
 // descripcion: para obtener todos los usuarios
-// ruta: /api/users/todos
+// ruta: /api/users/buscarUsuario
 
-route.get(
-  '/buscarUsuario',
-  passport.authenticate('jwt', { session: false }),
-  buscarUsuario
-);
+route.post('/buscarUsuario', authMiddleware, buscarUsuario);
 
 // RUTA PRIVADA
 // metodo: POST
 // descripcion: para cambiar la contraseña
 // ruta: /api/users/cambiarPassword
 
-route.post(
-  '/cambiarPassword',
-  passport.authenticate('jwt', { session: false }),
-  cambiarPassword
-);
+route.post('/cambiarPassword', authMiddleware, cambiarPassword);
 
 // RUTA PUBLICA
 // metodo: POST
@@ -50,5 +43,22 @@ route.post(
 // ruta: /api/users/recuperarPassword
 
 route.post('/recuperarPassword', recuperarPassword);
+
+//RUTA PUBLICA
+// metodo: POST
+// descripcion: para deslogear un usuario logeado
+//ruta: /api/users/logout
+
+route.post('/logout', authMiddleware, async (req, res) => {
+  try {
+    //borrar la sesion de la bdd
+    req.logout();
+    await req.session.destroy();
+
+    res.send('Usuario deslogeado');
+  } catch (error) {
+    res.status(400).json({ mensaje: 'Ha ocurrido un error', error });
+  }
+});
 
 module.exports = route;

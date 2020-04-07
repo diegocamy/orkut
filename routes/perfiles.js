@@ -1,6 +1,5 @@
 const express = require('express');
 const route = express.Router();
-const passport = require('passport');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
@@ -21,6 +20,8 @@ const storage = cloudinaryStorage({
 
 const upload = multer({ storage });
 
+const authMiddleware = require('../auth/middleware');
+
 const crearPerfil = require('../db/perfilQueries').crearPerfil;
 const editarPerfil = require('../db/perfilQueries').editarPerfil;
 const cambiarFotoPerfil = require('../db/perfilQueries').cambiarFotoPerfil;
@@ -31,23 +32,14 @@ const eliminarFotoPerfil = require('../db/perfilQueries').eliminarFotoPerfil;
 // descripcion: para crear un perfil de usuario
 // ruta: /api/perfiles/crearPerfil
 
-route.post(
-  '/crearPerfil',
-  passport.authenticate('jwt', { session: false }),
-  upload.single('foto'),
-  crearPerfil
-);
+route.post('/crearPerfil', authMiddleware, upload.single('foto'), crearPerfil);
 
 // RUTA PRIVADA
 // metodo: POST
 // descripcion: para editar el perfil de usuario
 // ruta: /api/perfiles/editarPerfil
 
-route.post(
-  '/editarPerfil',
-  passport.authenticate('jwt', { session: false }),
-  editarPerfil
-);
+route.post('/editarPerfil', authMiddleware, editarPerfil);
 
 // RUTA PRIVADA
 // metodo: POST
@@ -56,7 +48,7 @@ route.post(
 
 route.post(
   '/cambiarFotoPerfil',
-  passport.authenticate('jwt', { session: false }),
+  authMiddleware,
   upload.single('foto'),
   cambiarFotoPerfil
 );
@@ -68,7 +60,7 @@ route.post(
 
 route.post(
   '/eliminarFotoPerfil',
-  passport.authenticate('jwt', { session: false }),
+  authMiddleware,
   upload.single('foto'),
   eliminarFotoPerfil
 );

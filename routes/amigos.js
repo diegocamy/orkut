@@ -2,6 +2,8 @@ const express = require('express');
 const route = express.Router();
 const passport = require('passport');
 
+const authMiddleware = require('../auth/middleware');
+
 const enviarSolicitud = require('../db/amigosQueries').enviarSolicitud;
 const aceptarSolicitud = require('../db/amigosQueries').aceptarSolicitud;
 const rechazarSolicitud = require('../db/amigosQueries').rechazarSolicitud;
@@ -15,22 +17,14 @@ const verSolicitudesPendientes = require('../db/amigosQueries')
 // descripcion: enviar una solicitud de amistad
 // ruta: /api/amigos/enviarSolicitud/:idUsuario2
 
-route.post(
-  '/enviarSolicitud/:idUsuario2',
-  passport.authenticate('jwt', { session: false }),
-  enviarSolicitud
-);
+route.post('/enviarSolicitud/:idUsuario2', authMiddleware, enviarSolicitud);
 
 // RUTA PRIVADA
 // metodo: POST
 // descripcion: aceptar una solicitud de amistad
 // ruta: /api/amigos/aceptarSolicitud/:id
 
-route.post(
-  '/aceptarSolicitud/:idSolicitud',
-  passport.authenticate('jwt', { session: false }),
-  aceptarSolicitud
-);
+route.post('/aceptarSolicitud/:idSolicitud', authMiddleware, aceptarSolicitud);
 
 // RUTA PRIVADA
 // metodo: POST
@@ -39,7 +33,7 @@ route.post(
 
 route.post(
   '/rechazarSolicitud/:idSolicitud',
-  passport.authenticate('jwt', { session: false }),
+  authMiddleware,
   rechazarSolicitud
 );
 
@@ -48,11 +42,7 @@ route.post(
 // descripcion: eliminar a un amigo
 // ruta: /api/amigos/eliminarAmigo/:idUsuario2
 
-route.post(
-  '/eliminarAmigo/:idAmigo',
-  passport.authenticate('jwt', { session: false }),
-  eliminarAmigo
-);
+route.post('/eliminarAmigo/:idAmigo', authMiddleware, eliminarAmigo);
 
 // RUTA PRIVADA
 // metodo: GET
@@ -61,7 +51,7 @@ route.post(
 
 route.get(
   '/verSolicitudesPendientes',
-  passport.authenticate('jwt', { session: false }),
+  authMiddleware,
   verSolicitudesPendientes
 );
 
@@ -70,10 +60,6 @@ route.get(
 // descripcion: ver lista de amigos
 // ruta: /api/amigos/verListaAmigos
 
-route.get(
-  '/verListaAmigos',
-  passport.authenticate('jwt', { session: false }),
-  verListaAmigos
-);
+route.get('/verListaAmigos', authMiddleware, verListaAmigos);
 
 module.exports = route;

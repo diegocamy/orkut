@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const pool = require('./config');
 const nodemailer = require('nodemailer');
 
@@ -96,17 +95,14 @@ const loginUsuario = async (req, res) => {
       return res.status(400).send('Email o contraseña incorrecta!');
     }
 
-    //si se ingresa bien el email y el password, generar json web token
-    const token = jwt.sign(
-      { id: usuario.id, email: usuario.email, id_perfil: usuario.id_perfil },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1h'
-      }
-    );
+    const user = {
+      id: usuario.id,
+      id_perfil: usuario.id_perfil
+    };
 
-    //devolver token
-    return res.json({ token: 'Bearer ' + token });
+    req.login(user, err => {
+      return res.status(200).send(req.user);
+    });
   } catch (error) {
     return res.status(500).json({ mensaje: 'Ha ocurrido un error!', error });
   }
@@ -196,6 +192,9 @@ const cambiarPassword = async (req, res) => {
       `UPDATE usuarios SET password='${hashPassword}' WHERE id='${req.user.id}'`
     );
 
+    //deslogear usuario
+    req.logout();
+
     return res.status(200).send('Contraseña actualizada con exito!');
   } catch (error) {
     return res
@@ -228,7 +227,6 @@ const buscarUsuario = async (req, res) => {
 
     return res.send(perfiles);
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ mensaje: 'Algo salió mal!', error: error });
   }
 };

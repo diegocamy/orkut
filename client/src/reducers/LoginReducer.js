@@ -1,38 +1,30 @@
 import {
   USER_LOGIN_INICIADO,
   USER_LOGIN_EXITO,
-  USER_LOGIN_ERROR
+  USER_LOGOUT_EXITO
 } from '../types';
 
 const initialState = {
-  cargando: false,
   logeado: false,
-  user: {},
-  error: ''
+  usuario: null
 };
 
 export default function LoginReducer(state = initialState, action) {
   switch (action.type) {
     case USER_LOGIN_INICIADO:
       return {
-        cargando: true,
         logeado: false,
-        user: {},
-        error: ''
+        usuario: null
       };
     case USER_LOGIN_EXITO:
       return {
-        cargando: false,
         logeado: true,
-        user: action.payload,
-        error: ''
+        usuario: action.payload
       };
-    case USER_LOGIN_ERROR:
+    case USER_LOGOUT_EXITO:
       return {
-        cargando: false,
-        logado: false,
-        user: {},
-        error: action.payload
+        logeado: false,
+        usuario: null
       };
     default:
       return state;

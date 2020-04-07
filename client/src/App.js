@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
 import Home from './containers/Home';
+import Dashboard from './containers/Dashboard';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <div>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/dashboard' render={() => <h1>LOGEADO</h1>} />
+          <Route exact path='/dashboard' component={Dashboard} />
           <Route
             exact
             path='/crearPerfil'
@@ -20,6 +20,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

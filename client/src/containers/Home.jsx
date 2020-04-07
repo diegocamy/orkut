@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './Home.css';
 import LoginForm from '../components/LoginForm';
 import ResetForm from '../components/ResetForm';
 import RegisterForm from '../components/RegisterForm';
 
-const Home = ({ logeado, user }) => {
-  const history = useHistory();
-  //si el user esta logeado y tiene un perfil enviarlo al dashboard
-  //si no tiene un perfil creado enviarlo a la pagina para crear uno
-  if (logeado && user.id_perfil) {
-    history.push('/dashboard');
-  } else if (logeado && !user.id_perfil) {
-    history.push('/crearPerfil');
-  }
+const Home = ({ logeado, user, history }) => {
+  useEffect(() => {
+    //si el user esta logeado y tiene un perfil enviarlo al dashboard
+    //si no tiene un perfil creado enviarlo a la pagina para crear uno
+    if (logeado && user.id_perfil) {
+      history.push('/dashboard');
+    } else if (logeado && !user.id_perfil) {
+      history.push('/crearPerfil');
+    }
+  }, [logeado, user, history]);
 
   const [formulario, setFormulario] = useState(1);
 
   const renderFormularios = f => {
     if (f === 1) {
-      return <LoginForm setFormulario={setFormulario} />;
+      return <LoginForm setFormulario={setFormulario} history={history} />;
     } else if (f === 2) {
       return <ResetForm setFormulario={setFormulario} />;
     } else if (f === 3) {
@@ -68,8 +69,8 @@ const Home = ({ logeado, user }) => {
 const mapStateToProps = state => {
   return {
     logeado: state.login.logeado,
-    user: state.login.user
+    user: state.login.usuario
   };
 };
 
-export default connect(mapStateToProps, {})(Home);
+export default withRouter(connect(mapStateToProps, {})(Home));
