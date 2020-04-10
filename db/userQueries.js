@@ -97,11 +97,12 @@ const loginUsuario = async (req, res) => {
 
     const user = {
       id: usuario.id,
+      email: usuario.email,
       id_perfil: usuario.id_perfil
     };
 
     req.login(user, err => {
-      return res.status(200).send(req.user);
+      return res.status(200).send(user);
     });
   } catch (error) {
     return res.status(500).json({ mensaje: 'Ha ocurrido un error!', error });

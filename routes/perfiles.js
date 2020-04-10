@@ -26,6 +26,7 @@ const crearPerfil = require('../db/perfilQueries').crearPerfil;
 const editarPerfil = require('../db/perfilQueries').editarPerfil;
 const cambiarFotoPerfil = require('../db/perfilQueries').cambiarFotoPerfil;
 const eliminarFotoPerfil = require('../db/perfilQueries').eliminarFotoPerfil;
+const cargarDatosPerfil = require('../db/perfilQueries').cargarDatosPerfil;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -64,5 +65,12 @@ route.post(
   upload.single('foto'),
   eliminarFotoPerfil
 );
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: para obtener los datos del perfil
+// ruta: /api/perfiles/cargarDatosPerfil
+
+route.get('/cargarDatosPerfil', authMiddleware, cargarDatosPerfil);
 
 module.exports = route;

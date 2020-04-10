@@ -13,7 +13,11 @@ passport.serializeUser((usuario, done) => {
 
 passport.deserializeUser(async (usuario, done) => {
   const user = await (
-    await pool.query(`SELECT * FROM usuarios WHERE id='${usuario.id}'`)
+    await pool.query(`SELECT usuarios.id, email, perfiles.id AS id_perfil
+    FROM usuarios 
+    LEFT JOIN perfiles 
+    ON usuarios.id = perfiles.id_usuario
+    WHERE email = '${usuario.email}'`)
   ).rows[0];
   done(null, user);
 });

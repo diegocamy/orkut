@@ -78,6 +78,21 @@ const crearPerfil = async (req, res) => {
   }
 };
 
+//cargar datos perfil
+const cargarDatosPerfil = async (req, res) => {
+  try {
+    const perfil = await (
+      await pool.query(
+        `SELECT * FROM perfiles WHERE id = '${req.user.id_perfil}'`
+      )
+    ).rows[0];
+
+    return res.status(200).send(perfil);
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo salio mal', error });
+  }
+};
+
 //editar perfil
 const editarPerfil = async (req, res) => {
   try {
@@ -212,5 +227,6 @@ module.exports = {
   crearPerfil,
   editarPerfil,
   cambiarFotoPerfil,
-  eliminarFotoPerfil
+  eliminarFotoPerfil,
+  cargarDatosPerfil
 };

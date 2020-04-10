@@ -1,0 +1,93 @@
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  background: rgb(116, 156, 207);
+  background: linear-gradient(
+    180deg,
+    rgb(115, 153, 202) 0%,
+    rgb(132, 166, 211) 46%,
+    rgb(85, 125, 179) 100%
+  );
+  color: white;
+  padding: 0 7.5%;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.Navbar a {
+  text-decoration: none;
+  color: white;
+}
+
+/* menu izquierda */
+.Navbar .izquierda {
+  display: flex;
+  margin: 0;
+}
+
+.Navbar .izquierda ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0 5px;
+}
+
+.Navbar .izquierda ul li {
+  padding: 2px 10px;
+}
+
+.minilogo {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(209, 216, 230, 1) 100%
+  );
+  font-family: brandish;
+  font-size: 1.2rem;
+  color: #d125a3;
+}
+
+.Navbar .derecha {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.Navbar .derecha form {
+  background-color: #5f80ab;
+  padding: 2px;
+  border-radius: 10%;
+}
+
+.Navbar .derecha form input {
+  width: 120px;
+  margin: 2px;
+}
+
+.Navbar .derecha button {
+  color: white;
+  margin: 0;
+  padding: 0 5px;
+  font-size: 1rem;
+  background: #5f80ab;
+  border: none;
+}
+
+.Navbar .derecha button:hover {
+  cursor: pointer;
+}
+
+.Navbar .derecha .btn-salir {
+  border: none;
+  background: transparent;
+  font-size: 0.8rem;
+  margin: auto 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.Navbar .derecha .email {
+  color: #455a8e;
+  font-weight: bold;
+}
