@@ -1,0 +1,48 @@
+.PanelIzquierdoDashboard {
+  width: 14%;
+  padding: 8px;
+  background: white;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  height: fit-content;
+}
+
+.PanelIzquierdoDashboard img {
+  width: 100%;
+}
+
+.PanelIzquierdoDashboard hr {
+  border: 0.5px solid lightgray;
+  margin: 5px 0;
+}
+
+.PanelIzquierdoDashboard a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+}
+
+.PanelIzquierdoDashboard p {
+  color: #9d9d9d;
+}
+
+.PanelIzquierdoDashboard ul {
+  list-style-type: none;
+  margin: 5px auto;
+  padding: 0;
+}
+
+.PanelIzquierdoDashboard ul li {
+  background: #edf8fe;
+  border: 1px solid lightgray;
+  border-bottom: 0px;
+  padding: 2px;
+}
+
+.PanelIzquierdoDashboard ul li a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+}
+
+.PanelIzquierdoDashboard ul li:last-child {
+  border-bottom: 1px solid lightgray;
+}

@@ -1,0 +1,28 @@
+.Pagina {
+  background: #d9e6f7;
+  min-height: 100vh;
+}
+
+.sombra {
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(143, 143, 143, 1);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(143, 143, 143, 1);
+  box-shadow: 1px 1px 5px 0px rgba(143, 143, 143, 1);
+}
+
+.enlace {
+  color: rgb(45, 121, 126);
+}
+
+.Pagina .container {
+  width: 85%;
+  margin: auto;
+  padding: 0 5px;
+  margin-top: 15px;
+  display: flex;
+}
+
+/*COLUMNA IZQUIERDA*/
+
+/*COLUMNA MEDIO*/
+
+/*COLUMNA DERECHA*/

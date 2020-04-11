@@ -56,10 +56,22 @@ const registroUsuario = async (req, res) => {
 
     const userInsertado = await pool.query(query);
 
-    return (
-      userInsertado.rowCount === 1 &&
-      res.status(200).send('Usuario ingresado con éxito!')
-    );
+    //logear al nuevo usuario
+
+    query = {
+      text: `SELECT usuarios.id, email, perfiles.id AS id_perfil
+         FROM usuarios 
+         LEFT JOIN perfiles 
+         ON usuarios.id = perfiles.id_usuario
+         WHERE email = $1`,
+      values: [datosIngresados.email]
+    };
+
+    const usuario = await (await pool.query(query)).rows[0];
+
+    req.login(usuario, err => {
+      return res.status(200).send(usuario);
+    });
   } catch (error) {
     return res.status(500).json({ mensaje: 'Ha ocurrido un error!', error });
   }

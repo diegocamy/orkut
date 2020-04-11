@@ -24,7 +24,7 @@ route.post('/register', registroUsuario);
 route.post('/login', loginUsuario);
 
 // RUTA PRIVADA
-// metodo: GET
+// metodo: POST
 // descripcion: para obtener todos los usuarios
 // ruta: /api/users/buscarUsuario
 

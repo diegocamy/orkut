@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import { userLogout } from '../actions/LogoutAction';
+import { buscarUsuarios } from '../actions/BuscarUsuariosAction';
 
 import './Navbar.css';
 
-const Navbar = ({ usuario, userLogout }) => {
+const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
+  const [busqueda, setBusqueda] = useState('');
+
+  const buscarUsuario = e => {
+    e.preventDefault();
+    buscarUsuarios(busqueda);
+    history.push('/buscar');
+  };
+
   return (
     <div className='Navbar'>
       <div className='izquierda'>
@@ -28,8 +37,15 @@ const Navbar = ({ usuario, userLogout }) => {
         <button className='btn-salir' onClick={() => userLogout()}>
           Salir
         </button>
-        <form action='submit'>
-          <input type='text' placeholder='Buscar en Orkut' />
+        <form onSubmit={e => buscarUsuario(e)}>
+          <input
+            type='text'
+            placeholder='Buscar en Orkut'
+            value={busqueda}
+            onChange={e => {
+              setBusqueda(e.target.value);
+            }}
+          />
           <button>
             <i className='fas fa-search'></i>
           </button>
@@ -45,4 +61,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { userLogout })(Navbar);
+export default withRouter(
+  connect(mapStateToProps, { userLogout, buscarUsuarios })(Navbar)
+);

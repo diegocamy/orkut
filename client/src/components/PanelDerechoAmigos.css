@@ -1,0 +1,58 @@
+.PanelDerechoAmigos {
+  background: white;
+  border-radius: 7px;
+  width: 25%;
+  height: fit-content;
+}
+
+.PanelDerechoAmigos h3 {
+  margin: 10px;
+  font-size: 0.95rem;
+}
+
+.PanelDerechoAmigos a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+}
+
+.PanelDerechoAmigos hr {
+  border: 0.5px solid lightgray;
+  margin: 5px;
+}
+
+.PanelDerechoAmigos .box-amigos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.PanelDerechoAmigos .box-amigos div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 31%;
+  height: 110px;
+  background: #f0f0ee;
+  margin: 3px;
+  text-align: center;
+}
+
+.PanelDerechoAmigos .box-amigos div img {
+  width: 80%;
+  max-height: 75%;
+  margin: 5px auto;
+}
+
+.PanelDerechoAmigos .box-amigos div a {
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+}
+
+.PanelDerechoAmigos .ver-todos {
+  padding: 10px;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  font-weight: bold;
+}

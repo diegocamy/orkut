@@ -24,7 +24,7 @@ const checkearSesion = async () => {
   if (respuesta.session.passport) {
     usuario = respuesta.session.passport.user;
     if (usuario) {
-      store.dispatch({ type: USER_LOGIN_EXITO, payload: usuario });
+      await store.dispatch({ type: USER_LOGIN_EXITO, payload: usuario });
     }
   }
 };

@@ -21,8 +21,9 @@ export const cargarPerfilAction = () => async dispatch => {
     dispatch(cargarPerfilExito(perfil));
   } catch (error) {
     if (error.response.data) {
-      const mensaje = error.response.data;
-      dispatch(cargarPerfilError(mensaje));
+      dispatch(cargarPerfilError(error.response.data));
+    } else {
+      dispatch(cargarPerfilError('Algo salió mal!'));
     }
   }
 };

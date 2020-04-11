@@ -1,0 +1,44 @@
+.PanelEstadisticas {
+  background: white;
+  border-radius: 7px;
+  width: 61%;
+  margin: 0 15px;
+  border-top-right-radius: 60px;
+  height: fit-content;
+}
+
+.PanelEstadisticas h2 {
+  font-weight: normal;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.PanelEstadisticas .estadisticas {
+  display: flex;
+  margin: 5px;
+}
+
+.PanelEstadisticas .estadisticas div {
+  margin: 10px;
+}
+
+.PanelEstadisticas .estadisticas div p:first-child {
+  font-size: 0.8rem;
+}
+
+.PanelEstadisticas .estadisticas div p:nth-child(2) {
+  font-size: 0.8rem;
+}
+
+.PanelEstadisticas .texto {
+  margin: 5px;
+  font-size: 0.9rem;
+  padding: 0 5px;
+  margin-bottom: 15px;
+}
+
+.PanelEstadisticas .texto a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+  padding: 5px 3px;
+}
