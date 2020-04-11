@@ -6,7 +6,7 @@ import {
   BUSCAR_USUARIOS_ERROR
 } from '../types';
 
-export const buscarUsuarios = busqueda => async dispatch => {
+export const buscarUsuarios = (busqueda, history) => async dispatch => {
   try {
     dispatch(buscarUsuariosIniciado(busqueda));
     const resultados = await (
@@ -17,6 +17,7 @@ export const buscarUsuarios = busqueda => async dispatch => {
       )
     ).data;
     await dispatch(buscarUsuariosExito(resultados));
+    history.push('buscar');
   } catch (error) {
     if (error.response.data) {
       dispatch(buscarUsuariosError(error.response.data));

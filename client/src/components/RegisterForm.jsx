@@ -1,8 +1,17 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const RegisterForm = ({ setFormulario }) => {
+import { registrarUsuario } from '../actions/RegistarAction';
+
+const RegisterForm = ({
+  setFormulario,
+  mensajeError,
+  registrarUsuario,
+  history
+}) => {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -12,7 +21,7 @@ const RegisterForm = ({ setFormulario }) => {
       .string()
       .min(8, 'Debe tener al menos 8 caracteres')
       .required('Debe ingresar una contraseña'),
-    password_2: yup
+    repeat_password: yup
       .string()
       .oneOf([yup.ref('password')], 'Las contraseñas deben coincidir')
       .required('Repita la contraseña')
@@ -20,15 +29,14 @@ const RegisterForm = ({ setFormulario }) => {
 
   return (
     <div className='LoginForm'>
+      {mensajeError && <p style={{ color: 'red' }}>{mensajeError}</p>}
       <p>Registrarse: </p>
       <Formik
-        initialValues={{ email: '', password: '', password_2: '' }}
+        initialValues={{ email: '', password: '', repeat_password: '' }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          registrarUsuario(values, history);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -48,15 +56,15 @@ const RegisterForm = ({ setFormulario }) => {
               className='error-msg'
             />
             <div>
-              <label htmlFor='password_2'>Repetir Pwd: </label>
+              <label htmlFor='repeat_password'>Repetir Pwd: </label>
               <Field
                 type='password'
-                name='password_2'
+                name='repeat_password'
                 placeholder='Repetir Password'
               />
             </div>
             <ErrorMessage
-              name='password_2'
+              name='repeat_password'
               component='div'
               className='error-msg'
             />
@@ -91,4 +99,12 @@ const RegisterForm = ({ setFormulario }) => {
   );
 };
 
-export default RegisterForm;
+const mapStateToProps = state => {
+  return {
+    mensajeError: state.errores.registerError
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, { registrarUsuario })(RegisterForm)
+);

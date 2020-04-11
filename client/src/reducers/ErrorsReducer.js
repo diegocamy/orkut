@@ -6,14 +6,17 @@ import {
   CARGAR_PERFIL_INICIADO,
   CARGAR_PERFIL_ERROR,
   BUSCAR_USUARIOS_INICIO,
-  BUSCAR_USUARIOS_ERROR
+  BUSCAR_USUARIOS_ERROR,
+  USER_REGISTER_INICIADO,
+  USER_REGISTER_ERROR
 } from '../types';
 
 const initialState = {
   loginError: '',
   logoutError: '',
   perfilError: '',
-  buscarError: ''
+  buscarError: '',
+  registerError: ''
 };
 
 export default function ErrorsReducer(state = initialState, action) {
@@ -57,6 +60,16 @@ export default function ErrorsReducer(state = initialState, action) {
       return {
         ...state,
         buscarError: action.payload
+      };
+    case USER_REGISTER_INICIADO:
+      return {
+        ...state,
+        registerError: ''
+      };
+    case USER_REGISTER_ERROR:
+      return {
+        ...state,
+        registerError: action.payload
       };
 
     default:
