@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './PanelBusqueda.css';
+import noavatar from '../img/noavatar.png';
 
 const usuariosEncontrados = usuarios => {
   return usuarios.map(usuario => {
@@ -9,7 +10,7 @@ const usuariosEncontrados = usuarios => {
       <React.Fragment key={usuario.id_usuario}>
         <div className='usuario'>
           <div className='foto'>
-            <img src={usuario.foto} alt='foto' />
+            <img src={usuario.foto || noavatar} alt='foto' />
           </div>
           <div className='datos'>
             <Link to='#'>

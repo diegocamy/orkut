@@ -31,7 +31,7 @@ const LoginForm = ({ setFormulario, mensajeError, userLogin, history }) => {
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
           await userLogin(values.email, values.password, history);
-          setSubmitting(false);
+          //setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './PanelIzquierdoDashboard.css';
+import noavatar from '../img/noavatar.png';
 
 const PanelIzquierdoDashboard = ({ perfil }) => {
   let sexo;
@@ -14,7 +15,7 @@ const PanelIzquierdoDashboard = ({ perfil }) => {
   }
   return (
     <div className='PanelIzquierdoDashboard sombra'>
-      <img src={perfil.foto} alt='avatar' />
+      <img src={perfil.foto || noavatar} alt='avatar' />
       <hr />
       <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
       <p>{sexo}</p>

@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 import ResetForm from '../components/ResetForm';
 import RegisterForm from '../components/RegisterForm';
 
-const Home = ({ logeado, user, history }) => {
+const Home = ({ cargando, logeado, user, history }) => {
   useEffect(() => {
     //si el user esta logeado y tiene un perfil enviarlo al dashboard
     //si no tiene un perfil creado enviarlo a la pagina para crear uno
@@ -16,7 +16,7 @@ const Home = ({ logeado, user, history }) => {
     } else if (logeado && !user.id_perfil) {
       history.push('/crearPerfil');
     }
-  }, [logeado, user, history]);
+  }, [cargando, logeado, user, history]);
 
   const [formulario, setFormulario] = useState(1);
 
@@ -29,6 +29,10 @@ const Home = ({ logeado, user, history }) => {
       return <RegisterForm setFormulario={setFormulario} />;
     }
   };
+
+  if (cargando) {
+    return <h1>CARGANDOOO</h1>;
+  }
 
   return (
     <div className='Home'>
@@ -68,6 +72,7 @@ const Home = ({ logeado, user, history }) => {
 
 const mapStateToProps = state => {
   return {
+    cargando: state.login.cargando,
     logeado: state.login.logeado,
     user: state.login.usuario
   };

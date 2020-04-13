@@ -6,7 +6,7 @@ import axios from 'axios';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-import { USER_LOGIN_EXITO } from './types';
+import { USER_LOGIN_EXITO, USER_LOGIN_INICIADO } from './types';
 
 import App from './App';
 import './index.css';
@@ -19,6 +19,7 @@ const store = createStore(
 
 //checkear si la sesion está activa y el user está logeado para actualizar redux store
 const checkearSesion = async () => {
+  store.dispatch({ type: USER_LOGIN_INICIADO });
   const respuesta = await (await axios.get('/api/session')).data;
   let usuario;
   if (respuesta.session.passport) {

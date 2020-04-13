@@ -6,7 +6,7 @@ import {
   USER_LOGIN_ERROR
 } from '../types';
 
-export const userLogin = (email, password, history) => async dispatch => {
+export const userLogin = (email, password) => async dispatch => {
   try {
     //iniciar login
     dispatch(userLoginIniciado());

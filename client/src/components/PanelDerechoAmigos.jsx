@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './PanelDerechoAmigos.css';
+import noavatar from '../img/noavatar.png';
 
 const mostrarAmigos = amigos => {
   return amigos.map(amigo => {
     return (
       <div key={amigo.id}>
-        <img src={amigo.foto} alt='foto-amigo' />
+        <img src={amigo.foto || noavatar} alt='foto-amigo' />
         <Link to='#'>
           {amigo.nombre} ({amigo.amigos})
         </Link>

@@ -120,12 +120,13 @@ const verListaAmigos = async (req, res) => {
   try {
     const listaAmigos = await (
       await pool.query(`
-      SELECT usuarios.id, nombre,apellido,foto, (SELECT COUNT(status) as Amigos FROM amistades
-      WHERE id_usuario1=usuarios.id AND status=1 OR id_usuario2=usuarios.id AND status=1)
-      FROM perfiles
-      JOIN usuarios
-      ON usuarios.id = perfiles.id_usuario
-      WHERE usuarios.id != '${req.user.id}' 
+      SELECT (SELECT COUNT(status) as amigos
+      FROM amistades
+      WHERE (id_usuario1=id_usuario OR id_usuario2=id_usuario) AND status=1), id_usuario1, id_usuario2, nombre, apellido, foto, id_usuario as id, perfiles.id as id_perfil
+      FROM amistades
+      JOIN perfiles
+      ON id_usuario1 = id_usuario OR id_usuario2 = id_usuario
+      WHERE (id_usuario1='${req.user.id}' OR id_usuario2='${req.user.id}') AND status = 1 AND id_usuario != '${req.user.id}'
     `)
     ).rows;
 

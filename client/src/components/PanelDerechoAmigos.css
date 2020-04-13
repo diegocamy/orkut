@@ -23,8 +23,6 @@
 .PanelDerechoAmigos .box-amigos {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
 }
 
 .PanelDerechoAmigos .box-amigos div {

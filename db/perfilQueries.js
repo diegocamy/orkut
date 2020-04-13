@@ -17,14 +17,14 @@ const crearPerfil = async (req, res) => {
     ).rows[0];
 
     if (tienePerfil) {
-      return res.status(200).send('El usuario ya tiene un perfil creado!');
+      return res.status(400).send('El usuario ya tiene un perfil creado!');
     }
 
     //verificar datos ingresados
     const perfilSchema = require('../validation/perfilValidation');
 
     //convertir string a fecha
-    const arrFecha = req.body.fechaNacimiento.split('/');
+    const arrFecha = req.body.fechaNacimiento.split('-');
     const fecha = new Date(arrFecha[2], arrFecha[1], arrFecha[0]);
 
     let datosIngresados = {
@@ -69,10 +69,21 @@ const crearPerfil = async (req, res) => {
     //ingresar el nuevo perfil a la base de datos
     const perfil = await pool.query(query);
 
-    return (
-      perfil.rowCount === 1 &&
-      res.status(200).send('Perfil creado correctamente!')
-    );
+    //obtener id de perfil
+    const id_perfil = await (
+      await pool.query(
+        `SELECT id FROM perfiles WHERE id_usuario='${req.user.id}'`
+      )
+    ).rows[0];
+
+    req.session.passport.user.id_perfil = id_perfil.id;
+    req.session.save();
+
+    return res.status(200).json({
+      id: req.user.id,
+      email: req.user.email,
+      id_perfil: id_perfil.id
+    });
   } catch (error) {
     return res.json({ mensaje: 'Ha ocurrido un error!', error: error.message });
   }
