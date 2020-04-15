@@ -6,16 +6,24 @@ import {
   CARGAR_PERFIL_EXITO
 } from '../types';
 
-export const cargarPerfilAction = () => async dispatch => {
+export const cargarPerfilAction = idPerfil => async dispatch => {
   try {
-    dispatch(cargarPerfilIniciado);
+    dispatch(cargarPerfilIniciado());
     const perfil = await (
-      await axios.get('/api/perfiles/cargarDatosPerfil', {
-        withCredentials: true
-      })
+      await axios.post(
+        '/api/perfiles/cargarDatosPerfil',
+        { idPerfil },
+        {
+          withCredentials: true
+        }
+      )
     ).data;
     const amigos = await (
-      await axios.get('/api/amigos/verListaAmigos', { withCredentials: true })
+      await axios.post(
+        '/api/amigos/verListaAmigos',
+        { idUsuario: perfil.id_usuario },
+        { withCredentials: true }
+      )
     ).data;
     perfil.amigos = amigos;
     dispatch(cargarPerfilExito(perfil));

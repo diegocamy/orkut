@@ -6,7 +6,11 @@ import axios from 'axios';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-import { USER_LOGIN_EXITO, USER_LOGIN_INICIADO } from './types';
+import {
+  USER_LOGIN_EXITO,
+  USER_LOGIN_INICIADO,
+  USER_LOGIN_ERROR
+} from './types';
 
 import App from './App';
 import './index.css';
@@ -27,6 +31,8 @@ const checkearSesion = async () => {
     if (usuario) {
       await store.dispatch({ type: USER_LOGIN_EXITO, payload: usuario });
     }
+  } else {
+    store.dispatch({ type: USER_LOGIN_ERROR });
   }
 };
 

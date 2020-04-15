@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import './Pagina.css';
 
 import Navbar from '../components/Navbar';
-import PanelIzquierdoDashboard from '../components/PanelIzquierdoDashboard';
+import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import PanelBusqueda from '../components/PanelBusqueda';
 
@@ -23,7 +23,7 @@ const Buscar = ({ logeado, perfil, history, buscar }) => {
       <div className='Pagina'>
         <Navbar />
         <div className='container'>
-          <PanelIzquierdoDashboard perfil={perfil} />
+          <PanelIzquierdoPerfil perfil={perfil} />
           <PanelBusqueda buscar={buscar} />
           <PanelDerechoAmigos amigos={perfil.amigos} />
         </div>

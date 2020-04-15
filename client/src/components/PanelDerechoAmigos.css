@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 31%;
-  height: 110px;
+  height: 115px;
   background: #f0f0ee;
   margin: 3px;
   text-align: center;
@@ -44,6 +44,7 @@
 
 .PanelDerechoAmigos .box-amigos div a {
   font-size: 0.8rem;
+  padding-bottom: 5px;
   text-decoration: none;
   color: rgb(45, 121, 126);
 }

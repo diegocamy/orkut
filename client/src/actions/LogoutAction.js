@@ -16,6 +16,8 @@ export const userLogout = () => async dispatch => {
     if (error.response.data) {
       const err = error.response.data.mensaje;
       dispatch(userLogoutError(err));
+    } else {
+      dispatch(userLogoutError(error.message));
     }
   }
 };

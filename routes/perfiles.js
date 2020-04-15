@@ -71,6 +71,6 @@ route.post(
 // descripcion: para obtener los datos del perfil
 // ruta: /api/perfiles/cargarDatosPerfil
 
-route.get('/cargarDatosPerfil', authMiddleware, cargarDatosPerfil);
+route.post('/cargarDatosPerfil', authMiddleware, cargarDatosPerfil);
 
 module.exports = route;

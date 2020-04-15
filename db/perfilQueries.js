@@ -94,7 +94,7 @@ const cargarDatosPerfil = async (req, res) => {
   try {
     const perfil = await (
       await pool.query(
-        `SELECT * FROM perfiles WHERE id = '${req.user.id_perfil}'`
+        `SELECT * FROM perfiles WHERE id = '${req.body.idPerfil}'`
       )
     ).rows[0];
 

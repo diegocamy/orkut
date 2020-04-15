@@ -60,6 +60,6 @@ route.get(
 // descripcion: ver lista de amigos
 // ruta: /api/amigos/verListaAmigos
 
-route.get('/verListaAmigos', authMiddleware, verListaAmigos);
+route.post('/verListaAmigos', authMiddleware, verListaAmigos);
 
 module.exports = route;

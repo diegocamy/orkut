@@ -15,11 +15,11 @@
 
 .PanelEstadisticas .estadisticas {
   display: flex;
-  margin: 5px;
+  margin: 0 5px;
 }
 
 .PanelEstadisticas .estadisticas div {
-  margin: 10px;
+  margin: 5px 10px;
 }
 
 .PanelEstadisticas .estadisticas div p:first-child {
@@ -41,4 +41,40 @@
   text-decoration: none;
   color: rgb(45, 121, 126);
   padding: 5px 3px;
+}
+
+.PanelEstadisticas .texto .perfil ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.PanelEstadisticas .texto .perfil ul li {
+  display: flex;
+  padding: 2px 0;
+}
+
+.PanelEstadisticas .texto .perfil ul li:nth-child(odd) {
+  background: #deeefe;
+}
+
+.PanelEstadisticas .texto .perfil ul li:nth-child(even) {
+  background: #eff8ff;
+}
+
+.PanelEstadisticas .texto .perfil ul li div:first-child {
+  display: inline-block;
+  text-align: right;
+  width: 25%;
+}
+.PanelEstadisticas .texto .perfil ul li div:nth-child(2) {
+  display: inline-block;
+  text-align: left;
+  max-width: 75%;
+}
+
+.PanelEstadisticas .texto .perfil ul li div:first-child p {
+  display: inline-block;
+  color: rgb(134, 134, 134);
+  margin: 0 5px;
 }

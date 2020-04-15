@@ -9,7 +9,7 @@ const mostrarAmigos = amigos => {
     return (
       <div key={amigo.id}>
         <img src={amigo.foto || noavatar} alt='foto-amigo' />
-        <Link to='#'>
+        <Link to={`/perfil/${amigo.id_perfil}`}>
           {amigo.nombre} ({amigo.amigos})
         </Link>
       </div>
