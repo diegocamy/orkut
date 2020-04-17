@@ -7,7 +7,7 @@ import {
   USER_LOGIN_EXITO
 } from '../types';
 
-export const registrarUsuario = (datos, history) => async dispatch => {
+export const registrarUsuario = (datos) => async dispatch => {
   try {
     dispatch(registrarUsuarioIniciado());
     //registrar al usuario
@@ -17,7 +17,6 @@ export const registrarUsuario = (datos, history) => async dispatch => {
     dispatch(registrarUsuarioExito());
     //logear al usuario
     await dispatch(logearUsuario(usuario));
-    history.push('/');
   } catch (error) {
     if (error.response.data) {
       dispatch(registrarUsuarioError(error.response.data));

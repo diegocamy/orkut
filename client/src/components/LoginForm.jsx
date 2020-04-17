@@ -6,10 +6,7 @@ import { connect } from 'react-redux';
 import { userLogin } from '../actions/LoginAction';
 import './LoginForm.css';
 
-const LoginForm = ({ setFormulario, mensajeError, userLogin, history }) => {
-  useEffect(() => {
-    return () => {};
-  }, []);
+const LoginForm = ({ setFormulario, mensajeError, userLogin }) => {
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -30,8 +27,8 @@ const LoginForm = ({ setFormulario, mensajeError, userLogin, history }) => {
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          await userLogin(values.email, values.password, history);
-          //setSubmitting(false);
+          await userLogin(values.email, values.password);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -51,7 +48,7 @@ const LoginForm = ({ setFormulario, mensajeError, userLogin, history }) => {
               className='error-msg'
             />
             <button type='submit' disabled={isSubmitting}>
-              Login
+              {isSubmitting ? 'Ingresando' : 'Ingresar'}
             </button>
           </Form>
         )}

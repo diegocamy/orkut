@@ -9,8 +9,7 @@ import { registrarUsuario } from '../actions/RegistarAction';
 const RegisterForm = ({
   setFormulario,
   mensajeError,
-  registrarUsuario,
-  history
+  registrarUsuario
 }) => {
   const validationSchema = yup.object().shape({
     email: yup
@@ -34,9 +33,10 @@ const RegisterForm = ({
       <Formik
         initialValues={{ email: '', password: '', repeat_password: '' }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          registrarUsuario(values, history);
-          setSubmitting(false);
+        onSubmit={async (values, { setSubmitting }) => {
+          setSubmitting(true)
+          await registrarUsuario(values);
+          setSubmitting(false)
         }}
       >
         {({ isSubmitting }) => (
@@ -69,7 +69,7 @@ const RegisterForm = ({
               className='error-msg'
             />
             <button type='submit' disabled={isSubmitting}>
-              Registrarse
+              {isSubmitting ? 'Registrando...' : 'Registrarse'}
             </button>
           </Form>
         )}
