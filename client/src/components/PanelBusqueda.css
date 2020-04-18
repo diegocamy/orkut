@@ -3,7 +3,7 @@
   padding: 10px;
   margin: 0 15px;
   border-radius: 7px;
-  width: 61%;
+  width: 100%;
   height: fit-content;
 }
 
@@ -62,7 +62,7 @@ hr {
 }
 
 .PanelBusqueda .resultados .usuario .foto {
-  width: 15%;
+  width: 100px;
   height: 100px;
   text-align: center;
 }

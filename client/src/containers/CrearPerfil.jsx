@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import './Pagina.css';
 import Navbar from '../components/Navbar';
 import CrearPerfilForm from '../components/CrearPerfilForm';
+import Spinner from '../components/Spinner';
 
 const CrearPerfil = ({ logeado, usuario, history }) => {
   useEffect(() => {
@@ -24,13 +25,13 @@ const CrearPerfil = ({ logeado, usuario, history }) => {
     );
   }
 
-  return <div></div>;
+  return <Spinner />;
 };
 
 const mapStateToProps = state => {
   return {
     logeado: state.login.logeado,
-    usuario: state.login.usuario
+    usuario: state.login.usuario,
   };
 };
 

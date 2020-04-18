@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -8,37 +8,40 @@ import Navbar from '../components/Navbar';
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import PanelBusqueda from '../components/PanelBusqueda';
+import Spinner from '../components/Spinner';
 
-const Buscar = ({ logeado, perfil, history, buscar }) => {
-  if (!logeado || !perfil) {
-    history.push('/');
+const Buscar = ({ logeado, perfil, history, usuario, buscar }) => {
+  useEffect(() => {
+    if (!logeado) {
+      history.push('/');
+    }
+  }, []);
+
+  if (buscar.cargando && !perfil) {
+    return <Spinner />;
   }
 
-  if (buscar.cargando) {
-    return <h1>CARGANDOOOOOOOOOOOOOOOOOOOOOOWOWOWOWO</h1>;
-  }
-
-  if (logeado && perfil) {
+  if (!buscar.cargando && perfil) {
     return (
       <div className='Pagina'>
         <Navbar />
         <div className='container'>
-          <PanelIzquierdoPerfil perfil={perfil} />
-          <PanelBusqueda buscar={buscar} />
-          <PanelDerechoAmigos amigos={perfil.amigos} />
+          <PanelIzquierdoPerfil perfil={perfil} usuario={usuario} />
+          <PanelBusqueda buscar={buscar} history={history} />
         </div>
       </div>
     );
   }
 
-  return null;
+  return <Spinner />;
 };
 
 const mapStateToProps = state => {
   return {
+    usuario: state.login.usuario,
     logeado: state.login.logeado,
-    perfil: state.login.perfil,
-    buscar: state.buscar
+    perfil: state.perfil.perfil,
+    buscar: state.buscar,
   };
 };
 

@@ -9,6 +9,7 @@ import { cargarPerfilAction } from '../actions/CargarPerfilAction';
 import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelEstadisticas from '../components/PanelEstadisticas';
+import Spinner from '../components/Spinner';
 
 const Dashboard = ({
   logeado,
@@ -16,7 +17,7 @@ const Dashboard = ({
   cargandoPerfil,
   perfil,
   history,
-  cargarPerfilAction
+  cargarPerfilAction,
 }) => {
   useEffect(() => {
     if (!logeado) {
@@ -33,7 +34,7 @@ const Dashboard = ({
   }, [logeado, usuario, history]);
 
   if (cargandoPerfil) {
-    return <h1 style={{ margin: '10px auto' }}>Cargando...</h1>;
+    return <Spinner />;
   }
 
   if (logeado && perfil) {
@@ -57,10 +58,10 @@ const mapStateToProps = state => {
     logeado: state.login.logeado,
     usuario: state.login.usuario,
     cargandoPerfil: state.perfil.cargandoPerfil,
-    perfil: state.perfil.perfil
+    perfil: state.perfil.perfil,
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { cargarPerfilAction })(Dashboard)
+  connect(mapStateToProps, { cargarPerfilAction })(Dashboard),
 );

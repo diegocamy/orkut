@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { buscarUsuarios } from '../actions/BuscarUsuariosAction';
 
 import './PanelBusqueda.css';
 import noavatar from '../img/noavatar.png';
@@ -13,7 +16,7 @@ const usuariosEncontrados = usuarios => {
             <img src={usuario.foto || noavatar} alt='foto' />
           </div>
           <div className='datos'>
-            <Link to='#'>
+            <Link to={`/perfil/${usuario.id_perfil}`}>
               {usuario.nombre} {usuario.apellido}
             </Link>
             <p>{usuario.ciudad}</p>
@@ -30,16 +33,29 @@ const usuariosEncontrados = usuarios => {
   });
 };
 
-const PanelBusqueda = ({ buscar }) => {
+const PanelBusqueda = ({ buscar, buscarUsuarios, history }) => {
+  const [busqueda, setBusqueda] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    buscarUsuarios(busqueda, history);
+    setBusqueda('');
+  };
+
   return (
     <div className='PanelBusqueda sombra'>
       <h2>Mostrando resultados para {buscar.busqueda}</h2>
       <p className='migas'>
         <Link to='/dashboard'>Home</Link> > Buscar
       </p>
-      <form action=''>
-        <label htmlFor='buscar' placeholder='Buscar de nuevo' />
-        <input type='text' />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor='buscar'>Buscar de nuevo</label>
+        <input
+          type='text'
+          name='buscar'
+          onChange={e => setBusqueda(e.target.value)}
+          value={busqueda}
+        />
         <button>Buscar</button>
       </form>
       <hr />
@@ -56,4 +72,4 @@ const PanelBusqueda = ({ buscar }) => {
   );
 };
 
-export default PanelBusqueda;
+export default connect(null, { buscarUsuarios })(PanelBusqueda);

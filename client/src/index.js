@@ -9,8 +9,10 @@ import rootReducer from './reducers';
 import {
   USER_LOGIN_EXITO,
   USER_LOGIN_INICIADO,
-  USER_LOGIN_ERROR
+  USER_LOGIN_ERROR,
 } from './types';
+
+import { cargarPerfilAction } from './actions/CargarPerfilAction';
 
 import App from './App';
 import './index.css';
@@ -18,7 +20,7 @@ import './index.css';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
+  composeEnhancers(applyMiddleware(thunk)),
 );
 
 //checkear si la sesion está activa y el user está logeado para actualizar redux store
@@ -30,6 +32,9 @@ const checkearSesion = async () => {
     usuario = respuesta.session.passport.user;
     if (usuario) {
       await store.dispatch({ type: USER_LOGIN_EXITO, payload: usuario });
+      if (usuario.id_perfil) {
+        await store.dispatch(cargarPerfilAction(usuario.id_perfil));
+      }
     }
   } else {
     store.dispatch({ type: USER_LOGIN_ERROR });
@@ -44,5 +49,5 @@ ReactDOM.render(
       <App />
     </React.StrictMode>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

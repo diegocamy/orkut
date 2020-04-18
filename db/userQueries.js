@@ -10,7 +10,7 @@ const registroUsuario = async (req, res) => {
     let datosIngresados = {
       email: req.body.email,
       password: req.body.password,
-      repeat_password: req.body.repeat_password
+      repeat_password: req.body.repeat_password,
     };
 
     //checkear si las contraseñas son iguales
@@ -32,7 +32,7 @@ const registroUsuario = async (req, res) => {
     //verificar la base de datos para ver si el email esta en uso o no
     let query = {
       text: 'SELECT * FROM usuarios WHERE email=$1',
-      values: [datosIngresados.email]
+      values: [datosIngresados.email],
     };
 
     const respuesta = await (await pool.query(query)).rows;
@@ -51,7 +51,7 @@ const registroUsuario = async (req, res) => {
     //guardar el nuevo user en la base de datos
     query = {
       text: 'INSERT INTO usuarios (email, password) VALUES($1, $2)',
-      values: [datosIngresados.email, datosIngresados.password]
+      values: [datosIngresados.email, datosIngresados.password],
     };
 
     const userInsertado = await pool.query(query);
@@ -64,7 +64,7 @@ const registroUsuario = async (req, res) => {
          LEFT JOIN perfiles 
          ON usuarios.id = perfiles.id_usuario
          WHERE email = $1`,
-      values: [datosIngresados.email]
+      values: [datosIngresados.email],
     };
 
     const usuario = await (await pool.query(query)).rows[0];
@@ -87,7 +87,7 @@ const loginUsuario = async (req, res) => {
          LEFT JOIN perfiles 
          ON usuarios.id = perfiles.id_usuario
          WHERE email = $1`,
-      values: [req.body.email]
+      values: [req.body.email],
     };
 
     const usuario = await (await pool.query(query)).rows[0];
@@ -100,7 +100,7 @@ const loginUsuario = async (req, res) => {
     //si existe un usuario, entonces verificar el password ingresado
     const passwordsCoinciden = await bcrypt.compare(
       req.body.password,
-      usuario.password
+      usuario.password,
     );
 
     if (!passwordsCoinciden) {
@@ -110,7 +110,7 @@ const loginUsuario = async (req, res) => {
     const user = {
       id: usuario.id,
       email: usuario.email,
-      id_perfil: usuario.id_perfil
+      id_perfil: usuario.id_perfil,
     };
 
     req.login(user, err => {
@@ -136,16 +136,14 @@ const recuperarPassword = async (req, res) => {
     }
 
     //si existe un usuario, crear una nueva contraseña
-    const nuevaPass = Math.random()
-      .toString(36)
-      .substr(3);
+    const nuevaPass = Math.random().toString(36).substr(3);
 
     //hashear nueva contraseña y guardarla en la base de datos
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = await bcrypt.hash(nuevaPass, salt);
 
     await pool.query(
-      `UPDATE usuarios SET password='${hashPassword}' WHERE email='${email}'`
+      `UPDATE usuarios SET password='${hashPassword}' WHERE email='${email}'`,
     );
 
     //enviar mail con la nueva contraseña al usuario
@@ -156,8 +154,8 @@ const recuperarPassword = async (req, res) => {
       port: 587,
       auth: {
         user: 'apikey',
-        pass: process.env.NODEMAILER_PASS
-      }
+        pass: process.env.NODEMAILER_PASS,
+      },
     });
 
     // send mail with defined transport object
@@ -166,7 +164,7 @@ const recuperarPassword = async (req, res) => {
       to: email, // list of receivers
       subject: 'Tu nueva contraseña!', // Subject line
       text: `Hola! Esta es tu nueva contraseña: ${nuevaPass}`, // plain text body
-      html: `<b>Hola! Esta es tu nueva contraseña: ${nuevaPass}</b>` // html body
+      html: `<b>Hola! Esta es tu nueva contraseña: ${nuevaPass}</b>`, // html body
     });
 
     res
@@ -193,7 +191,7 @@ const cambiarPassword = async (req, res) => {
       return res
         .status(200)
         .send(
-          'La contraseña debe tener al menos 8 caracteres y no puede contener espacios!'
+          'La contraseña debe tener al menos 8 caracteres y no puede contener espacios!',
         );
     }
 
@@ -202,7 +200,7 @@ const cambiarPassword = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
 
     await pool.query(
-      `UPDATE usuarios SET password='${hashPassword}' WHERE id='${req.user.id}'`
+      `UPDATE usuarios SET password='${hashPassword}' WHERE id='${req.user.id}'`,
     );
 
     //deslogear usuario
@@ -228,12 +226,12 @@ const buscarUsuario = async (req, res) => {
 
     //por cada palabra crear filtro: 'COLUMNA ILIKE palabra OR COLUMNA ILIKE palabra'
     const arrayFiltros = arrayPalabras.map(
-      palabra => `nombre ILIKE '%${palabra}%' OR apellido ILIKE '%${palabra}%'`
+      palabra => `nombre ILIKE '%${palabra}%' OR apellido ILIKE '%${palabra}%'`,
     );
 
     //crear query para buscar por nombre o apellido
     const query =
-      'SELECT id_usuario, nombre, apellido, pais, ciudad, foto FROM perfiles WHERE ' +
+      'SELECT id_usuario, id as id_perfil,genero, nombre, apellido, pais, ciudad, foto FROM perfiles WHERE ' +
       arrayFiltros.join(' OR ');
 
     const perfiles = await (await pool.query(query)).rows;
@@ -249,5 +247,5 @@ module.exports = {
   loginUsuario,
   buscarUsuario,
   recuperarPassword,
-  cambiarPassword
+  cambiarPassword,
 };

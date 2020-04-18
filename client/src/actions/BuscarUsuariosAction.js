@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   BUSCAR_USUARIOS_INICIO,
   BUSCAR_USUARIOS_EXITO,
-  BUSCAR_USUARIOS_ERROR
+  BUSCAR_USUARIOS_ERROR,
 } from '../types';
 
 export const buscarUsuarios = (busqueda, history) => async dispatch => {
@@ -13,11 +13,11 @@ export const buscarUsuarios = (busqueda, history) => async dispatch => {
       await axios.post(
         '/api/users/buscarUsuario',
         { busqueda },
-        { withCredentials: true }
+        { withCredentials: true },
       )
     ).data;
     await dispatch(buscarUsuariosExito(resultados));
-    history.push('buscar');
+    history.push('/buscar');
   } catch (error) {
     if (error.response.data) {
       dispatch(buscarUsuariosError(error.response.data));
@@ -30,18 +30,18 @@ export const buscarUsuarios = (busqueda, history) => async dispatch => {
 const buscarUsuariosIniciado = busqueda => {
   return {
     type: BUSCAR_USUARIOS_INICIO,
-    payload: busqueda
+    payload: busqueda,
   };
 };
 const buscarUsuariosExito = resultados => {
   return {
     type: BUSCAR_USUARIOS_EXITO,
-    payload: resultados
+    payload: resultados,
   };
 };
 const buscarUsuariosError = error => {
   return {
     type: BUSCAR_USUARIOS_ERROR,
-    error: error
+    error: error,
   };
 };

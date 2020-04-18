@@ -8,6 +8,7 @@ import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import { cargarPerfilAction } from '../actions/CargarPerfilAction';
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelEstadisticas from '../components/PanelEstadisticas';
+import Spinner from '../components/Spinner';
 
 const Perfil = ({
   history,
@@ -15,7 +16,7 @@ const Perfil = ({
   match,
   cargandoPerfil,
   perfil,
-  cargarPerfilAction
+  cargarPerfilAction,
 }) => {
   useEffect(() => {
     const idPerfil = match.params.id_perfil;
@@ -28,7 +29,7 @@ const Perfil = ({
   }, [match.params.id_perfil, usuario]);
 
   if (cargandoPerfil) {
-    return <h1>CARGANDO PERFIL</h1>;
+    return <Spinner />;
   }
 
   if (!cargandoPerfil && perfil) {
@@ -44,17 +45,17 @@ const Perfil = ({
     );
   }
 
-  return null;
+  return <Spinner />;
 };
 
 const mapStateToProps = state => {
   return {
     usuario: state.login.usuario,
     perfil: state.perfil.perfil,
-    cargandoPerfil: state.perfil.cargandoPerfil
+    cargandoPerfil: state.perfil.cargandoPerfil,
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { cargarPerfilAction })(Perfil)
+  connect(mapStateToProps, { cargarPerfilAction })(Perfil),
 );
