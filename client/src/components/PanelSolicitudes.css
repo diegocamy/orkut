@@ -1,0 +1,54 @@
+.PanelSolicitudes {
+  background: white;
+  margin: 15px;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.PanelSolicitudes a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+  font-weight: bold;
+}
+
+.PanelSolicitudes p:first-child {
+  margin-bottom: 10px;
+}
+
+.PanelSolicitudes .solicitud {
+  padding: 3px;
+  background: #eff8ff;
+  display: flex;
+  margin: 5px 0;
+}
+
+.PanelSolicitudes .solicitud .foto {
+  text-align: center;
+  width: 10%;
+  margin-right: 10px;
+}
+
+.PanelSolicitudes .solicitud .foto img {
+  padding: 4px;
+  border: 0.5px solid lightgray;
+  width: 90%;
+}
+
+.PanelSolicitudes .solicitud .datos .div {
+  display: flex;
+}
+
+.PanelSolicitudes .solicitud .datos .div button {
+  margin: 5px;
+  padding: 2px 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.PanelSolicitudes .solicitud .datos .div button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

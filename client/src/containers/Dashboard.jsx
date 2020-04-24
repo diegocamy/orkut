@@ -6,6 +6,7 @@ import './Pagina.css';
 import Navbar from '../components/Navbar';
 
 import { cargarPerfilAction } from '../actions/CargarPerfilAction';
+import { cargarSolicitudesPendientes } from '../actions/CargarSolicitudesPendientesAction';
 import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelEstadisticas from '../components/PanelEstadisticas';
@@ -17,7 +18,10 @@ const Dashboard = ({
   cargandoPerfil,
   perfil,
   history,
+  solicitudes,
   cargarPerfilAction,
+  mensajeSolicitudes,
+  cargarSolicitudesPendientes,
 }) => {
   useEffect(() => {
     if (!logeado) {
@@ -30,6 +34,7 @@ const Dashboard = ({
 
     if (logeado) {
       cargarPerfilAction(usuario.id_perfil);
+      // cargarSolicitudesPendientes();
     }
   }, [logeado, usuario, history]);
 
@@ -40,17 +45,21 @@ const Dashboard = ({
   if (logeado && perfil) {
     return (
       <div className='Pagina'>
-        <Navbar />
+        <Navbar error={mensajeSolicitudes} />
         <div className='container'>
           <PanelIzquierdoPerfil perfil={perfil} usuario={usuario} />
-          <PanelEstadisticas perfil={perfil} usuario={usuario} />
+          <PanelEstadisticas
+            perfil={perfil}
+            usuario={usuario}
+            solicitudes={solicitudes}
+          />
           <PanelDerechoAmigos amigos={perfil.amigos} />
         </div>
       </div>
     );
   }
 
-  return null;
+  return <Spinner />;
 };
 
 const mapStateToProps = state => {
@@ -59,9 +68,13 @@ const mapStateToProps = state => {
     usuario: state.login.usuario,
     cargandoPerfil: state.perfil.cargandoPerfil,
     perfil: state.perfil.perfil,
+    solicitudes: state.solicitudes.solicitudes,
+    mensajeSolicitudes: state.solicitudes.mensaje,
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { cargarPerfilAction })(Dashboard),
+  connect(mapStateToProps, { cargarPerfilAction, cargarSolicitudesPendientes })(
+    Dashboard,
+  ),
 );

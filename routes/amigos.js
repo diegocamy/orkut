@@ -11,6 +11,8 @@ const eliminarAmigo = require('../db/amigosQueries').eliminarAmigo;
 const verListaAmigos = require('../db/amigosQueries').verListaAmigos;
 const verSolicitudesPendientes = require('../db/amigosQueries')
   .verSolicitudesPendientes;
+const verSolicitudesEnviadasPendientes = require('../db/amigosQueries')
+  .verSolicitudesEnviadasPendientes;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -34,7 +36,7 @@ route.post('/aceptarSolicitud/:idSolicitud', authMiddleware, aceptarSolicitud);
 route.post(
   '/rechazarSolicitud/:idSolicitud',
   authMiddleware,
-  rechazarSolicitud
+  rechazarSolicitud,
 );
 
 // RUTA PRIVADA
@@ -52,7 +54,18 @@ route.post('/eliminarAmigo/:idAmigo', authMiddleware, eliminarAmigo);
 route.get(
   '/verSolicitudesPendientes',
   authMiddleware,
-  verSolicitudesPendientes
+  verSolicitudesPendientes,
+);
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: ver solicitudes pendientes
+// ruta: /api/amigos/verSolicitudesEnviadasPendientes
+
+route.get(
+  '/verSolicitudesEnviadasPendientes',
+  authMiddleware,
+  verSolicitudesEnviadasPendientes,
 );
 
 // RUTA PRIVADA

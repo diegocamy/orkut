@@ -3,8 +3,9 @@ import axios from 'axios';
 import {
   CARGAR_PERFIL_ERROR,
   CARGAR_PERFIL_INICIADO,
-  CARGAR_PERFIL_EXITO
+  CARGAR_PERFIL_EXITO,
 } from '../types';
+import { cargarSolicitudesPendientes } from './CargarSolicitudesPendientesAction';
 
 export const cargarPerfilAction = idPerfil => async dispatch => {
   try {
@@ -14,18 +15,19 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
         '/api/perfiles/cargarDatosPerfil',
         { idPerfil },
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       )
     ).data;
     const amigos = await (
       await axios.post(
         '/api/amigos/verListaAmigos',
         { idUsuario: perfil.id_usuario },
-        { withCredentials: true }
+        { withCredentials: true },
       )
     ).data;
     perfil.amigos = amigos;
+    dispatch(cargarSolicitudesPendientes());
     dispatch(cargarPerfilExito(perfil));
   } catch (error) {
     if (error.response.data) {
@@ -38,20 +40,20 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
 
 const cargarPerfilIniciado = () => {
   return {
-    type: CARGAR_PERFIL_INICIADO
+    type: CARGAR_PERFIL_INICIADO,
   };
 };
 
 const cargarPerfilExito = perfil => {
   return {
     type: CARGAR_PERFIL_EXITO,
-    payload: perfil
+    payload: perfil,
   };
 };
 
 const cargarPerfilError = error => {
   return {
     type: CARGAR_PERFIL_ERROR,
-    payload: error
+    payload: error,
   };
 };

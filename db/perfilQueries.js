@@ -5,7 +5,7 @@ const cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 //crear nuevo perfil
@@ -34,7 +34,7 @@ const crearPerfil = async (req, res) => {
       fechaNacimiento: fecha,
       pais: req.body.pais,
       ciudad: req.body.ciudad,
-      foto: ''
+      foto: '',
     };
 
     req.file && (datosIngresados.foto = req.file.secure_url);
@@ -62,8 +62,8 @@ const crearPerfil = async (req, res) => {
         datosIngresados.genero,
         datosIngresados.fechaNacimiento,
         datosIngresados.foto,
-        req.user.id
-      ]
+        req.user.id,
+      ],
     };
 
     //ingresar el nuevo perfil a la base de datos
@@ -72,7 +72,7 @@ const crearPerfil = async (req, res) => {
     //obtener id de perfil
     const id_perfil = await (
       await pool.query(
-        `SELECT id FROM perfiles WHERE id_usuario='${req.user.id}'`
+        `SELECT id FROM perfiles WHERE id_usuario='${req.user.id}'`,
       )
     ).rows[0];
 
@@ -82,7 +82,7 @@ const crearPerfil = async (req, res) => {
     return res.status(200).json({
       id: req.user.id,
       email: req.user.email,
-      id_perfil: id_perfil.id
+      id_perfil: id_perfil.id,
     });
   } catch (error) {
     return res.json({ mensaje: 'Ha ocurrido un error!', error: error.message });
@@ -94,7 +94,7 @@ const cargarDatosPerfil = async (req, res) => {
   try {
     const perfil = await (
       await pool.query(
-        `SELECT * FROM perfiles WHERE id = '${req.body.idPerfil}'`
+        `SELECT * FROM perfiles WHERE id = '${req.body.idPerfil}'`,
       )
     ).rows[0];
 
@@ -110,7 +110,7 @@ const editarPerfil = async (req, res) => {
     //cargar datos del perfil del usuario
     let perfil = await (
       await pool.query(
-        `SELECT nombre,apellido,pais,genero,ciudad,fecha_nacimiento FROM perfiles WHERE id_usuario='${req.user.id}'`
+        `SELECT nombre,apellido,pais,genero,ciudad,fecha_nacimiento FROM perfiles WHERE id_usuario='${req.user.id}'`,
       )
     ).rows[0];
 
@@ -154,8 +154,8 @@ const editarPerfil = async (req, res) => {
         perfil.pais,
         perfil.ciudad,
         perfil.fechaNacimiento,
-        req.user.id
-      ]
+        req.user.id,
+      ],
     };
 
     await pool.query(query);
@@ -174,7 +174,7 @@ const cambiarFotoPerfil = async (req, res) => {
     //obtener url de la foto actual desde la base de datos
     const url = await (
       await pool.query(
-        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`
+        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`,
       )
     ).rows[0].foto;
 
@@ -192,7 +192,7 @@ const cambiarFotoPerfil = async (req, res) => {
     //actualizar la base de datos con la nueva foto
     const query = {
       text: 'UPDATE perfiles SET foto=$1 WHERE id_usuario=$2',
-      values: [foto, req.user.id]
+      values: [foto, req.user.id],
     };
 
     await pool.query(query);
@@ -211,7 +211,7 @@ const eliminarFotoPerfil = async (req, res) => {
     //obtener url de la foto desde la base de datos
     const url = await (
       await pool.query(
-        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`
+        `SELECT foto FROM perfiles WHERE id_usuario='${req.user.id}'`,
       )
     ).rows[0].foto;
 
@@ -223,7 +223,7 @@ const eliminarFotoPerfil = async (req, res) => {
 
     //borrar foto de la base de datos
     await pool.query(
-      `UPDATE perfiles SET foto='' WHERE id_usuario='${req.user.id}'`
+      `UPDATE perfiles SET foto='' WHERE id_usuario='${req.user.id}'`,
     );
 
     return res.status(200).send('Foto de perfil eliminada con exito!');
@@ -239,5 +239,5 @@ module.exports = {
   editarPerfil,
   cambiarFotoPerfil,
   eliminarFotoPerfil,
-  cargarDatosPerfil
+  cargarDatosPerfil,
 };

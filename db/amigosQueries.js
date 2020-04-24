@@ -7,7 +7,7 @@ const enviarSolicitud = async (req, res) => {
       await pool.query(
         `SELECT * FROM amistades WHERE 
       id_usuario1='${req.user.id}' AND id_usuario2='${req.params.idUsuario2}' 
-      OR id_usuario1='${req.params.idUsuario2}' AND id_usuario2='${req.user.id}'`
+      OR id_usuario1='${req.params.idUsuario2}' AND id_usuario2='${req.user.id}'`,
       )
     ).rows[0];
 
@@ -18,8 +18,14 @@ const enviarSolicitud = async (req, res) => {
     //si no hay una solicitud entonces enviar una
     const query = {
       text:
-        'INSERT INTO amistades (id_usuario1,id_usuario2,status,fecha) VALUES ($1,$2,$3,$4)',
-      values: [req.user.id, req.params.idUsuario2, 0, new Date().toISOString()]
+        'INSERT INTO amistades (id_usuario1,id_usuario2,status,fecha,mensaje) VALUES ($1,$2,$3,$4,$5)',
+      values: [
+        req.user.id,
+        req.params.idUsuario2,
+        0,
+        new Date().toISOString(),
+        req.body.mensaje,
+      ],
     };
 
     await pool.query(query);
@@ -36,7 +42,7 @@ const verSolicitudesPendientes = async (req, res) => {
   try {
     //obtener todas las solicitudes pendientes para el usuario logeado
     const query = `SELECT 
-     amistades.id AS id_solicitud, nombre, apellido, foto, id_usuario1 AS id_solicitante, status, fecha
+     amistades.id AS id_solicitud, mensaje, email, perfiles.id AS id_perfil, nombre, apellido, foto, id_usuario1 AS id_solicitante, status, fecha
      FROM perfiles 
      JOIN usuarios 
      ON usuarios.id = perfiles.id_usuario 
@@ -54,11 +60,29 @@ const verSolicitudesPendientes = async (req, res) => {
   }
 };
 
+const verSolicitudesEnviadasPendientes = async (req, res) => {
+  try {
+    //buscar las solicitudes enviadas que estan pendientes
+    const query = `SELECT amistades.id AS id_solicitud, nombre, perfiles.id AS id_perfil, mensaje, id_usuario2 AS id_usuario_solicitado
+    FROM amistades
+    JOIN perfiles
+    ON amistades.id_usuario2 = perfiles.id_usuario
+    WHERE id_usuario1 = '${req.user.id}' and status = 0`;
+
+    const solicitudesEnviadasPendientes = await (await pool.query(query)).rows;
+
+    //devolver solicitudes
+    return res.status(200).json(solicitudesEnviadasPendientes);
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo salio mal', error });
+  }
+};
+
 const aceptarSolicitud = async (req, res) => {
   try {
     const respuesta = await (
       await pool.query(
-        `UPDATE amistades SET status = 1 WHERE id='${req.params.idSolicitud}'`
+        `UPDATE amistades SET status = 1 WHERE id='${req.params.idSolicitud}'`,
       )
     ).rowCount;
 
@@ -78,7 +102,7 @@ const rechazarSolicitud = async (req, res) => {
   try {
     const respuesta = await (
       await pool.query(
-        `DELETE FROM amistades WHERE id='${req.params.idSolicitud}'`
+        `DELETE FROM amistades WHERE id='${req.params.idSolicitud}'`,
       )
     ).rowCount;
 
@@ -100,7 +124,7 @@ const eliminarAmigo = async (req, res) => {
       await pool.query(
         `DELETE FROM amistades 
       WHERE id_usuario1='${req.user.id}' AND id_usuario2='${req.params.idAmigo}' AND status = 1
-      OR id_usuario1='${req.params.idAmigo}' AND id_usuario2='${req.user.id}' AND status = 1`
+      OR id_usuario1='${req.params.idAmigo}' AND id_usuario2='${req.user.id}' AND status = 1`,
       )
     ).rowCount;
 
@@ -144,5 +168,6 @@ module.exports = {
   aceptarSolicitud,
   rechazarSolicitud,
   eliminarAmigo,
-  verListaAmigos
+  verListaAmigos,
+  verSolicitudesEnviadasPendientes,
 };

@@ -8,7 +8,9 @@ import {
   BUSCAR_USUARIOS_INICIO,
   BUSCAR_USUARIOS_ERROR,
   USER_REGISTER_INICIADO,
-  USER_REGISTER_ERROR
+  USER_REGISTER_ERROR,
+  CARGAR_SOLICITUDES_ERROR,
+  CARGAR_SOLICITUDES_INICIO,
 } from '../types';
 
 const initialState = {
@@ -16,7 +18,8 @@ const initialState = {
   logoutError: '',
   perfilError: '',
   buscarError: '',
-  registerError: ''
+  registerError: '',
+  solicitudesError: '',
 };
 
 export default function ErrorsReducer(state = initialState, action) {
@@ -24,52 +27,62 @@ export default function ErrorsReducer(state = initialState, action) {
     case USER_LOGIN_INICIADO:
       return {
         ...state,
-        loginError: ''
+        loginError: '',
       };
     case USER_LOGIN_ERROR:
       return {
         ...state,
-        loginError: action.payload
+        loginError: action.payload,
       };
     case USER_LOGOUT_INICIADO:
       return {
         ...state,
-        logoutError: ''
+        logoutError: '',
       };
     case USER_LOGOUT_ERROR:
       return {
         ...state,
-        logoutError: action.payload
+        logoutError: action.payload,
       };
     case CARGAR_PERFIL_INICIADO:
       return {
         ...state,
-        perfilError: ''
+        perfilError: '',
       };
     case CARGAR_PERFIL_ERROR:
       return {
         ...state,
-        perfilError: action.payload
+        perfilError: action.payload,
       };
     case BUSCAR_USUARIOS_INICIO:
       return {
         ...state,
-        buscarError: ''
+        buscarError: '',
       };
     case BUSCAR_USUARIOS_ERROR:
       return {
         ...state,
-        buscarError: action.payload
+        buscarError: action.payload,
       };
     case USER_REGISTER_INICIADO:
       return {
         ...state,
-        registerError: ''
+        registerError: '',
       };
     case USER_REGISTER_ERROR:
       return {
         ...state,
-        registerError: action.payload
+        registerError: action.payload,
+      };
+    case CARGAR_SOLICITUDES_INICIO:
+      return {
+        ...state,
+        solicitudesError: '',
+      };
+    case CARGAR_SOLICITUDES_ERROR:
+      return {
+        ...state,
+        solicitudesError: action.payload,
       };
 
     default:

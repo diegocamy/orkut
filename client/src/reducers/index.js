@@ -5,12 +5,14 @@ import buscarReducer from './BuscarReducer';
 import registerReducer from './RegisterReducer';
 import crearPerfilReducer from './CrearPerfilReducer';
 import cargarPerfilReducer from './PerfilReducer';
+import cargarSolicitudesReducer from './SolicitudesReducer';
 
 export default combineReducers({
   login: LoginReducer,
   perfil: cargarPerfilReducer,
+  solicitudes: cargarSolicitudesReducer,
   errores: ErrorsReducer,
   crearPerfil: crearPerfilReducer,
   buscar: buscarReducer,
-  registro: registerReducer
+  registro: registerReducer,
 });
