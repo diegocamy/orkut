@@ -6,6 +6,7 @@ import {
   CARGAR_PERFIL_EXITO,
 } from '../types';
 import { cargarSolicitudesPendientes } from './CargarSolicitudesPendientesAction';
+import { cargarScraps } from './CargarScrapsAction';
 
 export const cargarPerfilAction = idPerfil => async dispatch => {
   try {
@@ -19,6 +20,7 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
         },
       )
     ).data;
+    dispatch(cargarScraps(perfil.id_usuario));
     const amigos = await (
       await axios.post(
         '/api/amigos/verListaAmigos',

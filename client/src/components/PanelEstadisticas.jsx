@@ -3,16 +3,22 @@ import './PanelEstadisticas.css';
 
 import { cargarDatosPerfil } from '../utils';
 import PanelSolicitudes from './PanelSolicitudes';
+import { Link } from 'react-router-dom';
 
-const estadisticasDashboard = (perfil, solicitudes) => {
+const estadisticasDashboard = (perfil, solicitudes, scraps) => {
   return (
     <div className='superior'>
       <div className='PanelEstadisticas sombra'>
         <h2>Bienvenido(a), {perfil.nombre}</h2>
         <div className='estadisticas'>
           <div>
-            <p>scraps</p>
-            <p>📝 276</p>
+            <Link
+              to={`/scrapbook/${perfil.id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <p>scraps</p>
+              <p>📝 {scraps.length}</p>
+            </Link>
           </div>
           <div>
             <p>fans</p>
@@ -50,7 +56,7 @@ const estadisticasDashboard = (perfil, solicitudes) => {
   );
 };
 
-const estadisticasPerfil = perfil => {
+const estadisticasPerfil = (perfil, scraps) => {
   return (
     <div className='superior'>
       <div className='PanelEstadisticas sombra'>
@@ -60,8 +66,13 @@ const estadisticasPerfil = perfil => {
         <hr style={{ marginBottom: '-15px', width: '97%', margin: 'auto' }} />
         <div className='estadisticas'>
           <div>
-            <p>scraps</p>
-            <p>📝 276</p>
+            <Link
+              to={`/scrapbook/${perfil.id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <p>scraps</p>
+              <p>📝 {scraps.length}</p>
+            </Link>
           </div>
           <div>
             <p>fans</p>
@@ -83,11 +94,11 @@ const estadisticasPerfil = perfil => {
   );
 };
 
-const PanelEstadisticas = ({ perfil, usuario, solicitudes }) => {
+const PanelEstadisticas = ({ perfil, usuario, solicitudes, scraps }) => {
   if (perfil.id === usuario.id_perfil) {
-    return estadisticasDashboard(perfil, solicitudes);
+    return estadisticasDashboard(perfil, solicitudes, scraps);
   } else {
-    return estadisticasPerfil(perfil);
+    return estadisticasPerfil(perfil, scraps);
   }
 };
 

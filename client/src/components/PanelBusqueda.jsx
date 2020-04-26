@@ -22,7 +22,7 @@ const usuariosEncontrados = usuarios => {
             <p>{usuario.ciudad}</p>
             <p>{usuario.pais}</p>
             <div>
-              <p>📝 235 scraps</p>
+              <p>📝 {usuario.scraps} scraps</p>
               <p>🙍‍♂️ 25 amigos en comun</p>
             </div>
           </div>

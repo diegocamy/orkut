@@ -1,0 +1,125 @@
+.enviar-scrap {
+  min-width: 100%;
+  margin: 0 0 10px 15px;
+  background: white;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.enviar-scrap textarea {
+  resize: vertical;
+  width: 55%;
+  height: 100px;
+}
+
+.enviar-scrap button {
+  margin: 0 5px;
+  padding: 2px 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.enviar-scrap button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.PanelScraps {
+  background: white;
+  width: 100%;
+  margin-left: 15px;
+  border-radius: 7px;
+  padding: 10px;
+  height: fit-content;
+  margin-bottom: 10px;
+}
+
+.PanelScraps h2 {
+  margin-bottom: 10px;
+}
+
+.PanelScraps .scraps .scrap {
+  display: flex;
+  background: #edf8fe;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.PanelScraps .scraps .scrap .foto {
+  width: 10%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.PanelScraps .scraps .scrap .foto img {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.PanelScraps .scraps .scrap .contenido {
+  width: 90%;
+  word-wrap: break-word;
+}
+
+.PanelScraps .scraps .scrap .contenido .superior {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.PanelScraps .scraps .scrap .contenido .superior a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+  font-weight: bold;
+}
+
+.PanelScraps .scraps .scrap .contenido .superior div {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.9rem;
+}
+
+.PanelScraps .scraps .scrap .contenido div:nth-child(3) {
+  padding: 5px;
+}
+
+.PanelScraps .scraps .scrap .contenido div:nth-child(3) textarea {
+  resize: vertical;
+  width: 100%;
+}
+
+.PanelScraps .scraps .scrap .contenido .superior div p {
+  margin: 0;
+  padding: 2px;
+}
+
+.PanelScraps .scraps .scrap .contenido .superior div button {
+  margin: 0 5px;
+  padding: 2px 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.PanelScraps .scraps .scrap .contenido .superior div button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-responder {
+  color: rgb(45, 121, 126);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.btn-responder:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -231,7 +231,7 @@ const buscarUsuario = async (req, res) => {
 
     //crear query para buscar por nombre o apellido
     const query =
-      'SELECT id_usuario, id as id_perfil,genero, nombre, apellido, pais, ciudad, foto FROM perfiles WHERE ' +
+      'SELECT id_usuario, id as id_perfil,genero, nombre, apellido, pais, ciudad, foto, (SELECT COUNT(receptor) AS scraps FROM scraps WHERE receptor = perfiles.id_usuario) FROM perfiles WHERE ' +
       arrayFiltros.join(' OR ');
 
     const perfiles = await (await pool.query(query)).rows;

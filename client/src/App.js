@@ -5,6 +5,7 @@ import Dashboard from './containers/Dashboard';
 import Buscar from './containers/Buscar';
 import CrearPerfil from './containers/CrearPerfil';
 import Perfil from './containers/Perfil';
+import Scrapbook from './containers/Scrapbook';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path='/buscar' component={Buscar} />
           <Route exact path='/crearPerfil' component={CrearPerfil} />
           <Route exact path='/perfil/:id_perfil' component={Perfil} />
+          <Route exact path='/scrapbook/:id_perfil' component={Scrapbook} />
           <Route path='*' component={Home} />
         </Switch>
       </div>

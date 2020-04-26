@@ -31,7 +31,7 @@ const panelDashboard = (perfil, sexo) => (
         <a href='#'>🙍‍♂️ perfil</a>
       </li>
       <li>
-        <a href='#'>📝 scrapbook</a>
+        <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
       </li>
       <li>
         <a href='#'>👥 amigos</a>
@@ -212,7 +212,7 @@ const panelPerfil = (
           <a href='#'>🙍‍♂️ perfil</a>
         </li>
         <li>
-          <a href='#'>📝 scrapbook</a>
+          <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
         </li>
         <li>
           <a href='#'>🌞 testimonios</a>

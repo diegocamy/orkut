@@ -1,6 +1,5 @@
 const express = require('express');
 const route = express.Router();
-const passport = require('passport');
 
 const authMiddleware = require('../auth/middleware');
 

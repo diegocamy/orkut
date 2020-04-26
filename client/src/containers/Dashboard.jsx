@@ -21,7 +21,7 @@ const Dashboard = ({
   solicitudes,
   cargarPerfilAction,
   mensajeSolicitudes,
-  cargarSolicitudesPendientes,
+  scraps,
 }) => {
   useEffect(() => {
     if (!logeado) {
@@ -34,7 +34,6 @@ const Dashboard = ({
 
     if (logeado) {
       cargarPerfilAction(usuario.id_perfil);
-      // cargarSolicitudesPendientes();
     }
   }, [logeado, usuario, history]);
 
@@ -49,6 +48,7 @@ const Dashboard = ({
         <div className='container'>
           <PanelIzquierdoPerfil perfil={perfil} usuario={usuario} />
           <PanelEstadisticas
+            scraps={scraps}
             perfil={perfil}
             usuario={usuario}
             solicitudes={solicitudes}
@@ -70,6 +70,7 @@ const mapStateToProps = state => {
     perfil: state.perfil.perfil,
     solicitudes: state.solicitudes.solicitudes,
     mensajeSolicitudes: state.solicitudes.mensaje,
+    scraps: state.scraps.scraps,
   };
 };
 

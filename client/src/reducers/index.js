@@ -6,6 +6,7 @@ import registerReducer from './RegisterReducer';
 import crearPerfilReducer from './CrearPerfilReducer';
 import cargarPerfilReducer from './PerfilReducer';
 import cargarSolicitudesReducer from './SolicitudesReducer';
+import scrapsReducer from './ScrapsReducer';
 
 export default combineReducers({
   login: LoginReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   crearPerfil: crearPerfilReducer,
   buscar: buscarReducer,
   registro: registerReducer,
+  scraps: scrapsReducer,
 });

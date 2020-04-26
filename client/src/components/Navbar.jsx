@@ -24,7 +24,7 @@ const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
             <Link to='/dashboard'>Home</Link>
           </li>
           <li>
-            <Link to='/'>Scrapbook</Link>
+            <Link to={`/scrapbook/${usuario.id_perfil}`}>Scrapbook</Link>
           </li>
           <li>
             <Link to='/'>Amigos</Link>
@@ -56,10 +56,10 @@ const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
 
 const mapStateToProps = state => {
   return {
-    usuario: state.login.usuario
+    usuario: state.login.usuario,
   };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { userLogout, buscarUsuarios })(Navbar)
+  connect(mapStateToProps, { userLogout, buscarUsuarios })(Navbar),
 );

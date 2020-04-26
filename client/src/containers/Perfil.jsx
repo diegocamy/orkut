@@ -21,6 +21,7 @@ const Perfil = ({
   solicitudes,
   cargarPerfilAction,
   enviadas,
+  scraps,
 }) => {
   useEffect(() => {
     const idPerfil = match.params.id_perfil;
@@ -48,7 +49,11 @@ const Perfil = ({
             solicitudes={solicitudes}
             enviadas={enviadas}
           />
-          <PanelEstadisticas perfil={perfil} usuario={usuario} />
+          <PanelEstadisticas
+            perfil={perfil}
+            usuario={usuario}
+            scraps={scraps}
+          />
           <PanelDerechoAmigos amigos={perfil.amigos} />
         </div>
       </div>
@@ -65,6 +70,7 @@ const mapStateToProps = state => {
     cargandoPerfil: state.perfil.cargandoPerfil,
     solicitudes: state.solicitudes.solicitudes,
     enviadas: state.solicitudes.enviadas,
+    scraps: state.scraps.scraps,
   };
 };
 
