@@ -8,14 +8,14 @@ const multer = require('multer');
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 //cloudinary storage
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'orkut',
-  allowedFormats: ['jpg', 'png']
+  allowedFormats: ['jpg', 'png'],
 });
 
 const upload = multer({ storage });
@@ -51,7 +51,7 @@ route.post(
   '/cambiarFotoPerfil',
   authMiddleware,
   upload.single('foto'),
-  cambiarFotoPerfil
+  cambiarFotoPerfil,
 );
 
 // RUTA PRIVADA
@@ -59,12 +59,7 @@ route.post(
 // descripcion: para eliminar la foto del perfil
 // ruta: /api/perfiles/eliminarFotoPerfil
 
-route.post(
-  '/eliminarFotoPerfil',
-  authMiddleware,
-  upload.single('foto'),
-  eliminarFotoPerfil
-);
+route.post('/eliminarFotoPerfil', authMiddleware, eliminarFotoPerfil);
 
 // RUTA PRIVADA
 // metodo: GET

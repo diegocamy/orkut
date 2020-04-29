@@ -13,10 +13,35 @@ import { aceptarSolicitud } from '../actions/AceptarSolicitudAction';
 import { rechazarSolicitud } from '../actions/RechazarSolicitudAction';
 import { eliminarAmistad } from '../actions/EliminarAmistadAction';
 import { enviarSolicitud } from '../actions/EnviarSoliciudAction';
+import { cambiarFoto } from '../actions/CambiarFotoAction';
+import { eliminarFoto } from '../actions/EliminarFotoAction';
 
-const panelDashboard = (perfil, sexo) => (
+const panelDashboard = (perfil, sexo, match, cambiarFoto, eliminarFoto) => (
   <div className='PanelIzquierdoDashboard sombra'>
     <img src={perfil.foto || noavatar} alt='avatar' />
+    {match && match.path === '/editarPerfil' && (
+      <div style={{ textAlign: 'center' }}>
+        <form onSubmit={e => e.preventDefault()}>
+          <label htmlFor='cambiar-foto' className='enlace'>
+            Cambiar Foto
+          </label>
+          <input
+            type='file'
+            id='cambiar-foto'
+            multiple={false}
+            style={{ display: 'none' }}
+            onChange={e => {
+              const datos = new FormData();
+              datos.append('foto', e.target.files[0]);
+              cambiarFoto(perfil.id, datos);
+            }}
+          />
+        </form>
+        <button className='enlace' onClick={e => eliminarFoto(perfil.id)}>
+          Borrar Foto
+        </button>
+      </div>
+    )}
     <hr />
     <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
     <p>{sexo}</p>
@@ -24,11 +49,11 @@ const panelDashboard = (perfil, sexo) => (
       {perfil.ciudad}, {perfil.pais}
     </p>
     <hr />
-    <a href='#'>🔨 editar perfil</a>
+    <Link to='/editarPerfil'>🔨 editar perfil</Link>
     <hr />
     <ul>
       <li>
-        <a href='#'>🙍‍♂️ perfil</a>
+        <Link to='/dashboard'>🙍‍♂️ perfil</Link>
       </li>
       <li>
         <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
@@ -63,9 +88,13 @@ const panelPerfil = (
   enviarSolicitud,
   enviadas,
 ) => {
-  const sonAmigos = perfil.amigos.find(
-    amigo => Number(amigo.id) === Number(usuario.id),
-  );
+  let sonAmigos;
+
+  if (perfil && perfil.amigos.length > 0) {
+    sonAmigos = perfil.amigos.find(
+      amigo => Number(amigo.id) === Number(usuario.id),
+    );
+  }
 
   let solicitudExistente;
   let solicitudEnviadaExistente;
@@ -209,7 +238,7 @@ const panelPerfil = (
       <hr />
       <ul>
         <li>
-          <a href='#'>🙍‍♂️ perfil</a>
+          <Link to={`/perfil/${perfil.id}`}>🙍‍♂️ perfil</Link>
         </li>
         <li>
           <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
@@ -232,6 +261,9 @@ const PanelIzquierdoPerfil = ({
   eliminarAmistad,
   enviarSolicitud,
   enviadas,
+  cambiarFoto,
+  eliminarFoto,
+  match,
 }) => {
   let sexo;
   if (perfil.genero === 0) {
@@ -247,8 +279,8 @@ const PanelIzquierdoPerfil = ({
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
 
-  if (perfil.id === usuario.id_perfil) {
-    return panelDashboard(perfil, sexo);
+  if (perfil && usuario && perfil.id === usuario.id_perfil) {
+    return panelDashboard(perfil, sexo, match, cambiarFoto, eliminarFoto);
   } else {
     return panelPerfil(
       perfil,
@@ -274,4 +306,6 @@ export default connect(null, {
   rechazarSolicitud,
   eliminarAmistad,
   enviarSolicitud,
+  cambiarFoto,
+  eliminarFoto,
 })(PanelIzquierdoPerfil);

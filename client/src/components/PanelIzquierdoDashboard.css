@@ -46,3 +46,15 @@
 .PanelIzquierdoDashboard ul li:last-child {
   border-bottom: 1px solid lightgray;
 }
+
+.enlace {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+  border: none;
+  background: transparent;
+}
+
+.enlace:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

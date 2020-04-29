@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import { crearPerfil } from '../actions/CrearPerfilAction';
+import * as yup from 'yup';
 
 import './CrearPerfilForm.css';
 
-const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
-  const [foto, setFoto] = useState('');
+const formatDate = date => {
+  let d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
 
-  useEffect(() => {}, [cargando, history]);
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
 
+  return [year, month, day].join('-');
+};
+
+const PanelEditarPerfil = ({ perfil, editarPerfil }) => {
   const schema = yup.object().shape({
     nombre: yup
       .string()
@@ -35,46 +40,29 @@ const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
       .max(255, 'Maximo 255 caracteres')
       .min(2, 'Minimo 2 caracteres')
       .required('Debe ingresar un ciudad'),
-    fecha_nacimiento: yup
+    fechaNacimiento: yup
       .date()
       .required('Debe ingresar una fecha de nacimiento'),
   });
 
-  const handleFile = event => {
-    const fotoPerfil = event.target.files[0];
-    setFoto(fotoPerfil);
-  };
-
-  if (cargando) {
-    return <h1>CARGANDOOOO</h1>;
-  }
+  const fecha_N = formatDate(new Date(perfil.fecha_nacimiento));
 
   return (
-    <div className='CrearPerfilForm sombra '>
-      <h2>Crear Perfil</h2>
+    <div className='CrearPerfilForm sombra margen'>
+      <h2>Editar Perfil</h2>
       <Formik
         initialValues={{
-          nombre: '',
-          apellido: '',
-          genero: 0,
-          pais: '',
-          ciudad: '',
-          fecha_nacimiento: '',
+          nombre: perfil.nombre,
+          apellido: perfil.apellido,
+          genero: perfil.genero,
+          pais: perfil.pais,
+          ciudad: perfil.ciudad,
+          fechaNacimiento: fecha_N,
         }}
         validationSchema={schema}
         onSubmit={async (values, { setSubmitting }) => {
-          values.foto = foto;
-          const datos = new FormData();
-          datos.append('nombre', values.nombre);
-          datos.append('apellido', values.apellido);
-          datos.append('genero', values.genero);
-          datos.append('pais', values.pais);
-          datos.append('ciudad', values.ciudad);
-          datos.append('fechaNacimiento', values.fecha_nacimiento);
-          datos.append('foto', values.foto || '');
-
-          //enviar datos! TODO
-          await crearPerfil(datos, history);
+          //ACTUALIZAR PERFIL
+          editarPerfil(perfil.id, values);
         }}
       >
         {({ isSubmitting }) => (
@@ -123,27 +111,14 @@ const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
               </li>
               <li>
                 <div>
-                  <label htmlFor='fecha_nacimiento'>
-                    Fecha de Nacimiento:{' '}
-                  </label>
+                  <label htmlFor='fechaNacimiento'>Fecha de Nacimiento: </label>
                 </div>
-                <Field type='date' name='fecha_nacimiento' />
-                <ErrorMessage name='fecha_nacimiento' component='span' />
-              </li>
-              <li>
-                <div>
-                  <label htmlFor='foto'>Foto de perfil: </label>
-                </div>
-                <input
-                  type='file'
-                  name='foto'
-                  multiple={false}
-                  onChange={handleFile}
-                />
+                <Field type='date' name='fechaNacimiento' />
+                <ErrorMessage name='fechaNacimiento' component='span' />
               </li>
             </ul>
             <button type='submit' disabled={isSubmitting}>
-              enviar
+              actualizar
             </button>
           </Form>
         )}
@@ -152,12 +127,4 @@ const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    cargando: state.crearPerfil.cargando,
-  };
-};
-
-export default withRouter(
-  connect(mapStateToProps, { crearPerfil })(CrearPerfilForm),
-);
+export default PanelEditarPerfil;

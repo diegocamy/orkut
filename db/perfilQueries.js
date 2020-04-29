@@ -114,7 +114,7 @@ const editarPerfil = async (req, res) => {
       )
     ).rows[0];
 
-    //cambiar nomobre del campo fecha_nacimiento a fechaNacimiento
+    //cambiar nombre del campo fecha_nacimiento a fechaNacimiento
     perfil.fechaNacimiento = perfil.fecha_nacimiento;
     delete perfil.fecha_nacimiento;
 
@@ -125,8 +125,9 @@ const editarPerfil = async (req, res) => {
     req.body.pais && (perfil.pais = req.body.pais);
     req.body.ciudad && (perfil.ciudad = req.body.ciudad);
     if (req.body.fechaNacimiento) {
-      const arrFecha = req.body.fechaNacimiento.split('/');
-      const fecha = new Date(arrFecha[2], arrFecha[1], arrFecha[0]);
+      const arrFecha = req.body.fechaNacimiento.split('-');
+      arrFecha[2] = (Number(arrFecha[2]) + 1).toString();
+      const fecha = new Date(arrFecha.join('-'));
       perfil.fechaNacimiento = fecha;
     }
 
@@ -162,6 +163,7 @@ const editarPerfil = async (req, res) => {
 
     return res.status(200).send('Perfil actualizado!');
   } catch (error) {
+    console.log(error);
     return res
       .status(400)
       .json({ mensaje: 'Algo ha salido mal!', error: error.message });

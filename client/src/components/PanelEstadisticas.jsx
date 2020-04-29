@@ -95,7 +95,7 @@ const estadisticasPerfil = (perfil, scraps) => {
 };
 
 const PanelEstadisticas = ({ perfil, usuario, solicitudes, scraps }) => {
-  if (perfil.id === usuario.id_perfil) {
+  if (perfil && usuario && perfil.id === usuario.id_perfil) {
     return estadisticasDashboard(perfil, solicitudes, scraps);
   } else {
     return estadisticasPerfil(perfil, scraps);

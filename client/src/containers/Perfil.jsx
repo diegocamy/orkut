@@ -22,15 +22,24 @@ const Perfil = ({
   cargarPerfilAction,
   enviadas,
   scraps,
+  logeado,
 }) => {
   useEffect(() => {
     const idPerfil = match.params.id_perfil;
+
+    if (!logeado) {
+      history.push('/');
+    }
+
     if (usuario) {
       if (usuario.id_perfil === Number(idPerfil)) {
         history.push('/dashboard');
       }
     }
-    cargarPerfilAction(idPerfil);
+
+    if (logeado) {
+      cargarPerfilAction(idPerfil);
+    }
     // cargarSolicitudesPendientes();
   }, [match.params.id_perfil, usuario]);
 
@@ -66,6 +75,7 @@ const Perfil = ({
 const mapStateToProps = state => {
   return {
     usuario: state.login.usuario,
+    logeado: state.login.logeado,
     perfil: state.perfil.perfil,
     cargandoPerfil: state.perfil.cargandoPerfil,
     solicitudes: state.solicitudes.solicitudes,

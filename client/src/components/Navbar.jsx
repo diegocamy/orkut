@@ -33,7 +33,7 @@ const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
       </div>
       <div className='derecha'>
         <span className='email'>{usuario.email}</span>
-        <button className='btn-salir' onClick={() => userLogout()}>
+        <button className='btn-salir' onClick={() => userLogout(history)}>
           Salir
         </button>
         <form onSubmit={e => buscarUsuario(e)}>

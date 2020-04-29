@@ -6,6 +6,7 @@ import Buscar from './containers/Buscar';
 import CrearPerfil from './containers/CrearPerfil';
 import Perfil from './containers/Perfil';
 import Scrapbook from './containers/Scrapbook';
+import EditarPerfil from './containers/EditarPerfil';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route exact path='/crearPerfil' component={CrearPerfil} />
           <Route exact path='/perfil/:id_perfil' component={Perfil} />
           <Route exact path='/scrapbook/:id_perfil' component={Scrapbook} />
+          <Route exact path='/editarPerfil' component={EditarPerfil} />
           <Route path='*' component={Home} />
         </Switch>
       </div>

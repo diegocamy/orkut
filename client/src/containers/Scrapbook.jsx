@@ -28,8 +28,8 @@ const Scrapbook = ({
       history.push('/');
     }
 
-    const idPerfil = match.params.id_perfil;
-    cargarPerfilAction(idPerfil);
+    // const idPerfil = match.params.id_perfil;
+    // cargarPerfilAction(idPerfil);
   }, [match.params.id_perfil, usuario]);
 
   if (!cargandoPerfil && perfil) {
