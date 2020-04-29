@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { crearPerfil } from '../actions/CrearPerfilAction';
 
 import './CrearPerfilForm.css';
+import Spinner from './Spinner';
 
 const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
   const [foto, setFoto] = useState('');
@@ -46,7 +47,17 @@ const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
   };
 
   if (cargando) {
-    return <h1>CARGANDOOOO</h1>;
+    return (
+      <div
+        style={{
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Spinner style={{ margin: '0 auto' }} />
+      </div>
+    );
   }
 
   return (

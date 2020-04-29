@@ -1,0 +1,53 @@
+.PanelTodosLosAmigos {
+  background: white;
+  margin-left: 15px;
+  border-radius: 7px;
+  padding: 10px;
+  height: fit-content;
+  width: 85%;
+}
+
+.filtro {
+  padding: 5px;
+}
+
+.filtro input {
+  width: 25%;
+}
+
+.contenedor-amigos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.amigo {
+  display: flex;
+  width: 32%;
+  background: #edf8fe;
+  margin: 5px;
+}
+
+.amigo .foto {
+  width: 35%;
+  padding: 3px 0;
+  height: fit-content;
+  text-align: center;
+}
+
+.amigo .foto img {
+  width: 75%;
+  padding: 3px;
+  border: solid 0.5px lightgrey;
+  border-radius: 3px;
+}
+
+.amigo .info {
+  padding: 3px;
+}
+
+.amigo .info a {
+  color: rgb(45, 121, 126);
+  text-decoration: none;
+}

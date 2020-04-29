@@ -59,7 +59,7 @@ const panelDashboard = (perfil, sexo, match, cambiarFoto, eliminarFoto) => (
         <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
       </li>
       <li>
-        <a href='#'>👥 amigos</a>
+        <Link to={`/amigos/${perfil.id}`}>👥 amigos</Link>
       </li>
       <li>
         <a href='#'>🌞 testimonios</a>
@@ -242,6 +242,9 @@ const panelPerfil = (
         </li>
         <li>
           <Link to={`/scrapbook/${perfil.id}`}>📝 scrapbook</Link>
+        </li>
+        <li>
+          <Link to={`/amigos/${perfil.id}`}>👥 amigos</Link>
         </li>
         <li>
           <a href='#'>🌞 testimonios</a>

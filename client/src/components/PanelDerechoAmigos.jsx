@@ -5,7 +5,7 @@ import './PanelDerechoAmigos.css';
 import noavatar from '../img/noavatar.png';
 
 const mostrarAmigos = amigos => {
-  return amigos.map(amigo => {
+  return amigos.slice(0, 9).map(amigo => {
     return (
       <div key={amigo.id}>
         <img src={amigo.foto || noavatar} alt='foto-amigo' />
@@ -26,7 +26,7 @@ const PanelDerechoAmigos = ({ amigos }) => {
       <div className='box-amigos'>{mostrarAmigos(amigos)}</div>
       <hr />
       <div className='ver-todos'>
-        <a href='#'>ver todos</a>
+        <Link to='/amigos'>ver todos</Link>
       </div>
     </div>
   );
