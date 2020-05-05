@@ -17,16 +17,16 @@ const mostrarAmigos = amigos => {
   });
 };
 
-const PanelDerechoAmigos = ({ amigos }) => {
+const PanelDerechoAmigos = ({ amigos, perfil }) => {
   return (
     <div className='PanelDerechoAmigos sombra'>
       <h3>
-        amigos <a href='#'>({amigos.length})</a>
+        amigos <Link to={`/amigos/${perfil.id}`}>({amigos.length})</Link>
       </h3>
       <div className='box-amigos'>{mostrarAmigos(amigos)}</div>
       <hr />
       <div className='ver-todos'>
-        <Link to='/amigos'>ver todos</Link>
+        <Link to={`/amigos/${perfil.id}`}>ver todos</Link>
       </div>
     </div>
   );

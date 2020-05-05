@@ -7,6 +7,7 @@ import crearPerfilReducer from './CrearPerfilReducer';
 import cargarPerfilReducer from './PerfilReducer';
 import cargarSolicitudesReducer from './SolicitudesReducer';
 import scrapsReducer from './ScrapsReducer';
+import visitasReducer from './VisitasReducer';
 
 export default combineReducers({
   login: LoginReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   buscar: buscarReducer,
   registro: registerReducer,
   scraps: scrapsReducer,
+  visitas: visitasReducer,
 });

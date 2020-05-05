@@ -52,6 +52,7 @@
   color: rgb(45, 121, 126);
   border: none;
   background: transparent;
+  font-weight: normal;
 }
 
 .enlace:hover {

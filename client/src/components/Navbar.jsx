@@ -12,7 +12,9 @@ const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
 
   const buscarUsuario = e => {
     e.preventDefault();
-    buscarUsuarios(busqueda, history);
+    if (busqueda) {
+      buscarUsuarios(busqueda, history);
+    }
   };
 
   return (

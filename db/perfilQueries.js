@@ -236,10 +236,113 @@ const eliminarFotoPerfil = async (req, res) => {
   }
 };
 
+//registrar una visita a un perfil
+const registrarVisita = async (req, res) => {
+  try {
+    const idUsuarioVisitado = req.params.idUsuarioVisitado;
+    const query = {
+      text:
+        'INSERT INTO visitas (id_visitante,id_perfil_visitado,fecha_visita) VALUES ($1,$2,$3)',
+      values: [req.user.id, idUsuarioVisitado, new Date().toISOString()],
+    };
+
+    const respuesta = await pool.query(query);
+
+    return res.status(200).send('Perfil Visitado');
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo ha salido mal', error });
+  }
+};
+
+//estadisticas de visitas
+const estadisticasVisitas = async (req, res) => {
+  try {
+    const visitasTotales = await (
+      await pool.query(`
+      SELECT COUNT(id) 
+      FROM visitas 
+      WHERE id_perfil_visitado = '${req.user.id_perfil}'
+     `)
+    ).rows[0];
+    const visitasUltimaSemana = await (
+      await pool.query(`
+      SELECT COUNT(id) FROM visitas
+      WHERE fecha_visita >= NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-7
+      AND fecha_visita <  NOW()::DATE-EXTRACT(DOW from NOW())::INTEGER AND id_perfil_visitado = '${req.user.id_perfil}'
+    `)
+    ).rows[0];
+    const visitantesUltimas24h = await (
+      await pool.query(`
+      SELECT COUNT(id) 
+      FROM visitas 
+      WHERE fecha_visita < current_date 
+      AND fecha_visita > current_date - 2 
+      AND id_perfil_visitado = '${req.user.id_perfil}'
+    `)
+    ).rows[0];
+    const {
+      rows: ultimosVisitantes,
+    } = await pool.query(`SELECT visitas.id AS id_visita,id_visitante, perfiles.id AS id_perfil, nombre,apellido
+      FROM visitas
+      JOIN perfiles
+      ON perfiles.id_usuario = id_visitante
+      WHERE id_perfil_visitado = '${req.user.id_perfil}'
+      ORDER BY visitas.id DESC
+      LIMIT 200
+    `);
+
+    const ultimos10Visitantes = [];
+
+    //filtrar los ultimos 10 visitantes sin repetirlos
+    ultimosVisitantes.forEach(visitante => {
+      if (ultimos10Visitantes.length === 10) return;
+
+      if (
+        !ultimos10Visitantes.find(el => el.id_perfil === visitante.id_perfil)
+      ) {
+        ultimos10Visitantes.push(visitante);
+      }
+    });
+
+    const estadisticas = {
+      visitasTotales: visitasTotales.count,
+      visitasUltimaSemana: visitasUltimaSemana.count,
+      visitantesUltimas24h: visitantesUltimas24h.count,
+      ultimos10Visitantes,
+    };
+
+    return res.status(200).send(estadisticas);
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo salió mal!', error });
+  }
+};
+
+//proximos cumpleaños
+const proximosCumpleanos = async (req, res) => {
+  try {
+    const cumpleanos = await (
+      await pool.query(`
+    SELECT nombre, apellido, foto,fecha_nacimiento, id_usuario as id, perfiles.id as id_perfil
+    FROM amistades
+    JOIN perfiles
+    ON id_usuario1 = id_usuario OR id_usuario2 = id_usuario
+    WHERE (id_usuario1='${req.user.id}' OR id_usuario2='${req.user.id}') AND status = 1 AND id_usuario != '${req.user.id}'
+    AND  date(date_part('year', current_date)||'-'||date_part('month', fecha_nacimiento)||'-'||date_part('day', fecha_nacimiento))
+    between current_date and current_date + interval '30 days'`)
+    ).rows;
+    return res.status(200).send(cumpleanos);
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo salió mal', error });
+  }
+};
+
 module.exports = {
   crearPerfil,
   editarPerfil,
   cambiarFotoPerfil,
   eliminarFotoPerfil,
   cargarDatosPerfil,
+  registrarVisita,
+  estadisticasVisitas,
+  proximosCumpleanos,
 };

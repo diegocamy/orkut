@@ -7,6 +7,7 @@ import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 
 import { cargarPerfilAction } from '../actions/CargarPerfilAction';
 import { cargarSolicitudesPendientes } from '../actions/CargarSolicitudesPendientesAction';
+import { registrarVisita } from '../actions/RegistrarVisitaAction';
 
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
 import PanelEstadisticas from '../components/PanelEstadisticas';
@@ -23,6 +24,7 @@ const Perfil = ({
   enviadas,
   scraps,
   logeado,
+  registrarVisita,
 }) => {
   useEffect(() => {
     const idPerfil = match.params.id_perfil;
@@ -39,8 +41,10 @@ const Perfil = ({
 
     if (logeado) {
       cargarPerfilAction(idPerfil);
+      if (usuario.id_perfil != idPerfil) {
+        registrarVisita(idPerfil);
+      }
     }
-    // cargarSolicitudesPendientes();
   }, [match.params.id_perfil, usuario]);
 
   if (cargandoPerfil) {
@@ -63,7 +67,7 @@ const Perfil = ({
             usuario={usuario}
             scraps={scraps}
           />
-          <PanelDerechoAmigos amigos={perfil.amigos} />
+          <PanelDerechoAmigos amigos={perfil.amigos} perfil={perfil} />
         </div>
       </div>
     );
@@ -85,7 +89,9 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, { cargarPerfilAction, cargarSolicitudesPendientes })(
-    Perfil,
-  ),
+  connect(mapStateToProps, {
+    cargarPerfilAction,
+    registrarVisita,
+    cargarSolicitudesPendientes,
+  })(Perfil),
 );

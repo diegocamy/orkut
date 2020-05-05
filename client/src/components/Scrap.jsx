@@ -5,10 +5,11 @@ import parse from 'html-react-parser';
 
 import noAvatar from '../img/noavatar.png';
 
+import './Scrap.css';
+
 const Scrap = ({ scrap, perfil, usuario, enviarScrap, eliminarScrap }) => {
   const [respondiendo, setRespondiendo] = useState(false);
   const [escrap, setEscrap] = useState('');
-
   return (
     <div className='scrap'>
       <div className='foto'>
@@ -22,11 +23,10 @@ const Scrap = ({ scrap, perfil, usuario, enviarScrap, eliminarScrap }) => {
           </Link>
           <div>
             <p>{new Date(scrap.fecha).toLocaleString()}</p>
-            {/* TODO BOTON ELIMINAR SOLO SI SOS EL REMITENTE */}
-            {scrap.emisor === usuario.id ? (
+            {scrap.emisor == usuario.id ? (
               <button
                 onClick={e => {
-                  eliminarScrap(scrap.id_scrap, perfil.id);
+                  eliminarScrap(scrap.id_scrap, usuario.id_perfil);
                 }}
               >
                 eliminar
@@ -56,13 +56,17 @@ const Scrap = ({ scrap, perfil, usuario, enviarScrap, eliminarScrap }) => {
               />
             </form>
             <button
+              className='btn-enlace'
               onClick={e =>
                 enviarScrap(escrap, scrap.emisor, usuario.id_perfil)
               }
             >
               Enviar
             </button>
-            <button onClick={e => setRespondiendo(!respondiendo)}>
+            <button
+              className='btn-enlace'
+              onClick={e => setRespondiendo(!respondiendo)}
+            >
               Cancelar
             </button>
           </div>

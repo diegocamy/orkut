@@ -27,9 +27,9 @@ const Scrapbook = ({
     if (!logeado) {
       history.push('/');
     }
-
-    // const idPerfil = match.params.id_perfil;
-    // cargarPerfilAction(idPerfil);
+    if (perfil && perfil.id != match.params.id_perfil) {
+      cargarPerfilAction(match.params.id_perfil);
+    }
   }, [match.params.id_perfil, usuario]);
 
   if (!cargandoPerfil && perfil) {

@@ -53,7 +53,7 @@ const Dashboard = ({
             usuario={usuario}
             solicitudes={solicitudes}
           />
-          <PanelDerechoAmigos amigos={perfil.amigos} />
+          <PanelDerechoAmigos amigos={perfil.amigos} perfil={perfil} />
         </div>
       </div>
     );

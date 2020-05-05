@@ -27,6 +27,9 @@ const editarPerfil = require('../db/perfilQueries').editarPerfil;
 const cambiarFotoPerfil = require('../db/perfilQueries').cambiarFotoPerfil;
 const eliminarFotoPerfil = require('../db/perfilQueries').eliminarFotoPerfil;
 const cargarDatosPerfil = require('../db/perfilQueries').cargarDatosPerfil;
+const registrarVisita = require('../db/perfilQueries').registrarVisita;
+const estadisticasVisitas = require('../db/perfilQueries').estadisticasVisitas;
+const proximosCumpleanos = require('../db/perfilQueries').proximosCumpleanos;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -67,5 +70,30 @@ route.post('/eliminarFotoPerfil', authMiddleware, eliminarFotoPerfil);
 // ruta: /api/perfiles/cargarDatosPerfil
 
 route.post('/cargarDatosPerfil', authMiddleware, cargarDatosPerfil);
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: registrar una visita a un perfil
+// ruta: /api/perfiles/registrarVisita/:idUsuarioVisitado
+
+route.post(
+  '/registrarVisita/:idUsuarioVisitado',
+  authMiddleware,
+  registrarVisita,
+);
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: registrar una visita a un perfil
+// ruta: /api/perfiles/estadisticasVisitas
+
+route.get('/estadisticasVisitas', authMiddleware, estadisticasVisitas);
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: obtener lista de usuarios que cumplen años en los proximos 30 dias
+// ruta: /api/perfiles/proximosCumpleanos
+
+route.get('/proximosCumpleanos', authMiddleware, proximosCumpleanos);
 
 module.exports = route;

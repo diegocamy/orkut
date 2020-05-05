@@ -11,6 +11,7 @@ import { cargarScraps } from './CargarScrapsAction';
 export const cargarPerfilAction = idPerfil => async dispatch => {
   try {
     dispatch(cargarPerfilIniciado());
+
     const perfil = await (
       await axios.post(
         '/api/perfiles/cargarDatosPerfil',
@@ -20,7 +21,9 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
         },
       )
     ).data;
+
     dispatch(cargarScraps(perfil.id_usuario));
+
     const amigos = await (
       await axios.post(
         '/api/amigos/verListaAmigos',
@@ -28,7 +31,23 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
         { withCredentials: true },
       )
     ).data;
+
+    const estadisticas = await (
+      await axios.get('/api/perfiles/estadisticasVisitas', {
+        withCredentials: true,
+      })
+    ).data;
+
+    const cumpleanos = await (
+      await axios.get('/api/perfiles/proximosCumpleanos', {
+        withCredentials: true,
+      })
+    ).data;
+
     perfil.amigos = amigos;
+    perfil.estadisticas = estadisticas;
+    perfil.cumpleanos = cumpleanos;
+
     dispatch(cargarSolicitudesPendientes());
     dispatch(cargarPerfilExito(perfil));
   } catch (error) {

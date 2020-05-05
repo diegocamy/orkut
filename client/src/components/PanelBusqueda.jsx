@@ -23,7 +23,6 @@ const usuariosEncontrados = usuarios => {
             <p>{usuario.pais}</p>
             <div>
               <p>📝 {usuario.scraps} scraps</p>
-              <p>🙍‍♂️ 25 amigos en comun</p>
             </div>
           </div>
         </div>
@@ -38,7 +37,9 @@ const PanelBusqueda = ({ buscar, buscarUsuarios, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    buscarUsuarios(busqueda, history);
+    if (busqueda) {
+      buscarUsuarios(busqueda, history);
+    }
     setBusqueda('');
   };
 

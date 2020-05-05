@@ -4,8 +4,51 @@ import './PanelEstadisticas.css';
 import { cargarDatosPerfil } from '../utils';
 import PanelSolicitudes from './PanelSolicitudes';
 import { Link } from 'react-router-dom';
+import PanelCumpleanos from './PanelCumpleanos';
+
+const mostrarUltimos10Visitantes = visitantes => {
+  const jsxVisitantes = visitantes.map(visitante => (
+    <Link key={visitante.id_visita} to={`/perfil/${visitante.id_perfil}`}>
+      {visitante.nombre} {visitante.apellido}
+    </Link>
+  ));
+
+  const jsxConComas = jsxVisitantes.map((visitante, i) => {
+    if (i < jsxVisitantes.length - 1) {
+      return <span key={i}>{visitante}, </span>;
+    } else {
+      return visitante;
+    }
+  });
+
+  return jsxConComas;
+};
 
 const estadisticasDashboard = (perfil, solicitudes, scraps) => {
+  const meses = [
+    'Ene',
+    'Feb',
+    'Mar',
+    'Abr',
+    'May',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dic',
+  ];
+  const fechaCreacion = new Date(perfil.creado_el);
+  const fechaCreacionString =
+    meses[fechaCreacion.getMonth()] + ' ' + fechaCreacion.getFullYear();
+  const {
+    visitantesUltimas24h,
+    visitasTotales,
+    visitasUltimaSemana,
+    ultimos10Visitantes,
+  } = perfil.estadisticas;
+
   return (
     <div className='superior'>
       <div className='PanelEstadisticas sombra'>
@@ -31,24 +74,22 @@ const estadisticasDashboard = (perfil, solicitudes, scraps) => {
         </div>
         <div className='texto'>
           <p>
-            <strong>Visitas a tu perfil:</strong> desde May 2020: 530, Semana
-            pasada: 51, Ayer: 11
+            <strong>Visitas a tu perfil:</strong> desde {fechaCreacionString}:{' '}
+            {visitasTotales}, Semana pasada: {visitasUltimaSemana}, Ayer:{' '}
+            {visitantesUltimas24h}
           </p>
           <p>
             <strong>Visitantes recientes:</strong>{' '}
-            <a href='#'>Loco Siadaputa</a>, <a href='#'>Kenga Fresca</a>,
-            <a href='#'>Maria Cherabola</a>,
-            <a href='#'>Gorda Morsa (LAPERAZITA s2)</a>,
-            <a href='#'>Nego Bombero - EL XICO</a>,<a href='#'>Sr. Honorable</a>
-            , <a href='#'>Leonardo Bekenino</a>,
-            <a href='#'>Sr. Patalancha || 56cm de pata</a>,
-            <a href='#'>Tua Mae</a>, <a href='#'>Tua Irma Bem Puta</a>
+            {mostrarUltimos10Visitantes(ultimos10Visitantes)}
           </p>
           <p>
             <strong>Suerte del día:</strong> Sos guampa!
           </p>
         </div>
       </div>
+      {perfil.cumpleanos && perfil.cumpleanos.length > 0 ? (
+        <PanelCumpleanos cumpleanos={perfil.cumpleanos} />
+      ) : null}
       {solicitudes && solicitudes.length > 0 ? (
         <PanelSolicitudes solicitudes={solicitudes} perfil={perfil} />
       ) : null}

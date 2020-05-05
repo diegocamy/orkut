@@ -1,0 +1,47 @@
+.PanelCumpleanos {
+  background: white;
+  margin: 15px;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.PanelCumpleanos p {
+  font-weight: bold;
+}
+
+.cumples-flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.cumples-flex p {
+  font-weight: normal;
+}
+
+.cumples-flex a {
+  color: rgb(45, 121, 126);
+  text-decoration: none;
+}
+
+.cumpleanero {
+  width: 19%;
+  padding: 5px 0;
+  background: #f0f0ee;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 2px;
+}
+
+.cumpleanero img {
+  width: 50%;
+  max-height: 80%;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.cumpleanero a {
+  display: block;
+  margin-bottom: 2px;
+}
