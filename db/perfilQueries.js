@@ -328,9 +328,22 @@ const proximosCumpleanos = async (req, res) => {
     ON id_usuario1 = id_usuario OR id_usuario2 = id_usuario
     WHERE (id_usuario1='${req.user.id}' OR id_usuario2='${req.user.id}') AND status = 1 AND id_usuario != '${req.user.id}'
     AND  date(date_part('year', current_date)||'-'||date_part('month', fecha_nacimiento)||'-'||date_part('day', fecha_nacimiento))
-    between current_date and current_date + interval '30 days'`)
+    between current_date and current_date + interval '15 days'`)
     ).rows;
     return res.status(200).send(cumpleanos);
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo salió mal', error });
+  }
+};
+
+//actualizar status
+const actualizarStatus = async (req, res) => {
+  try {
+    const respuesta = await pool.query(`
+    UPDATE perfiles SET estatus = '${req.body.status}'
+    WHERE id_usuario='${req.user.id}'
+    `);
+    return res.status(200).send('Status actualizado');
   } catch (error) {
     return res.status(400).json({ mensaje: 'Algo salió mal', error });
   }
@@ -345,4 +358,5 @@ module.exports = {
   registrarVisita,
   estadisticasVisitas,
   proximosCumpleanos,
+  actualizarStatus,
 };

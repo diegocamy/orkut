@@ -30,6 +30,7 @@ const cargarDatosPerfil = require('../db/perfilQueries').cargarDatosPerfil;
 const registrarVisita = require('../db/perfilQueries').registrarVisita;
 const estadisticasVisitas = require('../db/perfilQueries').estadisticasVisitas;
 const proximosCumpleanos = require('../db/perfilQueries').proximosCumpleanos;
+const actualizarStatus = require('../db/perfilQueries').actualizarStatus;
 
 // RUTA PRIVADA
 // metodo: POST
@@ -91,9 +92,16 @@ route.get('/estadisticasVisitas', authMiddleware, estadisticasVisitas);
 
 // RUTA PRIVADA
 // metodo: GET
-// descripcion: obtener lista de usuarios que cumplen años en los proximos 30 dias
+// descripcion: obtener lista de usuarios que cumplen años en los proximos 15 dias
 // ruta: /api/perfiles/proximosCumpleanos
 
 route.get('/proximosCumpleanos', authMiddleware, proximosCumpleanos);
+
+// RUTA PRIVADA
+// metodo: POST
+// descripcion: actualizar el status
+// ruta: /api/perfiles/status
+
+route.post('/status', authMiddleware, actualizarStatus);
 
 module.exports = route;

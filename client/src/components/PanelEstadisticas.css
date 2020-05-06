@@ -2,6 +2,58 @@
   width: 61%;
 }
 
+.breadcrumb {
+  font-size: 0.8rem;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.breadcrumb span {
+  color: gray;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: rgb(45, 121, 126);
+  padding: 5px 3px;
+}
+
+.status-box {
+  display: flex;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 1px solid lightgray;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-box p {
+  margin: 0;
+  padding: 0;
+}
+
+.status-box button {
+  padding: 2px 5px;
+  margin: 0 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.status-box form {
+  width: 70%;
+}
+
+.status-box form input {
+  width: 100%;
+}
+
+.status-box button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .PanelEstadisticas {
   background: white;
   border-radius: 7px;

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import './PanelEstadisticas.css';
 
 import { cargarDatosPerfil } from '../utils';
+
 import PanelSolicitudes from './PanelSolicitudes';
-import { Link } from 'react-router-dom';
 import PanelCumpleanos from './PanelCumpleanos';
+
+import { actualizarStatus } from '../actions/ActualizarStatusAction';
 
 const mostrarUltimos10Visitantes = visitantes => {
   const jsxVisitantes = visitantes.map(visitante => (
@@ -24,7 +29,16 @@ const mostrarUltimos10Visitantes = visitantes => {
   return jsxConComas;
 };
 
-const estadisticasDashboard = (perfil, solicitudes, scraps) => {
+const estadisticasDashboard = (
+  perfil,
+  solicitudes,
+  scraps,
+  status,
+  setStatus,
+  editando,
+  setEditando,
+  actualizarStatus,
+) => {
   const meses = [
     'Ene',
     'Feb',
@@ -53,6 +67,39 @@ const estadisticasDashboard = (perfil, solicitudes, scraps) => {
     <div className='superior'>
       <div className='PanelEstadisticas sombra'>
         <h2>Bienvenido(a), {perfil.nombre}</h2>
+        {editando ? (
+          <div className='status-box'>
+            <p>{perfil.estatus || 'Define tu estado aqui'}</p>
+            <button
+              onClick={e => {
+                setStatus(perfil.estatus);
+                setEditando(!editando);
+              }}
+            >
+              editar
+            </button>
+          </div>
+        ) : (
+          <div className='status-box'>
+            <form onSubmit={e => e.preventDefault()}>
+              <input
+                type='text'
+                value={status || ''}
+                onChange={e => setStatus(e.target.value)}
+              />
+            </form>
+            <div>
+              <button
+                onClick={e => {
+                  actualizarStatus(status, perfil.id);
+                }}
+              >
+                guardar
+              </button>
+              <button onClick={e => setEditando(!editando)}>cancelar</button>
+            </div>
+          </div>
+        )}
         <div className='estadisticas'>
           <div>
             <Link
@@ -104,6 +151,15 @@ const estadisticasPerfil = (perfil, scraps) => {
         <h2>
           {perfil.nombre} {perfil.apellido}
         </h2>
+        <p className='breadcrumb'>
+          <Link to='/dashboard'>Home</Link> >{' '}
+          <span>{perfil.nombre + ' ' + perfil.apellido}</span>
+        </p>
+        {perfil.estatus && (
+          <div className='status-box' style={{ marginBottom: '10px' }}>
+            <p>{perfil.estatus}</p>
+          </div>
+        )}
         <hr style={{ marginBottom: '-15px', width: '97%', margin: 'auto' }} />
         <div className='estadisticas'>
           <div>
@@ -135,12 +191,30 @@ const estadisticasPerfil = (perfil, scraps) => {
   );
 };
 
-const PanelEstadisticas = ({ perfil, usuario, solicitudes, scraps }) => {
+const PanelEstadisticas = ({
+  perfil,
+  usuario,
+  solicitudes,
+  scraps,
+  actualizarStatus,
+}) => {
+  const [editando, setEditando] = useState(false);
+  const [status, setStatus] = useState(' ');
+
   if (perfil && usuario && perfil.id === usuario.id_perfil) {
-    return estadisticasDashboard(perfil, solicitudes, scraps);
+    return estadisticasDashboard(
+      perfil,
+      solicitudes,
+      scraps,
+      editando,
+      setEditando,
+      status,
+      setStatus,
+      actualizarStatus,
+    );
   } else {
     return estadisticasPerfil(perfil, scraps);
   }
 };
 
-export default PanelEstadisticas;
+export default connect(null, { actualizarStatus })(PanelEstadisticas);
