@@ -69,7 +69,9 @@ const estadisticasDashboard = (
         <h2>Bienvenido(a), {perfil.nombre}</h2>
         {editando ? (
           <div className='status-box'>
-            <p>{perfil.estatus || 'Define tu estado aqui'}</p>
+            <p className='parrafo-editando'>
+              {perfil.estatus || 'Define tu estado aqui'}
+            </p>
             <button
               onClick={e => {
                 setStatus(perfil.estatus);
@@ -91,6 +93,11 @@ const estadisticasDashboard = (
             <div>
               <button
                 onClick={e => {
+                  if (status.length > 255) {
+                    return alert(
+                      'El mensaje no puede contener mas de 255 caracteres',
+                    );
+                  }
                   actualizarStatus(status, perfil.id);
                 }}
               >

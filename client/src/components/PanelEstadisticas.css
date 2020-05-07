@@ -6,6 +6,7 @@
   font-size: 0.8rem;
   margin-left: 10px;
   margin-bottom: 5px;
+  padding-left: 5px;
 }
 
 .breadcrumb span {
@@ -15,7 +16,6 @@
 .breadcrumb a {
   text-decoration: none;
   color: rgb(45, 121, 126);
-  padding: 5px 3px;
 }
 
 .status-box {
@@ -25,11 +25,16 @@
   border: 1px solid lightgray;
   justify-content: space-between;
   align-items: center;
+  word-break: break-all;
 }
 
 .status-box p {
   margin: 0;
   padding: 0;
+}
+
+.parrafo-editando {
+  width: 85%;
 }
 
 .status-box button {
@@ -133,4 +138,9 @@
   display: inline-block;
   color: rgb(134, 134, 134);
   margin: 0 5px;
+}
+
+.PanelEstadisticas .texto .perfil ul li div:nth-child(2) p {
+  padding-right: 7px;
+  word-break: break-all;
 }

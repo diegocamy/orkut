@@ -43,6 +43,17 @@ const PanelEditarPerfil = ({ perfil, editarPerfil }) => {
     fechaNacimiento: yup
       .date()
       .required('Debe ingresar una fecha de nacimiento'),
+    bio: yup.string(),
+    relacion: yup.number().min(0).max(5),
+    fuma: yup.number().min(0).max(3),
+    bebe: yup.number().min(0).max(3),
+    ocupacion: yup
+      .string()
+      .max(255, 'Ocupacion no puede superar 255 caracteres'),
+    orientacion: yup.number().min(0).max(3),
+    hijos: yup.number().min(0).max(3),
+    mascotas: yup.number().min(0).max(4),
+    viviendo: yup.number().min(0).max(4),
   });
 
   const fecha_N = formatDate(new Date(perfil.fecha_nacimiento));
@@ -58,6 +69,15 @@ const PanelEditarPerfil = ({ perfil, editarPerfil }) => {
           pais: perfil.pais,
           ciudad: perfil.ciudad,
           fechaNacimiento: fecha_N,
+          bio: perfil.bio || '',
+          relacion: perfil.relacion || 0,
+          fuma: perfil.fuma || 0,
+          bebe: perfil.bebe || 0,
+          ocupacion: perfil.ocupacion || '',
+          orientacion: perfil.orientacion || 0,
+          hijos: perfil.hijos || 0,
+          mascotas: perfil.mascotas || 0,
+          viviendo: perfil.viviendo || 0,
         }}
         validationSchema={schema}
         onSubmit={async (values, { setSubmitting }) => {
@@ -115,6 +135,114 @@ const PanelEditarPerfil = ({ perfil, editarPerfil }) => {
                 </div>
                 <Field type='date' name='fechaNacimiento' />
                 <ErrorMessage name='fechaNacimiento' component='span' />
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='bio'>Acerca de mi: </label>
+                </div>
+                <Field component='textarea' name='bio' />
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='relacion'>Relacion: </label>
+                </div>
+                <Field name='relacion' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>soltero/a</option>
+                  <option value='2'>casado/a</option>
+                  <option value='3'>comprometido/a</option>
+                  <option value='4'>matrimonio abierto</option>
+                  <option value='5'>realación abierta</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='fuma'>Fumo: </label>
+                </div>
+                <Field name='fuma' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>si</option>
+                  <option value='2'>socialmente</option>
+                  <option value='3'>no</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='bebe'>Bebo: </label>
+                </div>
+                <Field name='bebe' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>si</option>
+                  <option value='2'>socialmente</option>
+                  <option value='3'>no</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='ocupacion'>Ocupacion: </label>
+                </div>
+                <Field type='text' name='ocupacion' />
+                <ErrorMessage name='ocupacion' component='span' />
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='orientacion'>Orientacion sexual: </label>
+                </div>
+                <Field name='orientacion' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>heterosexual</option>
+                  <option value='2'>homosexual</option>
+                  <option value='3'>otro</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='hijos'>Hijos: </label>
+                </div>
+                <Field name='hijos' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>si</option>
+                  <option value='2'>en un futuro</option>
+                  <option value='3'>no</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='mascotas'>Mascotas: </label>
+                </div>
+                <Field name='mascotas' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>si</option>
+                  <option value='2'>las prefiero en el zoologico</option>
+                  <option value='3'>en un futuro</option>
+                  <option value='4'>no me gustan las mascotas</option>
+                </Field>
+              </li>
+              <li>
+                <div>
+                  <label htmlFor='viviendo'>Viviendo: </label>
+                </div>
+                <Field name='viviendo' as='select'>
+                  <option value='0' defaultValue>
+                    prefiero no decirlo
+                  </option>
+                  <option value='1'>solo</option>
+                  <option value='2'>con mis padres</option>
+                  <option value='3'>con amigos</option>
+                  <option value='4'>en pareja</option>
+                </Field>
               </li>
             </ul>
             <button type='submit' disabled={isSubmitting}>

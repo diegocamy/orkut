@@ -110,7 +110,7 @@ const editarPerfil = async (req, res) => {
     //cargar datos del perfil del usuario
     let perfil = await (
       await pool.query(
-        `SELECT nombre,apellido,pais,genero,ciudad,fecha_nacimiento FROM perfiles WHERE id_usuario='${req.user.id}'`,
+        `SELECT * FROM perfiles WHERE id_usuario='${req.user.id}'`,
       )
     ).rows[0];
 
@@ -131,6 +131,21 @@ const editarPerfil = async (req, res) => {
       perfil.fechaNacimiento = fecha;
     }
 
+    //eliminar campos que no serán sometidos a validacion
+    delete perfil.id;
+    delete perfil.id_usuario;
+    delete perfil.creado_el;
+    delete perfil.estatus;
+    delete perfil.bio;
+    delete perfil.relacion;
+    delete perfil.ocupacion;
+    delete perfil.hijos;
+    delete perfil.mascotas;
+    delete perfil.viviendo;
+    delete perfil.fuma;
+    delete perfil.bebe;
+    delete perfil.orientacion;
+
     //validar datos
     const perfilSchema = require('../validation/perfilValidation');
     const validado = perfilSchema.validate(perfil);
@@ -144,10 +159,28 @@ const editarPerfil = async (req, res) => {
     perfil = validado.value;
     delete perfil.foto;
 
+    //agregar los campos no validados a la variable perfil
+    req.body.bio && (perfil.bio = req.body.bio);
+    req.body.relacion && (perfil.relacion = req.body.relacion);
+    req.body.fuma && (perfil.fuma = req.body.fuma);
+    req.body.bebe && (perfil.bebe = req.body.bebe);
+    req.body.ocupacion && (perfil.ocupacion = req.body.ocupacion);
+    req.body.orientacion && (perfil.orientacion = req.body.orientacion);
+    req.body.hijos && (perfil.hijos = req.body.hijos);
+    req.body.mascotas && (perfil.mascotas = req.body.mascotas);
+    req.body.viviendo && (perfil.viviendo = req.body.viviendo);
+
+    //si el campo ocupacion sobrepasa los 255 caracteres devolver error
+    if (perfil.ocupacion && perfil.ocupacion.length > 255) {
+      return res
+        .status(400)
+        .send('La ocupacion no puede sobrepasar 255 caracteres');
+    }
+
     //actualizar datos del perfil en la base de datos
     const query = {
       text:
-        'UPDATE perfiles SET nombre=$1, apellido=$2, genero=$3, pais=$4, ciudad=$5, fecha_nacimiento=$6 WHERE id_usuario=$7',
+        'UPDATE perfiles SET nombre=$1, apellido=$2, genero=$3, pais=$4, ciudad=$5, fecha_nacimiento=$6,bio=$7,relacion=$8,fuma=$9,bebe=$10,ocupacion=$11,orientacion=$12,hijos=$13,mascotas=$14,viviendo=$15 WHERE id_usuario=$16',
       values: [
         perfil.nombre,
         perfil.apellido,
@@ -155,6 +188,15 @@ const editarPerfil = async (req, res) => {
         perfil.pais,
         perfil.ciudad,
         perfil.fechaNacimiento,
+        perfil.bio,
+        perfil.relacion,
+        perfil.fuma,
+        perfil.bebe,
+        perfil.ocupacion,
+        perfil.orientacion,
+        perfil.hijos,
+        perfil.mascotas,
+        perfil.viviendo,
         req.user.id,
       ],
     };
@@ -163,7 +205,6 @@ const editarPerfil = async (req, res) => {
 
     return res.status(200).send('Perfil actualizado!');
   } catch (error) {
-    console.log(error);
     return res
       .status(400)
       .json({ mensaje: 'Algo ha salido mal!', error: error.message });
