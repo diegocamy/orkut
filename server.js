@@ -27,6 +27,7 @@ const usersRoute = require('./routes/users');
 const perfilesRoute = require('./routes/perfiles');
 const amigosRoute = require('./routes/amigos');
 const scrapRoute = require('./routes/scraps');
+const testimoniosRoute = require('./routes/testimonios');
 
 const app = express();
 
@@ -65,6 +66,7 @@ app.use('/api/users/', usersRoute);
 app.use('/api/perfiles/', perfilesRoute);
 app.use('/api/amigos/', amigosRoute);
 app.use('/api/scraps/', scrapRoute);
+app.use('/api/testimonios/', testimoniosRoute);
 
 const port = process.env.PORT || 5000;
 
