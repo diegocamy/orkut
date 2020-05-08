@@ -13,6 +13,7 @@ import { actualizarStatus } from '../actions/ActualizarStatusAction';
 import { aceptarTestimonio } from '../actions/AceptarTestimonioAction';
 import { rechazarTestimonio } from '../actions/RechazarTestimonioAction';
 import PanelTestimoniosPendientes from './PanelTestimoniosPendientes';
+import PanelTestimoniosPerfil from './PanelTestimoniosPerfil';
 
 const mostrarUltimos10Visitantes = visitantes => {
   const jsxVisitantes = visitantes.map(visitante => (
@@ -208,6 +209,10 @@ const estadisticasPerfil = (perfil, scraps) => {
           </div>
         </div>
       </div>
+      {perfil.testimonios.aceptados &&
+      perfil.testimonios.aceptados.length > 0 ? (
+        <PanelTestimoniosPerfil testimonios={perfil.testimonios.aceptados} />
+      ) : null}
     </div>
   );
 };
