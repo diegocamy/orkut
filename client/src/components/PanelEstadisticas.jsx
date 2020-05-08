@@ -10,6 +10,9 @@ import PanelSolicitudes from './PanelSolicitudes';
 import PanelCumpleanos from './PanelCumpleanos';
 
 import { actualizarStatus } from '../actions/ActualizarStatusAction';
+import { aceptarTestimonio } from '../actions/AceptarTestimonioAction';
+import { rechazarTestimonio } from '../actions/RechazarTestimonioAction';
+import PanelTestimoniosPendientes from './PanelTestimoniosPendientes';
 
 const mostrarUltimos10Visitantes = visitantes => {
   const jsxVisitantes = visitantes.map(visitante => (
@@ -38,6 +41,8 @@ const estadisticasDashboard = (
   editando,
   setEditando,
   actualizarStatus,
+  aceptarTestimonio,
+  rechazarTestimonio,
 ) => {
   const meses = [
     'Ene',
@@ -147,6 +152,15 @@ const estadisticasDashboard = (
       {solicitudes && solicitudes.length > 0 ? (
         <PanelSolicitudes solicitudes={solicitudes} perfil={perfil} />
       ) : null}
+      {perfil.testimonios.pendientes &&
+      perfil.testimonios.pendientes.length > 0 ? (
+        <PanelTestimoniosPendientes
+          testimonios={perfil.testimonios.pendientes}
+          perfil={perfil}
+          aceptarTestimonio={aceptarTestimonio}
+          rechazarTestimonio={rechazarTestimonio}
+        />
+      ) : null}
     </div>
   );
 };
@@ -204,6 +218,8 @@ const PanelEstadisticas = ({
   solicitudes,
   scraps,
   actualizarStatus,
+  aceptarTestimonio,
+  rechazarTestimonio,
 }) => {
   const [editando, setEditando] = useState(false);
   const [status, setStatus] = useState(' ');
@@ -218,10 +234,16 @@ const PanelEstadisticas = ({
       status,
       setStatus,
       actualizarStatus,
+      aceptarTestimonio,
+      rechazarTestimonio,
     );
   } else {
     return estadisticasPerfil(perfil, scraps);
   }
 };
 
-export default connect(null, { actualizarStatus })(PanelEstadisticas);
+export default connect(null, {
+  actualizarStatus,
+  aceptarTestimonio,
+  rechazarTestimonio,
+})(PanelEstadisticas);

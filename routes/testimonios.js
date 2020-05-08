@@ -6,6 +6,7 @@ const authMiddleware = require('../auth/middleware');
 const {
   cargarListaTestimoniosAceptados,
   cargarListaTestimoniosPendientes,
+  cargarListaTestimoniosEnviados,
   aceptarTestimonio,
   enviarTestimonio,
   rechazarTestimonio,
@@ -17,14 +18,29 @@ const {
 // descripcion: cargar lista testimonios aceptados
 // ruta: /api/testimonios
 
-route.get('/', authMiddleware, cargarListaTestimoniosAceptados);
+route.get('/:idUsuario', authMiddleware, cargarListaTestimoniosAceptados);
 
 // RUTA PRIVADA
 // metodo: GET
 // descripcion: cargar lista testimonios pendientes
 // ruta: /api/testimonios/pendientes
 
-route.get('/pendientes', authMiddleware, cargarListaTestimoniosPendientes);
+route.get(
+  '/pendientes/:idUsuario',
+  authMiddleware,
+  cargarListaTestimoniosPendientes,
+);
+
+// RUTA PRIVADA
+// metodo: GET
+// descripcion: cargar lista testimonios pendientes
+// ruta: /api/testimonios/pendientes
+
+route.get(
+  '/enviados/:idUsuario',
+  authMiddleware,
+  cargarListaTestimoniosEnviados,
+);
 
 // RUTA PRIVADA
 // metodo: POST
@@ -35,7 +51,7 @@ route.post('/enviar', authMiddleware, enviarTestimonio);
 
 // RUTA PRIVADA
 // metodo: POST
-// descripcion: enviar un testimonio
+// descripcion: aceptar un testimonio
 // ruta: /api/testimonios/aceptar/:idTestimonio
 
 route.post('/aceptar/:idTestimonio', authMiddleware, aceptarTestimonio);

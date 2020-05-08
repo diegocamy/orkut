@@ -8,6 +8,7 @@ import Perfil from './containers/Perfil';
 import Scrapbook from './containers/Scrapbook';
 import EditarPerfil from './containers/EditarPerfil';
 import Amigos from './containers/Amigos';
+import Testimonios from './containers/Testimonios';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route exact path='/crearPerfil' component={CrearPerfil} />
           <Route exact path='/perfil/:id_perfil' component={Perfil} />
           <Route exact path='/scrapbook/:id_perfil' component={Scrapbook} />
+          <Route exact path='/testimonios/:id_perfil' component={Testimonios} />
           <Route exact path='/editarPerfil' component={EditarPerfil} />
           <Route exact path='/amigos/:id_perfil' component={Amigos} />
           <Route path='*' component={Home} />

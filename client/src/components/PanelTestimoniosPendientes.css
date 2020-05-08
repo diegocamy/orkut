@@ -1,0 +1,71 @@
+.PanelTestimoniosPendientes {
+  background: white;
+  margin: 15px;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.PanelTestimoniosPendientes h3 {
+  margin-bottom: 10px;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente {
+  display: flex;
+  background: #edf8fe;
+  border-bottom: 1px solid lightgray;
+  padding: 5px;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente a {
+  color: rgb(45, 121, 126);
+  text-decoration: none;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente .tp-izquierda {
+  width: 15%;
+  text-align: center;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente .tp-izquierda img {
+  width: 85%;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+  margin: 3px;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente .tp-derecha {
+  width: 85%;
+  padding-top: 5px;
+}
+
+.PanelTestimoniosPendientes .testimonio-pendiente .tp-derecha .tp-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.PanelTestimoniosPendientes
+  .testimonio-pendiente
+  .tp-derecha
+  .tp-cabecera
+  .botones
+  button {
+  padding: 2px 5px;
+  margin: 0 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.PanelTestimoniosPendientes
+  .testimonio-pendiente
+  .tp-derecha
+  .tp-cabecera
+  .botones
+  button:hover {
+  cursor: pointer;
+}

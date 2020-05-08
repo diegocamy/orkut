@@ -62,7 +62,7 @@ const panelDashboard = (perfil, sexo, match, cambiarFoto, eliminarFoto) => (
         <Link to={`/amigos/${perfil.id}`}>👥 amigos</Link>
       </li>
       <li>
-        <a href='#'>🌞 testimonios</a>
+        <Link to={`/testimonios/${perfil.id}`}>🌞 testimonios</Link>
       </li>
       <li>
         <a href='#'>🔧 ajustes</a>
@@ -247,7 +247,7 @@ const panelPerfil = (
           <Link to={`/amigos/${perfil.id}`}>👥 amigos</Link>
         </li>
         <li>
-          <a href='#'>🌞 testimonios</a>
+          <Link to={`/testimonios/${perfil.id}`}>🌞 testimonios</Link>
         </li>
       </ul>
       <hr />

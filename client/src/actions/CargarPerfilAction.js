@@ -44,9 +44,32 @@ export const cargarPerfilAction = idPerfil => async dispatch => {
       })
     ).data;
 
+    //TESTIMONIOS
+    const aceptados = await (
+      await axios.get(`/api/testimonios/${perfil.id_usuario}`, {
+        withCredentials: true,
+      })
+    ).data;
+
+    const pendientes = await (
+      await axios.get(`/api/testimonios/pendientes/${perfil.id_usuario}`, {
+        withCredentials: true,
+      })
+    ).data;
+
+    const enviados = await (
+      await axios.get(`/api/testimonios/enviados/${perfil.id_usuario}`, {
+        withCredentials: true,
+      })
+    ).data;
+
     perfil.amigos = amigos;
     perfil.estadisticas = estadisticas;
     perfil.cumpleanos = cumpleanos;
+    perfil.testimonios = {};
+    perfil.testimonios.pendientes = pendientes;
+    perfil.testimonios.aceptados = aceptados;
+    perfil.testimonios.enviados = enviados;
 
     dispatch(cargarSolicitudesPendientes());
     dispatch(cargarPerfilExito(perfil));

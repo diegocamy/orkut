@@ -1,0 +1,156 @@
+.deafuera {
+  width: 85%;
+  margin-left: 15px;
+}
+
+.Escribir-Testi {
+  background: white;
+  border-radius: 7px;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.Escribir-Testi button {
+  padding: 2px 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+}
+
+.Escribir-Testi button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.Escribir-Testi .breadcrumb {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.Escribir-Testi p {
+  margin-bottom: 10px;
+}
+
+.Escribir-Testi .celeste {
+  background: #edf8fe;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.Escribir-Testi .celeste form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.Escribir-Testi .celeste form label {
+  font-weight: bold;
+  color: gray;
+}
+
+.Escribir-Testi .celeste form textarea {
+  width: 70%;
+  margin-right: 15px;
+  margin-left: 10px;
+  resize: none;
+}
+
+.PanelTestimonios {
+  background: white;
+  border-radius: 7px;
+  width: 100%;
+  padding: 10px;
+}
+
+.PanelTestimonios h2 {
+  margin-bottom: 5px;
+}
+
+.PanelTestimonios button {
+  border: 1px solid lightgray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: transparent;
+  padding: 5px 10px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.PanelTestimonios button:hover {
+  cursor: pointer;
+}
+
+.pasivo {
+  background: rgb(241, 238, 238);
+  color: #4082c3;
+}
+
+.activo {
+  background: #869cc9;
+  color: white;
+}
+
+.hr_oscurita {
+  border-color: gray;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.testi {
+  display: flex;
+  background: #edf8fe;
+  border-bottom: 1px solid lightgray;
+}
+
+.testi a {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(45, 121, 126);
+}
+
+.testi a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.testi .izquierdita {
+  width: 10%;
+  text-align: center;
+  padding: 5px;
+}
+
+.testi .izquierdita img {
+  width: 95%;
+  padding: 5px;
+  border: 0.5px lightgray solid;
+  border-radius: 1px;
+}
+
+.derechita {
+  width: 95%;
+  padding: 10px;
+}
+
+.derechita .cabecera {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.derechita .cabecera p {
+  display: inline-block;
+}
+
+.PanelTestimonios .eliminar-btn {
+  padding: 2px 5px;
+  font-weight: bold;
+  border-radius: 7px;
+  border: 1px solid rgb(185, 185, 185);
+  background: white;
+  color: rgb(45, 121, 126);
+  margin-left: 5px;
+}

@@ -8,6 +8,7 @@ import cargarPerfilReducer from './PerfilReducer';
 import cargarSolicitudesReducer from './SolicitudesReducer';
 import scrapsReducer from './ScrapsReducer';
 import visitasReducer from './VisitasReducer';
+import testimoniosReducer from './TestimoniosReducer';
 
 export default combineReducers({
   login: LoginReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   registro: registerReducer,
   scraps: scrapsReducer,
   visitas: visitasReducer,
+  testimonios: testimoniosReducer,
 });
