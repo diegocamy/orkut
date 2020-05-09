@@ -41,10 +41,11 @@ const Perfil = ({
 
     if (logeado) {
       cargarPerfilAction(idPerfil);
-      if (usuario.id_perfil != idPerfil) {
+      if (Number(usuario.id_perfil) !== Number(idPerfil)) {
         registrarVisita(idPerfil);
       }
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [match.params.id_perfil, usuario]);
 
   if (cargandoPerfil) {

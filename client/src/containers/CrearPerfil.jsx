@@ -12,7 +12,7 @@ const CrearPerfil = ({ logeado, usuario, history }) => {
     if (!logeado) {
       history.push('/');
     }
-  }, [logeado]);
+  });
 
   if (logeado && usuario) {
     return (

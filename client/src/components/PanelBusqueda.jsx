@@ -22,7 +22,12 @@ const usuariosEncontrados = usuarios => {
             <p>{usuario.ciudad}</p>
             <p>{usuario.pais}</p>
             <div>
-              <p>📝 {usuario.scraps} scraps</p>
+              <p>
+                <span role='img' aria-label='emoji-nota'>
+                  📝
+                </span>{' '}
+                {usuario.scraps} scraps
+              </p>
             </div>
           </div>
         </div>
@@ -62,10 +67,8 @@ const PanelBusqueda = ({ buscar, buscarUsuarios, history }) => {
       <hr />
       <div className='numero-resultados'>
         <span>
-          <strong>1 - 12</strong> de <strong>{buscar.resultados.length}</strong>{' '}
-          resultados
+          <strong>{buscar.resultados.length}</strong> resultados
         </span>
-        <span>1 2 3 4 5 ></span>
       </div>
       <hr />
       <div className='resultados'>{usuariosEncontrados(buscar.resultados)}</div>

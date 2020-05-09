@@ -53,6 +53,7 @@ const CrearPerfilForm = ({ crearPerfil, cargando, history }) => {
           textAlign: 'center',
           display: 'flex',
           justifyContent: 'center',
+          margin: '0 auto',
         }}
       >
         <Spinner style={{ margin: '0 auto' }} />

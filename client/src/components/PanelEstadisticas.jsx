@@ -120,16 +120,13 @@ const estadisticasDashboard = (
               style={{ textDecoration: 'none', color: 'black' }}
             >
               <p>scraps</p>
-              <p>📝 {scraps.length}</p>
+              <p>
+                <span role='img' aria-label='emoji-nota'>
+                  📝
+                </span>{' '}
+                {scraps.length}
+              </p>
             </Link>
-          </div>
-          <div>
-            <p>fans</p>
-            <p>⭐ 5</p>
-          </div>
-          <div>
-            <p>mensajes</p>
-            <p>📩 155</p>
           </div>
         </div>
         <div className='texto'>
@@ -190,16 +187,13 @@ const estadisticasPerfil = (perfil, scraps) => {
               style={{ textDecoration: 'none', color: 'black' }}
             >
               <p>scraps</p>
-              <p>📝 {scraps.length}</p>
+              <p>
+                <span role='img' aria-label='emoji-nota'>
+                  📝
+                </span>{' '}
+                {scraps.length}
+              </p>
             </Link>
-          </div>
-          <div>
-            <p>fans</p>
-            <p>⭐ 5</p>
-          </div>
-          <div>
-            <p>mensajes</p>
-            <p>📩 155</p>
           </div>
         </div>
         <div className='texto'>

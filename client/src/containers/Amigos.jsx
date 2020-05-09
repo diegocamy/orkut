@@ -21,9 +21,10 @@ const Amigos = ({
       history.push('/');
     }
 
-    if (perfil && match.params.id_perfil != perfil.id) {
+    if (perfil && Number(match.params.id_perfil) !== perfil.id) {
       cargarPerfilAction(match.params.id_perfil);
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (perfil && logeado) {

@@ -6,7 +6,6 @@ import './Pagina.css';
 
 import Navbar from '../components/Navbar';
 import PanelIzquierdoPerfil from '../components/PanelIzquierdoPerfil';
-import PanelDerechoAmigos from '../components/PanelDerechoAmigos';
 import PanelBusqueda from '../components/PanelBusqueda';
 import Spinner from '../components/Spinner';
 
@@ -15,7 +14,7 @@ const Buscar = ({ logeado, perfil, history, usuario, buscar }) => {
     if (!logeado) {
       history.push('/');
     }
-  }, []);
+  });
 
   if (buscar.cargando && !perfil) {
     return <Spinner />;

@@ -60,7 +60,8 @@ const PanelTestimonios = ({
   const [testi, setTesti] = useState('');
   return (
     <div className='deafuera'>
-      {perfil && usuario.id_perfil != match.params.id_perfil ? (
+      {perfil &&
+      Number(usuario.id_perfil) !== Number(match.params.id_perfil) ? (
         <div className='Escribir-Testi sombra'>
           <h2>Crear testimonio</h2>
           <p className='breadcrumb'>
@@ -103,7 +104,8 @@ const PanelTestimonios = ({
       <div className='PanelTestimonios sombra'>
         <h2>Testimonios de {nombre}</h2>
 
-        {perfil && usuario.id_perfil == match.params.id_perfil ? (
+        {perfil &&
+        Number(usuario.id_perfil) === Number(match.params.id_perfil) ? (
           <>
             <button
               className={`${boton1activo ? 'activo' : 'pasivo'}`}

@@ -26,9 +26,10 @@ const Testimonios = ({
     if (!logeado) {
       history.push('/');
     }
-    if (perfil && perfil.id != match.params.id_perfil) {
+    if (perfil && Number(perfil.id) !== Number(match.params.id_perfil)) {
       cargarPerfilAction(match.params.id_perfil);
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [match.params.id_perfil, usuario]);
 
   if (!cargandoPerfil && perfil) {

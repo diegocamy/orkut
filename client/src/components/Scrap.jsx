@@ -23,7 +23,7 @@ const Scrap = ({ scrap, perfil, usuario, enviarScrap, eliminarScrap }) => {
           </Link>
           <div>
             <p>{new Date(scrap.fecha).toLocaleString()}</p>
-            {scrap.emisor == usuario.id ? (
+            {scrap.emisor === usuario.id ? (
               <button
                 onClick={e => {
                   eliminarScrap(scrap.id_scrap, usuario.id_perfil);

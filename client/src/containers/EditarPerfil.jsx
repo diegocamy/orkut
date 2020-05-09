@@ -26,7 +26,7 @@ const EditarPerfil = ({
     if (!logeado || !perfil) {
       history.push('/');
     }
-  }, []);
+  });
 
   if (perfil) {
     return (

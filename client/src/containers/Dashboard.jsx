@@ -35,6 +35,7 @@ const Dashboard = ({
     if (logeado) {
       cargarPerfilAction(usuario.id_perfil);
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logeado, usuario, history]);
 
   if (cargandoPerfil) {

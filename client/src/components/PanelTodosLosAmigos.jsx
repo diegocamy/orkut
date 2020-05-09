@@ -13,6 +13,8 @@ const mostrarAmigos = (amigos, filtro) => {
     ) {
       return amigo;
     }
+
+    return null;
   });
 
   const arrayAmigos = filtrados.map(amigo => {
