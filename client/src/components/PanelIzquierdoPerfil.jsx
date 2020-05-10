@@ -42,63 +42,67 @@ const panelDashboard = (perfil, sexo, match, cambiarFoto, eliminarFoto) => (
         </button>
       </div>
     )}
-    <hr />
-    <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
-    <p>{sexo}</p>
-    <p>
-      {perfil.ciudad}, {perfil.pais}
-    </p>
-    <hr />
-    <Link to='/editarPerfil'>
-      <span role='img' aria-label='emoji-martillo'>
-        🔨
-      </span>{' '}
-      editar perfil
-    </Link>
-    <hr />
-    <ul>
-      <li>
-        <Link to='/dashboard'>
-          <span role='img' aria-label='emoji-muñeco'>
-            🙍‍♂️
+    <div className='divi'>
+      <div className='divi2'>
+        <hr />
+        <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
+        <p>{sexo}</p>
+        <p>
+          {perfil.ciudad}, {perfil.pais}
+        </p>
+        <hr />
+        <Link to='/editarPerfil'>
+          <span role='img' aria-label='emoji-martillo'>
+            🔨
           </span>{' '}
-          perfil
+          editar perfil
         </Link>
-      </li>
-      <li>
-        <Link to={`/scrapbook/${perfil.id}`}>
-          <span role='img' aria-label='emoji-nota'>
-            📝
-          </span>{' '}
-          scrapbook
-        </Link>
-      </li>
-      <li>
-        <Link to={`/amigos/${perfil.id}`}>
-          <span role='img' aria-label='emoji-dosmuñecos'>
-            👥
-          </span>{' '}
-          amigos
-        </Link>
-      </li>
-      <li>
-        <Link to={`/testimonios/${perfil.id}`}>
-          <span role='img' aria-label='emoji-sol'>
-            🌞
-          </span>{' '}
-          testimonios
-        </Link>
-      </li>
-      <li>
-        <a href='/dashboard'>
-          <span role='img' aria-label='emoji-llave'>
-            🔧
-          </span>{' '}
-          ajustes
-        </a>
-      </li>
-    </ul>
-    <hr />
+        <hr />
+      </div>
+      <ul>
+        <li>
+          <Link to='/dashboard'>
+            <span role='img' aria-label='emoji-muñeco'>
+              🙍‍♂️
+            </span>{' '}
+            perfil
+          </Link>
+        </li>
+        <li>
+          <Link to={`/scrapbook/${perfil.id}`}>
+            <span role='img' aria-label='emoji-nota'>
+              📝
+            </span>{' '}
+            scrapbook
+          </Link>
+        </li>
+        <li>
+          <Link to={`/amigos/${perfil.id}`}>
+            <span role='img' aria-label='emoji-dosmuñecos'>
+              👥
+            </span>{' '}
+            amigos
+          </Link>
+        </li>
+        <li>
+          <Link to={`/testimonios/${perfil.id}`}>
+            <span role='img' aria-label='emoji-sol'>
+              🌞
+            </span>{' '}
+            testimonios
+          </Link>
+        </li>
+        <li>
+          <a href='/dashboard'>
+            <span role='img' aria-label='emoji-llave'>
+              🔧
+            </span>{' '}
+            ajustes
+          </a>
+        </li>
+      </ul>
+      <hr />
+    </div>
   </div>
 );
 

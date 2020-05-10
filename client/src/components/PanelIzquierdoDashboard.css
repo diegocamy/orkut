@@ -59,3 +59,76 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+@media only screen and (max-width: 1100px) {
+  .PanelIzquierdoDashboard {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  .PanelIzquierdoDashboard img {
+    width: 150px;
+    margin-right: 10px;
+  }
+
+  .PanelIzquierdoDashboard .divi {
+    width: 80%;
+    text-align: center;
+    font-size: 1.15rem;
+  }
+
+  .PanelIzquierdoDashboard .divi ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .PanelIzquierdoDashboard .divi ul li {
+    width: 20%;
+    border: 1px solid lightgray;
+  }
+}
+
+@media only screen and (max-width: 911px) {
+  .PanelIzquierdoDashboard .divi {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .PanelIzquierdoDashboard {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .PanelIzquierdoDashboard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .PanelIzquierdoDashboard img {
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .PanelIzquierdoDashboard .divi {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .PanelIzquierdoDashboard .divi ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .PanelIzquierdoDashboard span {
+    display: none;
+  }
+
+  .PanelIzquierdoDashboard .divi ul li {
+    width: 100%;
+    padding: 5px;
+  }
+}

@@ -13,7 +13,7 @@ import Testimonios from './containers/Testimonios';
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className='div-root'>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/dashboard' component={Dashboard} />

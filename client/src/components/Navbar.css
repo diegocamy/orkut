@@ -91,3 +91,72 @@
   color: #455a8e;
   font-weight: bold;
 }
+
+@media only screen and (max-width: 1300px) {
+  .Navbar {
+    padding: 0 2%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Navbar {
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .Navbar .izquierda {
+    width: fit-content;
+  }
+
+  .Navbar .izquierda ul {
+    width: fit-content;
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .Navbar .izquierda ul li {
+    padding: 2px 5px;
+  }
+
+  .Navbar .derecha {
+    width: fit-content;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .Navbar {
+    flex-direction: column;
+  }
+
+  .Navbar .izquierda {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .Navbar .izquierda ul {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .Navbar .derecha {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Navbar .derecha span {
+    display: none;
+  }
+
+  .Navbar .derecha .btn-salir {
+    font-size: 1rem;
+  }
+
+  .Navbar .derecha form {
+    width: 70%;
+  }
+
+  .Navbar .derecha form input {
+    width: 85%;
+    font-size: 1rem;
+  }
+}
