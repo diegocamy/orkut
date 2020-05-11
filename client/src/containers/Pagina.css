@@ -68,7 +68,10 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .div-root {
-    width: fit-content;
+  .Pagina {
+    width: 100%;
+  }
+  .Pagina .container {
+    width: 100%;
   }
 }

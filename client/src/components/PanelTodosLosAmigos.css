@@ -51,3 +51,36 @@
   color: rgb(45, 121, 126);
   text-decoration: none;
 }
+
+@media only screen and (max-width: 1100px) {
+  .PanelTodosLosAmigos {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .PanelTodosLosAmigos .contenedor-amigos {
+    padding-left: 2%;
+  }
+
+  .PanelTodosLosAmigos .contenedor-amigos .amigo {
+    width: 31%;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .PanelTodosLosAmigos .contenedor-amigos {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .PanelTodosLosAmigos .contenedor-amigos .amigo {
+    width: 94%;
+  }
+
+  .PanelTodosLosAmigos .filtro input {
+    width: 70%;
+  }
+}

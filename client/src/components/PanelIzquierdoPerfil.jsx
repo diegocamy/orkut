@@ -206,120 +206,124 @@ const panelPerfil = (
       {/* FIN DEL MODAL PARA MENSAJE DE INVITACION */}
 
       <img src={perfil.foto || noavatar} alt='avatar' />
-      <hr />
-      <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
-      <p>{sexo}</p>
-      <p>
-        {perfil.ciudad}, {perfil.pais}
-      </p>
-      <hr />
-      {solicitudExistente ? (
-        <>
-          <a
-            href='/'
-            onClick={e => {
-              e.preventDefault();
-              aceptarSolicitud(solicitudExistente.id_solicitud, perfil.id);
-            }}
-          >
-            <span role='img' aria-label='emoji-levantamano'>
-              🙋‍♂️
-            </span>{' '}
-            aceptar solicitud
-          </a>
-          <br />
-          <a
-            href='/'
-            onClick={e => {
-              e.preventDefault();
-              rechazarSolicitud(solicitudExistente.id_solicitud, perfil.id);
-            }}
-          >
-            <span role='img' aria-label='emoji-bloquea'>
-              🙅‍♂️
-            </span>{' '}
-            rechazar solicitud
-          </a>
-        </>
-      ) : solicitudEnviadaExistente ? (
-        <a
-          href='/'
-          onClick={e => {
-            e.preventDefault();
-            rechazarSolicitud(
-              solicitudEnviadaExistente.id_solicitud,
-              perfil.id,
-            );
-          }}
-        >
-          <span role='img' aria-label='emoji-cruz'>
-            ❌
-          </span>{' '}
-          cancelar solicitud
-        </a>
-      ) : sonAmigos ? (
-        <a
-          href='/'
-          onClick={e => {
-            e.preventDefault();
-            eliminarAmistad(perfil.id, perfil.id_usuario);
-          }}
-        >
-          <span role='img' aria-label='emoji-macacogris'>
-            👤
-          </span>{' '}
-          eliminar amigo/a
-        </a>
-      ) : (
-        <a
-          href='/'
-          onClick={e => {
-            e.preventDefault();
-            open();
-          }}
-        >
-          <span role='img' aria-label='emoji-muñeco'>
-            🙍‍♂️
-          </span>{' '}
-          añadir como amigo/a
-        </a>
-      )}
-      <hr />
-      <ul>
-        <li>
-          <Link to={`/perfil/${perfil.id}`}>
-            <span role='img' aria-label='emoji-muñeco'>
-              🙍‍♂️
-            </span>{' '}
-            perfil
-          </Link>
-        </li>
-        <li>
-          <Link to={`/scrapbook/${perfil.id}`}>
-            <span role='img' aria-label='emoji-notas'>
-              📝
-            </span>{' '}
-            scrapbook
-          </Link>
-        </li>
-        <li>
-          <Link to={`/amigos/${perfil.id}`}>
-            <span role='img' aria-label='emoji-dosmacacos'>
-              👥
-            </span>{' '}
-            amigos
-          </Link>
-        </li>
-        <li>
-          <Link to={`/testimonios/${perfil.id}`}>
-            <span role='img' aria-label='emoji-sol'>
-              🌞
-            </span>{' '}
-            testimonios
-          </Link>
-        </li>
-      </ul>
-      <hr />
+      <div className='divi'>
+        <div className='divi2'>
+          <hr />
+          <Link to='/dashboard'>{perfil.nombre + ' ' + perfil.apellido}</Link>
+          <p>{sexo}</p>
+          <p>
+            {perfil.ciudad}, {perfil.pais}
+          </p>
+          <hr />
+          {solicitudExistente ? (
+            <>
+              <a
+                href='/'
+                onClick={e => {
+                  e.preventDefault();
+                  aceptarSolicitud(solicitudExistente.id_solicitud, perfil.id);
+                }}
+              >
+                <span role='img' aria-label='emoji-levantamano'>
+                  🙋‍♂️
+                </span>{' '}
+                aceptar solicitud
+              </a>
+              <br />
+              <a
+                href='/'
+                onClick={e => {
+                  e.preventDefault();
+                  rechazarSolicitud(solicitudExistente.id_solicitud, perfil.id);
+                }}
+              >
+                <span role='img' aria-label='emoji-bloquea'>
+                  🙅‍♂️
+                </span>{' '}
+                rechazar solicitud
+              </a>
+            </>
+          ) : solicitudEnviadaExistente ? (
+            <a
+              href='/'
+              onClick={e => {
+                e.preventDefault();
+                rechazarSolicitud(
+                  solicitudEnviadaExistente.id_solicitud,
+                  perfil.id,
+                );
+              }}
+            >
+              <span role='img' aria-label='emoji-cruz'>
+                ❌
+              </span>{' '}
+              cancelar solicitud
+            </a>
+          ) : sonAmigos ? (
+            <a
+              href='/'
+              onClick={e => {
+                e.preventDefault();
+                eliminarAmistad(perfil.id, perfil.id_usuario);
+              }}
+            >
+              <span role='img' aria-label='emoji-macacogris'>
+                👤
+              </span>{' '}
+              eliminar amigo/a
+            </a>
+          ) : (
+            <a
+              href='/'
+              onClick={e => {
+                e.preventDefault();
+                open();
+              }}
+            >
+              <span role='img' aria-label='emoji-muñeco'>
+                🙍‍♂️
+              </span>{' '}
+              añadir como amigo/a
+            </a>
+          )}
+          <hr />
+        </div>
+        <ul>
+          <li>
+            <Link to={`/perfil/${perfil.id}`}>
+              <span role='img' aria-label='emoji-muñeco'>
+                🙍‍♂️
+              </span>{' '}
+              perfil
+            </Link>
+          </li>
+          <li>
+            <Link to={`/scrapbook/${perfil.id}`}>
+              <span role='img' aria-label='emoji-notas'>
+                📝
+              </span>{' '}
+              scrapbook
+            </Link>
+          </li>
+          <li>
+            <Link to={`/amigos/${perfil.id}`}>
+              <span role='img' aria-label='emoji-dosmacacos'>
+                👥
+              </span>{' '}
+              amigos
+            </Link>
+          </li>
+          <li>
+            <Link to={`/testimonios/${perfil.id}`}>
+              <span role='img' aria-label='emoji-sol'>
+                🌞
+              </span>{' '}
+              testimonios
+            </Link>
+          </li>
+        </ul>
+        <hr />
+      </div>
     </div>
   );
 };

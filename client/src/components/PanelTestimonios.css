@@ -154,3 +154,42 @@
   color: rgb(45, 121, 126);
   margin-left: 5px;
 }
+
+@media only screen and (max-width: 1100px) {
+  .deafuera {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .celeste form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Escribir-Testi .celeste form textarea {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .testi {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .testi .izquierdita {
+    width: 25%;
+  }
+
+  .derechita .cabecera p {
+    font-size: 0.8rem;
+  }
+
+  .PanelTestimonios .activo,
+  .PanelTestimonios .pasivo {
+    font-size: 0.82rem;
+  }
+}

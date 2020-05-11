@@ -369,7 +369,8 @@ const proximosCumpleanos = async (req, res) => {
     ON id_usuario1 = id_usuario OR id_usuario2 = id_usuario
     WHERE (id_usuario1='${req.user.id}' OR id_usuario2='${req.user.id}') AND status = 1 AND id_usuario != '${req.user.id}'
     AND  date(date_part('year', current_date)||'-'||date_part('month', fecha_nacimiento)||'-'||date_part('day', fecha_nacimiento))
-    between current_date and current_date + interval '15 days'`)
+    between current_date and current_date + interval '15 days'
+    ORDER BY date_part('day', fecha_nacimiento)`)
     ).rows;
     return res.status(200).send(cumpleanos);
   } catch (error) {

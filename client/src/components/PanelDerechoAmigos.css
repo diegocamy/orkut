@@ -55,3 +55,53 @@
   text-decoration: underline;
   font-weight: bold;
 }
+
+@media only screen and (max-width: 1100px) {
+  .PanelDerechoAmigos {
+    width: 100%;
+    margin: 15px 0;
+  }
+
+  .PanelDerechoAmigos h3 {
+    font-size: 1.2rem;
+  }
+
+  .PanelDerechoAmigos .box-amigos {
+    padding-left: 5%;
+  }
+
+  .PanelDerechoAmigos .box-amigos div {
+    height: 130px;
+    padding-bottom: 5px;
+  }
+
+  .PanelDerechoAmigos .box-amigos div a {
+    font-size: 1.2rem;
+  }
+
+  .PanelDerechoAmigos .box-amigos div img {
+    width: 30%;
+  }
+
+  .ver-todos a {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .PanelDerechoAmigos h3 {
+    font-size: 1rem;
+  }
+  .PanelDerechoAmigos .box-amigos div a {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .PanelDerechoAmigos .box-amigos {
+    padding-left: 2%;
+  }
+  .PanelDerechoAmigos .box-amigos div img {
+    width: 60%;
+  }
+}

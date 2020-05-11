@@ -45,3 +45,45 @@
   display: block;
   margin-bottom: 2px;
 }
+
+.cumples-flex {
+  padding-left: 2%;
+}
+
+@media only screen and (max-width: 1100px) {
+  .PanelCumpleanos {
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+    font-size: 1.2rem;
+  }
+
+  .PanelCumpleanos p {
+    font-size: 1.2rem;
+  }
+  .PanelCumpleanos a {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .PanelCumpleanos {
+    font-size: 1rem;
+  }
+
+  .PanelCumpleanos p {
+    font-size: 1rem;
+  }
+  .PanelCumpleanos a {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .cumples-flex {
+    padding-left: 2%;
+  }
+  .cumpleanero {
+    width: 31%;
+  }
+}

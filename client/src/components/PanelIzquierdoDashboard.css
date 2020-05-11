@@ -85,7 +85,7 @@
   }
 
   .PanelIzquierdoDashboard .divi ul li {
-    width: 20%;
+    width: 100%;
     border: 1px solid lightgray;
   }
 }

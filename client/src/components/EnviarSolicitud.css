@@ -45,3 +45,19 @@
   border-radius: 7px;
   padding: 5px;
 }
+
+@media only screen and (max-width: 1100px) {
+  .EnviarSolicitud {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 585px) {
+  .EnviarSolicitud {
+    text-align: center;
+  }
+
+  .EnviarSolicitud img {
+    width: 40%;
+  }
+}

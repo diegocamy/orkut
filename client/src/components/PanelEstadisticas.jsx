@@ -139,9 +139,6 @@ const estadisticasDashboard = (
             <strong>Visitantes recientes:</strong>{' '}
             {mostrarUltimos10Visitantes(ultimos10Visitantes)}
           </p>
-          <p>
-            <strong>Suerte del día:</strong> Sos guampa!
-          </p>
         </div>
       </div>
       {perfil.cumpleanos && perfil.cumpleanos.length > 0 ? (
