@@ -64,3 +64,17 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+@media only screen and (max-width: 550px) {
+  .CrearPerfilForm form ul li > div {
+    width: fit-content;
+  }
+
+  .CrearPerfilForm form ul li {
+    padding: 0;
+  }
+
+  .CrearPerfilForm form ul li:last-child input {
+    font-size: 0.77rem;
+  }
+}

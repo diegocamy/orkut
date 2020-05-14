@@ -55,6 +55,7 @@
   -webkit-animation: cssAnimation 5s forwards;
   animation: cssAnimation 5s forwards;
 }
+
 @keyframes cssAnimation {
   0% {
     opacity: 1;
@@ -75,5 +76,63 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .footer {
+    width: 78%;
+    margin: 10px auto;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .Home .container .logo {
+    width: 65%;
+  }
+
+  .Home .container .login-container {
+    width: 35%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .Home {
+    height: fit-content;
+  }
+
+  .Home .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .Home .container .logo {
+    width: 100%;
+    font-size: 1rem;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  .Home .container .logo .brand {
+    font-size: 5rem;
+  }
+
+  .Home .container .logo p {
+    font-size: 0.85rem;
+  }
+
+  .Home .container .login-container {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .Home .footer {
+    margin: 0;
+    margin-top: 10px;
   }
 }
