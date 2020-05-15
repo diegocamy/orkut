@@ -28,10 +28,9 @@ const strat = new LocalStrategy(
 
       return done(null, usuario);
     } catch (error) {
-      console.log('fiadaputa', error);
       return done(error);
     }
-  }
+  },
 );
 
 module.exports = strat;

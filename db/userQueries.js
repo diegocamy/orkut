@@ -180,6 +180,19 @@ const cambiarPassword = async (req, res) => {
   try {
     const password = req.body.password;
     const password2 = req.body.password2;
+    const passwordActual = req.body.passwordActual;
+
+    //checkear si la contraseña actual ingresada en el formulario coincide con la del usuario
+    const { password: passwordUsuario } = (
+      await pool.query(
+        `SELECT password FROM usuarios where id='${req.user.id}'`,
+      )
+    ).rows[0];
+    const coinciden = await bcrypt.compare(passwordActual, passwordUsuario);
+
+    if (!coinciden) {
+      return res.status(200).send('Contraseña actual incorrecta');
+    }
 
     //checkear si las contraseñas son distintas
     if (password !== password2) {
@@ -202,9 +215,6 @@ const cambiarPassword = async (req, res) => {
     await pool.query(
       `UPDATE usuarios SET password='${hashPassword}' WHERE id='${req.user.id}'`,
     );
-
-    //deslogear usuario
-    req.logout();
 
     return res.status(200).send('Contraseña actualizada con exito!');
   } catch (error) {
@@ -242,10 +252,29 @@ const buscarUsuario = async (req, res) => {
   }
 };
 
+//eliminar cuenta
+const eliminarCuenta = async (req, res) => {
+  try {
+    const id = req.user.id;
+
+    //borrar la sesion de la bdd
+    req.logout();
+    await req.session.destroy();
+
+    //borrar user de la bdd
+    await pool.query(`DELETE FROM usuarios WHERE id='${id}'`);
+
+    return res.status(200).send('Usuario eliminado!');
+  } catch (error) {
+    return res.status(400).json({ mensaje: 'Algo ha salido mal!', error });
+  }
+};
+
 module.exports = {
   registroUsuario,
   loginUsuario,
   buscarUsuario,
   recuperarPassword,
   cambiarPassword,
+  eliminarCuenta,
 };

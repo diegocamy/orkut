@@ -4,7 +4,7 @@ import {
   CREAR_PERFIL_INICIADO,
   CREAR_PERFIL_EXITO,
   CREAR_PERFIL_ERROR,
-  USER_LOGIN_EXITO
+  USER_LOGIN_EXITO,
 } from '../types';
 
 export const crearPerfil = (datos, history) => async dispatch => {
@@ -12,7 +12,7 @@ export const crearPerfil = (datos, history) => async dispatch => {
     dispatch(crearPerfilIniciado());
     const datosUsuario = await (
       await axios.post('/api/perfiles/crearPerfil', datos, {
-        withCredentials: true
+        withCredentials: true,
       })
     ).data;
     //actualizar datos del usuario en store con id_perfil
@@ -23,28 +23,26 @@ export const crearPerfil = (datos, history) => async dispatch => {
   } catch (error) {
     if (error.response.data) {
       dispatch(crearPerfilError());
-      console.log('error', error.response.data);
     } else {
       dispatch(crearPerfilError());
-      console.log('buceta');
     }
   }
 };
 
 const crearPerfilIniciado = () => {
   return {
-    type: CREAR_PERFIL_INICIADO
+    type: CREAR_PERFIL_INICIADO,
   };
 };
 
 const crearPerfilExito = () => {
   return {
-    type: CREAR_PERFIL_EXITO
+    type: CREAR_PERFIL_EXITO,
   };
 };
 
 const crearPerfilError = () => {
   return {
-    type: CREAR_PERFIL_ERROR
+    type: CREAR_PERFIL_ERROR,
   };
 };

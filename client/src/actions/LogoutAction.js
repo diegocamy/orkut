@@ -14,7 +14,6 @@ export const userLogout = history => async dispatch => {
     dispatch(userLogoutExito());
     history.push('/');
   } catch (error) {
-    console.log(error);
     dispatch(userLogoutError('Algo salio mal'));
   }
 };

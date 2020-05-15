@@ -8,6 +8,7 @@ const loginUsuario = require('../db/userQueries').loginUsuario;
 const buscarUsuario = require('../db/userQueries').buscarUsuario;
 const recuperarPassword = require('../db/userQueries').recuperarPassword;
 const cambiarPassword = require('../db/userQueries').cambiarPassword;
+const eliminarCuenta = require('../db/userQueries').eliminarCuenta;
 
 // RUTA PUBLICA
 // metodo: POST
@@ -43,6 +44,13 @@ route.post('/cambiarPassword', authMiddleware, cambiarPassword);
 // ruta: /api/users/recuperarPassword
 
 route.post('/recuperarPassword', recuperarPassword);
+
+// RUTA PUBLICA
+// metodo: POST
+// descripcion: para recuperar la contraseña
+// ruta: /api/users/eliminarCuenta
+
+route.post('/eliminarCuenta', authMiddleware, eliminarCuenta);
 
 //RUTA PUBLICA
 // metodo: POST

@@ -21,7 +21,6 @@ export const cambiarFoto = (idPerfil, foto) => async dispatch => {
     dispatch(cambiarFotoExito(mensaje));
     dispatch(cargarPerfilAction(idPerfil));
   } catch (error) {
-    console.log(error);
     dispatch(cambiarFotoError('Algo salió mal!'));
   }
 };

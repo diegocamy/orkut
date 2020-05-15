@@ -93,12 +93,12 @@ const panelDashboard = (perfil, sexo, match, cambiarFoto, eliminarFoto) => (
           </Link>
         </li>
         <li>
-          <a href='/dashboard'>
+          <Link to='/ajustes'>
             <span role='img' aria-label='emoji-llave'>
               🔧
             </span>{' '}
             ajustes
-          </a>
+          </Link>
         </li>
       </ul>
       <hr />
