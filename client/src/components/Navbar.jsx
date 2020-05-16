@@ -29,7 +29,7 @@ const Navbar = ({ usuario, userLogout, history, buscarUsuarios }) => {
             <Link to={`/scrapbook/${usuario.id_perfil}`}>Scrapbook</Link>
           </li>
           <li>
-            <Link to='/'>Amigos</Link>
+            <Link to={`/amigos/${usuario.id_perfil}`}>Amigos</Link>
           </li>
         </ul>
       </div>

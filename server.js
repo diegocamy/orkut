@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
+const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -67,6 +68,14 @@ app.use('/api/perfiles/', perfilesRoute);
 app.use('/api/amigos/', amigosRoute);
 app.use('/api/scraps/', scrapRoute);
 app.use('/api/testimonios/', testimoniosRoute);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
